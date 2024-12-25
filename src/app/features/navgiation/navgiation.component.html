@@ -1,0 +1,80 @@
+<!-- top navigation -->
+<nav>
+  <!-- classic navigation -->
+  <div class="classic-navigation">
+    <ul class="logoSide">
+      <li>
+        <a href="">Tech Shop</a>
+      </li>
+    </ul>
+
+    <div class="searchBox">
+      <input
+        type="text"
+        [formControl]="searchControl"
+        placeholder="Search desired product"
+      />
+    </div>
+
+    <!-- აქ და ქვემოთ რესპონსიულ დროპდაუნში იგივე აითემები დაგენერირდება -->
+    <ul class="navigation-buttons">
+      @for (navItems of base_nav; track $index) {
+      <li>
+        <a>
+          {{ navItems.title }}
+        </a>
+      </li>
+      }
+    </ul>
+  </div>
+
+  <!-- mobile version navigation -->
+  <ul class="mobile-ul">
+    <li class="responsiveNav-item">
+      <i class="bi bi-list" (click)="toggleF()"></i>
+      <span class="company-title">company-name</span>
+    </li>
+    <li>
+      <i class="bi bi-person-circle"></i>
+    </li>
+  </ul>
+</nav>
+
+<!-- drop down menu -->
+<div [class.activeDropDown]="toggleNav" [class.inactiveDropDown]="!toggleNav">
+  <ul [class.inactive]="!toggleNav">
+    @for (navItems of base_nav; track $index) {
+    <li>
+      <a>
+        {{ navItems.title }}
+      </a>
+    </li>
+    }
+  </ul>
+</div>
+
+<!-- bottom navigation -->
+<div class="base-nav">
+  <ul>
+    <li>
+      <a>
+        <i class="bi bi-house-door-fill"></i>
+      </a>
+    </li>
+    <li>
+      <a>
+        <i class="bi bi-search"></i>
+      </a>
+    </li>
+    <li>
+      <a>
+        <i class="bi bi-bag-heart-fill"></i>
+      </a>
+    </li>
+    <li>
+      <a>
+        <i class="bi bi-bag-heart-fill"></i>
+      </a>
+    </li>
+  </ul>
+</div>
