@@ -1,4 +1,3 @@
-<!-- top navigation -->
 <nav>
   <!-- classic navigation -->
   <div class="classic-navigation">
@@ -8,15 +7,8 @@
       </li>
     </ul>
 
-    <div class="searchBox">
-      <input
-        type="text"
-        [formControl]="searchControl"
-        placeholder="Search desired product"
-      />
-    </div>
+    <app-search />
 
-    <!-- აქ და ქვემოთ რესპონსიულ დროპდაუნში იგივე აითემები დაგენერირდება -->
     <ul class="navigation-buttons">
       @for (navItems of base_nav; track $index) {
       <li>
@@ -30,18 +22,25 @@
 
   <!-- mobile version navigation -->
   <ul class="mobile-ul">
-    <li class="responsiveNav-item">
+    <li class="responsiveNav-item dropDownLi">
       <i class="bi bi-list" (click)="toggleF()"></i>
-      <span class="company-title">company-name</span>
+      <span>Tech Shop</span>
     </li>
-    <li>
+    <li class="userLi">
+      <span>Login</span>
       <i class="bi bi-person-circle"></i>
     </li>
   </ul>
 </nav>
 
 <!-- drop down menu -->
-<div [class.activeDropDown]="toggleNav" [class.inactiveDropDown]="!toggleNav">
+<div
+  [class.activeDropDown]="toggleNav"
+  [class.inactiveDropDown]="!toggleNav"
+  appWindowResize="768"
+  removeClass="activeDropDown"
+  setClass="inactiveDropDown"
+>
   <ul [class.inactive]="!toggleNav">
     @for (navItems of base_nav; track $index) {
     <li>
@@ -50,31 +49,5 @@
       </a>
     </li>
     }
-  </ul>
-</div>
-
-<!-- bottom navigation -->
-<div class="base-nav">
-  <ul>
-    <li>
-      <a>
-        <i class="bi bi-house-door-fill"></i>
-      </a>
-    </li>
-    <li>
-      <a>
-        <i class="bi bi-search"></i>
-      </a>
-    </li>
-    <li>
-      <a>
-        <i class="bi bi-bag-heart-fill"></i>
-      </a>
-    </li>
-    <li>
-      <a>
-        <i class="bi bi-bag-heart-fill"></i>
-      </a>
-    </li>
   </ul>
 </div>

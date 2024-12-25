@@ -1,0 +1,35 @@
+<div class="base-nav">
+  <ul>
+    <li>
+      <a>
+        <i class="bi bi-house-door-fill"></i>
+      </a>
+    </li>
+    <li>
+      <a (click)="toggle()">
+        <i class="bi bi-search"></i>
+      </a>
+    </li>
+    <li>
+      <a>
+        <i class="bi bi-bag-heart-fill"></i>
+      </a>
+    </li>
+    <li>
+      <a>
+        <i class="bi bi-bag-heart-fill"></i>
+      </a>
+    </li>
+  </ul>
+</div>
+<div
+  class="searchModal"
+  [class.activeModal]="isSearchVisible"
+  appWindowResize="768"
+  removeClass="activeModal"
+>
+  <app-search class="searchInput" />
+  <div class="foundItems">
+    <p>test test test test test test test</p>
+  </div>
+</div>
