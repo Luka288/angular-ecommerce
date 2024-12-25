@@ -14,3 +14,10 @@
     border: 2px solid #3333;
   }
 }
+
+@media (max-width: 768px) {
+  .searchBox {
+    width: 100%;
+    padding: 0;
+  }
+}
