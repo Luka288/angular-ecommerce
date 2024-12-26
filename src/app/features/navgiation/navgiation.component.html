@@ -1,15 +1,41 @@
 <nav>
-  <!-- classic navigation -->
   <div class="classic-navigation">
     <ul class="logoSide">
       <li>
         <a href="">Tech Shop</a>
       </li>
+      <li class="burgerTog">
+        <i class="bi bi-list" (click)="toggleF()"></i>
+      </li>
     </ul>
 
-    <app-search />
+    <div class="searchBox">
+      <app-search />
+    </div>
 
     <ul class="navigation-buttons">
+      @for (navItems of base_nav; track $index) {
+      <li class="nav-items">
+        <a *ngIf="!navItems.iconSrc">
+          {{ navItems.title }}
+        </a>
+      </li>
+      <li>
+        <i *ngIf="navItems.iconSrc" [class]="navItems.iconSrc">
+          {{ navItems.title }}
+        </i>
+      </li>
+      }
+    </ul>
+  </div>
+  <div
+    [class.activeDropDown]="toggleNav"
+    [class.inactiveDropDown]="!toggleNav"
+    appWindowResize="768"
+    removeClass="activeDropDown"
+    setClass="inactiveDropDown"
+  >
+    <ul [class.inactive]="!toggleNav">
       @for (navItems of base_nav; track $index) {
       <li>
         <a>
@@ -19,35 +45,4 @@
       }
     </ul>
   </div>
-
-  <!-- mobile version navigation -->
-  <ul class="mobile-ul">
-    <li class="responsiveNav-item dropDownLi">
-      <i class="bi bi-list" (click)="toggleF()"></i>
-      <span>Tech Shop</span>
-    </li>
-    <li class="userLi">
-      <span>Login</span>
-      <i class="bi bi-person-circle"></i>
-    </li>
-  </ul>
 </nav>
-
-<!-- drop down menu -->
-<div
-  [class.activeDropDown]="toggleNav"
-  [class.inactiveDropDown]="!toggleNav"
-  appWindowResize="768"
-  removeClass="activeDropDown"
-  setClass="inactiveDropDown"
->
-  <ul [class.inactive]="!toggleNav">
-    @for (navItems of base_nav; track $index) {
-    <li>
-      <a>
-        {{ navItems.title }}
-      </a>
-    </li>
-    }
-  </ul>
-</div>
