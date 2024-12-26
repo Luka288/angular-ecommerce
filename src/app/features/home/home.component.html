@@ -1,1 +1,36 @@
-<main></main>
+<main>
+  <section class="topContainer">
+    <p-carousel
+      [value]="products"
+      [numVisible]="3"
+      [numScroll]="3"
+      class="carusel"
+    >
+      <ng-template let-product pTemplate="item">
+        <div class="border border-surface rounded-border m-2 p-4">
+          <div class="mb-4">
+            <div class="relative mx-auto">
+              <img
+                [src]="product.thumbnail"
+                [alt]="product.id"
+                class="w-full rounded-border"
+              />
+            </div>
+          </div>
+          <div class="mb-4 font-medium">{{ product.title }}</div>
+          <div class="flex justify-between items-center">
+            <div class="mt-0 font-semibold text-xl"></div>
+            <span>
+              <p-button
+                icon="pi pi-heart"
+                severity="secondary"
+                [outlined]="true"
+              ></p-button>
+              <p-button icon="pi pi-shopping-cart" styleClass="ml-2"></p-button>
+            </span>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </section>
+</main>

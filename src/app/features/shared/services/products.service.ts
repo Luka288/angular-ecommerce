@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, inject, Injectable } from '@angular/core';
-import { products } from '../interfaces/product.interface';
+import { base_products, products } from '../interfaces/product.interface';
 import { API_URL } from '../consts/consts';
 import { map } from 'rxjs';
 
@@ -14,7 +14,7 @@ export class ProductsService {
 
   getProducts() {
     return this.http
-      .get<products>(`${this.API}/shop/products/all?page_size=50`)
+      .get<base_products>(`${this.API}/shop/products/all?page_size=50`)
       .pipe(map((res) => res.products));
   }
 }

@@ -1,0 +1,26 @@
+main {
+  width: 100%;
+  height: 100%;
+
+  .topContainer {
+    width: 75%;
+    height: 500px;
+    margin: auto;
+    margin-top: 300px;
+    border: 1px solid black;
+
+    .carusel {
+      width: 50%;
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+      margin: auto;
+
+      img {
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+      }
+    }
+  }
+}

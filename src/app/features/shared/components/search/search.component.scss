@@ -1,13 +1,12 @@
 .searchBox {
-  width: 350px;
   padding-left: 300px;
   display: flex;
   justify-content: center;
 
   input {
-    width: 100%;
+    width: 400px;
     padding: 7px;
-    height: 24px;
+    // height: 24px;
     border-radius: 30px;
     font-size: 15px;
     outline: none;
@@ -17,7 +16,7 @@
 
 @media (max-width: 768px) {
   .searchBox {
-    width: 100%;
+    width: 300px;
     padding: 0;
   }
 }

@@ -1,4 +1,4 @@
-export interface products {
+export interface base_products {
   total: number;
   limit: number;
   page: number;
