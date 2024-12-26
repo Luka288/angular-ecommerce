@@ -3,3 +3,7 @@ export interface navigation {
   path: string;
   iconSrc?: Array<string>;
 }
+
+export interface bottomNavigation {
+  class: Array<string>;
+}

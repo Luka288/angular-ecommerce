@@ -47,6 +47,16 @@ nav {
       li {
         list-style: none;
         cursor: pointer;
+
+        a {
+          text-decoration: none;
+          color: white;
+
+          &.activeRoute {
+            color: wheat;
+            border-bottom: 1px solid white;
+          }
+        }
       }
     }
   }
@@ -74,6 +84,11 @@ nav {
           color: white;
           text-transform: capitalize;
           text-decoration: none;
+
+          &.activeRoute {
+            color: wheat;
+            border-bottom: 1px solid white;
+          }
         }
       }
     }

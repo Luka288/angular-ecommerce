@@ -2,7 +2,7 @@
   <div class="classic-navigation">
     <ul class="logoSide">
       <li>
-        <a href="">Tech Shop</a>
+        <a routerLink="/">Tech Shop</a>
       </li>
       <li class="burgerTog">
         <i class="bi bi-list" (click)="toggleF()"></i>
@@ -16,12 +16,20 @@
     <ul class="navigation-buttons">
       @for (navItems of base_nav; track $index) {
       <li class="nav-items" *ngIf="!navItems.iconSrc">
-        <a>
+        <a
+          [routerLink]="navItems.path"
+          routerLinkActive="activeRoute"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
           {{ navItems.title }}
         </a>
       </li>
       <li>
-        <i *ngIf="navItems.iconSrc" [class]="navItems.iconSrc">
+        <i
+          *ngIf="navItems.iconSrc"
+          [class]="navItems.iconSrc"
+          [routerLink]="navItems.path"
+        >
           {{ navItems.title }}
         </i>
       </li>
@@ -37,8 +45,12 @@
   >
     <ul [class.inactive]="!toggleNav">
       @for (navItems of base_nav; track $index) {
-      <li>
-        <a>
+      <li *ngIf="!navItems.iconSrc">
+        <a
+          [routerLink]="navItems.path"
+          routerLinkActive="activeRoute"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
           {{ navItems.title }}
         </a>
       </li>

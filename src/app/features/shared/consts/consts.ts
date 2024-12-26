@@ -1,10 +1,11 @@
-import { navigation } from '../../core/interfaces/navigation.interface';
+import { InjectionToken } from '@angular/core';
+import { navigation } from '../interfaces/navigation.interface';
 
 //! დეფოლტ იუზერის ნავიგაცია (როცა ავტორიზირებული არაა)
 export const baseNav: navigation[] = [
   {
     title: 'home',
-    path: '',
+    path: '/home',
   },
 
   {
@@ -19,11 +20,10 @@ export const baseNav: navigation[] = [
 
   {
     title: 'Login',
-    path: '',
+    path: '/auth',
     iconSrc: ['bi', 'bi-box-arrow-in-right'],
   },
 ];
-
 // ! ლოგინის აიკონი
 // iconSrc: 'bi bi-box-arrow-in-righ',
 
@@ -33,3 +33,5 @@ export const baseNav: navigation[] = [
 //   path: '',
 //   iconSrc: 'bi bi-person-circle',
 // },
+
+export const API_URL = new InjectionToken<string>('');
