@@ -15,8 +15,8 @@
 
     <ul class="navigation-buttons">
       @for (navItems of base_nav; track $index) {
-      <li class="nav-items">
-        <a *ngIf="!navItems.iconSrc">
+      <li class="nav-items" *ngIf="!navItems.iconSrc">
+        <a>
           {{ navItems.title }}
         </a>
       </li>
