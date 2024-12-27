@@ -2,6 +2,21 @@
   <input
     type="text"
     [formControl]="searchControl"
+    (focus)="isVisible = true"
+    (blur)="isVisible = false"
     placeholder="Search desired product"
   />
+  <i class="bi bi-search searchIcon"></i>
+  <div
+    class="searchResults"
+    *ngIf="isVisible"
+    (mousedown)="onMouseDown($event)"
+  >
+    <div class="searchResult">
+      <a routerLink="">
+        <!-- <i class="bi bi-search"></i> -->
+      </a>
+    </div>
+  </div>
 </div>
+<div class="overlay" *ngIf="isVisible"></div>
