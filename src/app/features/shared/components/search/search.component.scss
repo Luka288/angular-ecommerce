@@ -67,7 +67,8 @@
 }
 
 @media (max-width: 768px) {
-  .searchResults {
+  .searchResults,
+  .overlay {
     display: none;
   }
 
