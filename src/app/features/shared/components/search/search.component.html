@@ -2,11 +2,12 @@
   <input
     type="text"
     [formControl]="searchControl"
-    (focus)="isVisible = true"
-    (blur)="isVisible = false"
+    (focus)="showInput()"
+    (blur)="hideInput()"
+    #searchInput
     placeholder="Search desired product"
   />
-  <i class="bi bi-search searchIcon"></i>
+  <i class="bi bi-search searchIcon" (click)="showInput()"></i>
   <div
     class="searchResults"
     *ngIf="isVisible"
@@ -19,4 +20,8 @@
     </div>
   </div>
 </div>
-<div class="overlay" *ngIf="isVisible"></div>
+<div
+  class="overlay"
+  *ngIf="isVisible"
+  (click)="isVisible = false; searchService.bottomNavSearch.next(false)"
+></div>

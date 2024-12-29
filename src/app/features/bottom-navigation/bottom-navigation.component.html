@@ -24,10 +24,14 @@
 </div>
 <div
   class="searchModal"
-  [class.activeModal]="isSearchVisible"
+  [class.activeModal]="bottomSearchVisible"
   appWindowResize="768"
   removeClass="activeModal"
 >
   <app-search class="searchInput" />
   <div class="foundItems"></div>
 </div>
+<!-- <div
+  class="overlay"
+  *ngIf="bottomSearchVisible || searchService.bottomNavSearch.value"
+></div> -->
