@@ -1,5 +1,9 @@
 <main>
-  <section class="topContainer">
-    <app-slider [sliderItem]="products" brand="asus" />
+  <section
+    class="container"
+    *ngFor="let brand of brands"
+    [class]="'container' + brand"
+  >
+    <app-slider [sliderItem]="products" [brand]="brand" />
   </section>
 </main>

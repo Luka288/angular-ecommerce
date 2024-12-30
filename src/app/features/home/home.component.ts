@@ -15,10 +15,14 @@ export class HomeComponent {
   private readonly everrestProducts = inject(ProductsService);
 
   products: products[] = [];
+  brands: string[] = [];
 
   ngOnInit(): void {
     this.everrestProducts.getProducts().subscribe((res) => {
       this.products = res;
+      this.brands = res
+        .map((product) => product.brand)
+        .filter((value, index, self) => self.indexOf(value) === index);
     });
   }
 }
