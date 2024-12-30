@@ -24,6 +24,15 @@ export const routes: Routes = [
   },
 
   {
+    path: ':id',
+    loadComponent: () =>
+      import('./features/product-page/product-page.component').then(
+        (c) => c.ProductPageComponent
+      ),
+    title: 'Ecommerce | Product details',
+  },
+
+  {
     path: '**',
     redirectTo: 'home',
   },

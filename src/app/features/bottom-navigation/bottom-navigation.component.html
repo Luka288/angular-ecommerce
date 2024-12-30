@@ -29,7 +29,7 @@
   removeClass="activeModal"
 >
   <app-search class="searchInput" />
-  <div class="foundItems"></div>
+  <div class="foundItems" (mousedown)="handleClick($event)"></div>
 </div>
 <!-- <div
   class="overlay"

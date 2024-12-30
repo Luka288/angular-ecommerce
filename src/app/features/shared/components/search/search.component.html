@@ -14,9 +14,14 @@
     (mousedown)="onMouseDown($event)"
   >
     <div class="searchResult">
-      <a routerLink="">
-        <!-- <i class="bi bi-search"></i> -->
+      @for (item of foundItems; track $index) {
+      <a [routerLink]="['./', item._id]" (click)="hideInput()">
+        <i class="bi bi-search"></i>
+        <span>
+          {{ item.title }}
+        </span>
       </a>
+      }
     </div>
   </div>
 </div>

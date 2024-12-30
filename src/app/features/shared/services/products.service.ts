@@ -17,6 +17,14 @@ export class ProductsService {
       .get<base_products>(`${this.API}/shop/products/all?page_size=50`)
       .pipe(map((res) => res.products));
   }
+
+  searchProducts(query: string | null) {
+    return this.http
+      .get<base_products>(
+        `${this.API}/shop/products/search?keywords=${query}&page_size=50`
+      )
+      .pipe(map((res) => res.products));
+  }
 }
 
 // .pipe(map((res) => res.products));
