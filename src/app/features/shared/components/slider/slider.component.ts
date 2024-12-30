@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 import { products } from '../../interfaces/product.interface';
-import { filter } from 'rxjs';
+import { responsiveOptions } from '../../consts/consts';
 
 @Component({
   selector: 'app-slider',
@@ -19,6 +19,8 @@ export class SliderComponent {
   products!: products[];
   filteredItems: products[] = [];
 
+  responsiveLayout = responsiveOptions;
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['sliderItem'] || changes['brand']) {
       this.filter();
@@ -26,7 +28,7 @@ export class SliderComponent {
   }
 
   filter(): void {
-    if (this.brand) {
+    if (this.brand && this.sliderItem.length >= 3) {
       this.filteredItems = this.sliderItem.filter(
         (product) => product.brand === this.brand
       );

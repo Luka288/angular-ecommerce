@@ -3,6 +3,7 @@
   [numVisible]="3"
   [numScroll]="3"
   class="carusel"
+  [responsiveOptions]="responsiveLayout"
 >
   <ng-template let-product pTemplate="item">
     <div class="border border-surface rounded-border m-2 p-4 card">
@@ -21,13 +22,12 @@
         <span>
           <!-- ! შესასწროებელია იუზერის მიხედვით თუ ავტორიზირებულია -->
           <!-- ! მაშინ Add to cart სხვა შემთხვევაში View item -->
-          <button class="">Add to cart</button>
-          <!-- <p-button
-                icon="pi pi-heart"
-                severity="secondary"
-                [outlined]="true"
-              ></p-button>
-              <p-button icon="pi pi-shopping-cart" styleClass="ml-2"></p-button> -->
+          <p-button icon="pi pi-shopping-cart" styleClass="ml-2"></p-button>
+          <p-button
+            icon="pi pi-heart"
+            severity="secondary"
+            [outlined]="true"
+          ></p-button>
         </span>
       </div>
     </div>

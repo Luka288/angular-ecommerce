@@ -30,10 +30,9 @@
               }
             ],
             "styles": [
+              "node_modules/primeicons/primeicons.css",
               "@angular/material/prebuilt-themes/magenta-violet.css",
-              "src/styles.scss",
-              "node_modules/bootstrap-icons/font/bootstrap-icons.scss",
-              "node_modules/primeicons/primeicons.css"
+              "src/styles.scss"
             ],
             "scripts": []
           },

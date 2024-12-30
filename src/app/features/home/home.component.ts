@@ -22,7 +22,12 @@ export class HomeComponent {
       this.products = res;
       this.brands = res
         .map((product) => product.brand)
-        .filter((value, index, self) => self.indexOf(value) === index);
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .filter(
+          (brand) =>
+            this.products.filter((product) => product.brand === brand).length >=
+            3
+        );
     });
   }
 }
