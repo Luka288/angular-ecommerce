@@ -1,9 +1,20 @@
 <main>
+  <section class="topCon">
+    <div class="mainSlider"></div>
+    <div class="randomProducts">
+      @for (item of randomThree; track $index) {
+      <app-card [singleItem]="item" />
+      }
+    </div>
+  </section>
   <section
     class="container"
     *ngFor="let brand of brands"
     [class]="'container' + brand"
   >
+    <div class="containerTitle">
+      <p>Choose from {{ brand }}</p>
+    </div>
     <app-slider [sliderItem]="products" [brand]="brand" />
   </section>
 </main>

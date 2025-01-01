@@ -6,10 +6,11 @@ import { debounceTime } from 'rxjs';
 import { SearchBooleanService } from '../../services/search-boolean.service';
 import { ProductsService } from '../../services/products.service';
 import { products } from '../../interfaces/product.interface';
+import { AutoFocusModule } from 'primeng/autofocus';
 
 @Component({
   selector: 'app-search',
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, AutoFocusModule],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss',
 })
@@ -31,6 +32,10 @@ export class SearchComponent {
 
   ngAfterViewInit(): void {
     this.searchControl.valueChanges.pipe(debounceTime(300)).subscribe((res) => {
+      if (res === '') {
+        this.foundItems = [];
+        return;
+      }
       this.foundProducts(res);
     });
   }

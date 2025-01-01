@@ -25,6 +25,18 @@ export class ProductsService {
       )
       .pipe(map((res) => res.products));
   }
+
+  randomProducts() {
+    return this.http
+      .get<base_products>(`${this.API}/shop/products/all?page_size=50`)
+      .pipe(
+        map((res) => {
+          //! აბრუნებს 3 რანდომულ პროდუქტს მთავარი ფეიჯისთვის
+          const randomProducts = res.products.sort(() => Math.random() - 0.5);
+          return randomProducts.slice(0, 3);
+        })
+      );
+  }
 }
 
 // .pipe(map((res) => res.products));

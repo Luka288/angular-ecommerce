@@ -1,0 +1,16 @@
+<div
+  class="card restyled-card"
+  style="width: 18rem"
+  [routerLink]="['/', item._id]"
+>
+  <img [src]="item.thumbnail" class="card-img-top" [alt]="item.title" />
+  <div class="card-body">
+    <h5 class="card-title">
+      {{ item.title }}
+    </h5>
+    <p class="card-text weightCorrection">
+      {{ item.description | truncate }}
+    </p>
+    <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+  </div>
+</div>
