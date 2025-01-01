@@ -68,13 +68,14 @@ main {
     .randomProducts {
       width: 100%;
       height: auto;
-      // position: absolute;
+      // position: absolute
 
       .randomItems {
         bottom: 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
         margin: auto;
       }
 
@@ -100,6 +101,7 @@ main {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
       }
 
       .seenItemsTitle {
