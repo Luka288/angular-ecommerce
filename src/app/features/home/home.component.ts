@@ -5,19 +5,31 @@ import { CommonModule } from '@angular/common';
 import { products } from '../shared/interfaces/product.interface';
 import { SliderComponent } from '../shared/components/slider/slider.component';
 import { CardComponent } from '../shared/components/card/card.component';
+import { GaleriaComponent } from '../shared/components/galeria/galeria.component';
+import { thumbnailInterface } from '../shared/interfaces/slider.interface';
+import { SaveItemsService } from '../shared/services/save-items.service';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, CarouselModule, SliderComponent, CardComponent],
+  imports: [
+    CommonModule,
+    CarouselModule,
+    SliderComponent,
+    CardComponent,
+    GaleriaComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {
   private readonly everrestProducts = inject(ProductsService);
+  private readonly perviousProducts = inject(SaveItemsService);
 
   products: products[] = [];
   brands: string[] = [];
   randomThree: products[] = [];
+  thumbnails: thumbnailInterface[] = [];
+  seenThree: products[] = [];
 
   ngOnInit(): void {
     this.everrestProducts.getProducts().subscribe((res) => {
@@ -33,12 +45,27 @@ export class HomeComponent {
     });
 
     this.loadRandomProducts();
+    this.perviousProducts.getSavedItems().subscribe((res) => {
+      this.seenItems(res);
+    });
+
+    console.log(this.seenThree);
   }
 
   loadRandomProducts() {
     this.everrestProducts.randomProducts().subscribe((res) => {
       this.randomThree = res;
-      console.log(this.randomThree);
+      this.thumbnails = res.map((product) => ({
+        thumbnailImageSrc: product.thumbnail,
+      }));
     });
+  }
+  seenItems(ids: string[]) {
+    ids.forEach((id) => {
+      this.everrestProducts.productWithId(id).subscribe((res) => {
+        this.seenThree.push(res);
+      });
+    });
+    console.log(this.seenThree);
   }
 }

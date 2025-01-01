@@ -50,7 +50,8 @@ main {
 
   .topCon {
     width: 75%;
-    height: 780px;
+    // height: 780px;
+    height: auto;
     margin: auto;
     position: relative;
 
@@ -66,13 +67,46 @@ main {
 
     .randomProducts {
       width: 100%;
-      bottom: 20px;
-      padding: 20px;
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: auto;
+      height: auto;
+      // position: absolute;
+
+      .randomItems {
+        bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: auto;
+      }
+
+      .randomProductsTitle {
+        width: 100%;
+        margin: auto;
+        p {
+          font-size: 2rem;
+          font-weight: 800;
+          font-family: "Raleway", sans-serif;
+        }
+      }
+    }
+
+    //! version 2 without position absolute
+    //! height: 780px;
+    //! position: absolute;
+
+    .seenItems {
+      .seenItemsItems {
+        width: 100%;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .seenItemsTitle {
+        font-size: 33px;
+        font-weight: 800;
+        font-family: "Raleway", sans-serif;
+      }
     }
   }
 }

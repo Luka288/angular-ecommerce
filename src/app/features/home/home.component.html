@@ -1,16 +1,35 @@
 <main>
   <section class="topCon">
-    <div class="mainSlider"></div>
+    <div class="mainSlider">
+      <app-galeria />
+    </div>
     <div class="randomProducts">
-      @for (item of randomThree; track $index) {
-      <app-card [singleItem]="item" />
-      }
+      <div class="randomProductsTitle">
+        <p>You might like</p>
+      </div>
+      <div class="randomItems">
+        @for (item of randomThree; track $index) {
+        <app-card [singleItem]="item" />
+        }
+      </div>
+    </div>
+
+    <div class="seenItems" *ngIf="seenThree.length > 0">
+      <div class="seenItemsTitle">
+        <p>Recently viewed</p>
+      </div>
+      <div class="seenItemsItems">
+        @for (item of seenThree; track $index) {
+        <app-card [singleItem]="item" />
+        }
+      </div>
     </div>
   </section>
+
   <section
     class="container"
     *ngFor="let brand of brands"
-    [class]="'container' + brand"
+    [class]="'container-' + brand"
   >
     <div class="containerTitle">
       <p>Choose from {{ brand }}</p>

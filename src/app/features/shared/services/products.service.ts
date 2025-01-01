@@ -37,6 +37,10 @@ export class ProductsService {
         })
       );
   }
+
+  productWithId(id: string) {
+    return this.http.get<products>(`${this.API}/shop/products/id/${id}`);
+  }
 }
 
 // .pipe(map((res) => res.products));

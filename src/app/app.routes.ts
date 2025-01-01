@@ -24,6 +24,14 @@ export const routes: Routes = [
   },
 
   {
+    path: 'test',
+    loadComponent: () =>
+      import('./features/shared/components/galeria/galeria.component').then(
+        (c) => c.GaleriaComponent
+      ),
+  },
+
+  {
     path: ':id',
     loadComponent: () =>
       import('./features/product-page/product-page.component').then(
