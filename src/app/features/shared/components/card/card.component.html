@@ -40,13 +40,13 @@
         class="w-full"
         [outlined]="true"
         styleClass="w-full"
-        (mousedown)="onMouseDown($event)"
+        (click)="prevent($event)"
       />
       <p-button
         label="Add to cart"
         class="w-full"
         styleClass="w-full"
-        (mousedown)="onMouseDown($event)"
+        (click)="prevent($event)"
       />
     </div>
   </ng-template>

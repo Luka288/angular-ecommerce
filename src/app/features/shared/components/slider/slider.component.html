@@ -6,7 +6,11 @@
   [responsiveOptions]="responsiveLayout"
 >
   <ng-template let-product pTemplate="item">
-    <div class="border border-surface rounded-border m-2 p-4 card">
+    <div
+      class="border border-surface rounded-border m-2 p-4 card"
+      (click)="onProductClick()"
+      [routerLink]="['/', product._id]"
+    >
       <div class="mb-4">
         <div class="relative mx-auto">
           <img
@@ -16,17 +20,33 @@
           />
         </div>
       </div>
-      <div class="mb-4 font-medium">{{ product.title }}</div>
+      <div class="mb-4 font-medium">
+        <p>
+          {{ product.title }}
+        </p>
+      </div>
       <div class="flex justify-between items-center">
-        <div class="mt-0 font-semibold text-xl"></div>
+        <div class="mt-0 font-semibold text-xl">
+          <p>
+            <span class="priceText">
+              {{ product.price.current }}
+            </span>
+            {{ product.price.currency }}
+          </p>
+        </div>
         <span>
           <!-- ! შესასწროებელია იუზერის მიხედვით თუ ავტორიზირებულია -->
           <!-- ! მაშინ Add to cart სხვა შემთხვევაში View item -->
-          <p-button icon="pi pi-shopping-cart" styleClass="ml-2"></p-button>
+          <p-button
+            icon="pi pi-shopping-cart"
+            styleClass="ml-2"
+            (click)="prevent($event)"
+          ></p-button>
           <p-button
             icon="pi pi-heart"
             severity="secondary"
             [outlined]="true"
+            (click)="prevent($event)"
           ></p-button>
         </span>
       </div>

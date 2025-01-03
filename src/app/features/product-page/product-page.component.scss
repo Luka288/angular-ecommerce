@@ -1,3 +1,109 @@
 main {
-  padding-top: 90px;
+  width: 100%;
+  height: 100%;
+  padding-top: 80px;
+
+  .mainInfo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    .imageSide {
+      width: auto;
+      height: auto;
+      padding: 50px;
+      display: flex;
+
+      p-galleria {
+        img {
+          width: 500px;
+          height: 500px;
+          object-fit: contain;
+        }
+
+        .images {
+          width: 80px !important;
+          height: 60px !important;
+          object-fit: contain !important;
+        }
+
+        ::ng-deep .p-galleria-nav-button {
+          width: 35px;
+          height: 35px;
+          color: #ffffff !important;
+          background-color: #007bff !important;
+          transition: all 0.2s;
+          border: 1px solid #007bff;
+
+          &:hover {
+            background-color: #0056b3 !important;
+            color: #ffffff !important;
+            transition: all 0.2s;
+          }
+        }
+
+        ::ng-deep .p-ripple {
+          color: white;
+          background-color: #007bff;
+          transition: ease-out 0.2s;
+
+          &:hover {
+            color: white;
+            background-color: #0056b3;
+            transition: ease-out 0.2s;
+          }
+        }
+      }
+
+      .basicDesc {
+        padding: 20px;
+
+        .titleRating {
+          .title {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: right;
+            font-family: "Raleway", sans-serif;
+          }
+
+          .decor {
+            .ratingStars {
+              display: flex;
+              align-items: center;
+              gap: 2px;
+            }
+
+            .bottomDesc {
+              font-family: "Roboto", "Sans-Serif";
+              font-weight: 600;
+              font-size: 28px;
+            }
+          }
+
+          .description {
+            font-family: "Roboto", "Sans-Serif";
+            .descP {
+              width: 450px;
+              font-weight: 400;
+            }
+
+            p {
+              font-size: 18px;
+              text-transform: capitalize;
+              font-weight: bolder;
+
+              span {
+                font-weight: 400;
+              }
+
+              .warranty {
+                border-bottom: 1px solid black;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

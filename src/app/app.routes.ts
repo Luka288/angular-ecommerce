@@ -1,4 +1,7 @@
 import { Routes } from '@angular/router';
+import { mainPageResolver } from './features/shared/resolvers/main-page.resolver';
+import { randomThreeItemResolver } from './features/shared/resolvers/random-three-item.resolver';
+import { singleItemResolver } from './features/shared/resolvers/single-item.resolver';
 
 export const routes: Routes = [
   {
@@ -12,6 +15,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/home/home.component').then((c) => c.HomeComponent),
     title: 'Ecommerce | Home',
+    resolve: {
+      products: mainPageResolver,
+      randomThree: randomThreeItemResolver,
+    },
   },
 
   {
@@ -23,13 +30,13 @@ export const routes: Routes = [
     title: 'Ecommerce | Auth',
   },
 
-  {
-    path: 'test',
-    loadComponent: () =>
-      import('./features/shared/components/galeria/galeria.component').then(
-        (c) => c.GaleriaComponent
-      ),
-  },
+  // {
+  //   path: 'test',
+  //   loadComponent: () =>
+  //     import('./features/shared/components/galeria/galeria.component').then(
+  //       (c) => c.GaleriaComponent
+  //     ),
+  // },
 
   {
     path: ':id',
@@ -38,6 +45,9 @@ export const routes: Routes = [
         (c) => c.ProductPageComponent
       ),
     title: 'Ecommerce | Product details',
+    resolve: {
+      singleItem_resolve: singleItemResolver,
+    },
   },
 
   {

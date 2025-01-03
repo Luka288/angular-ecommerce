@@ -1,6 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, inject, Injectable } from '@angular/core';
-import { base_products, products } from '../interfaces/product.interface';
+import {
+  base_products,
+  products,
+  single_item,
+} from '../interfaces/product.interface';
 import { API_URL } from '../consts/consts';
 import { map } from 'rxjs';
 
@@ -40,6 +44,10 @@ export class ProductsService {
 
   productWithId(id: string) {
     return this.http.get<products>(`${this.API}/shop/products/id/${id}`);
+  }
+
+  singleItem(_id: string) {
+    return this.http.get<single_item>(`${this.API}/shop/products/id/${_id}`);
   }
 }
 

@@ -5,10 +5,11 @@ import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 import { products } from '../../interfaces/product.interface';
 import { responsiveOptions } from '../../consts/consts';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-slider',
-  imports: [CommonModule, CarouselModule, ButtonModule, TagModule],
+  imports: [CommonModule, CarouselModule, ButtonModule, TagModule, RouterLink],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.scss',
 })
@@ -35,6 +36,15 @@ export class SliderComponent {
     } else {
       this.filteredItems = this.sliderItem;
     }
+  }
+
+  onProductClick() {
+    console.log('test');
+  }
+
+  prevent(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 }
 

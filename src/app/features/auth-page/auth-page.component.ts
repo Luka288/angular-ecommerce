@@ -4,8 +4,10 @@ import { Component } from '@angular/core';
   selector: 'app-auth-page',
   imports: [],
   templateUrl: './auth-page.component.html',
-  styleUrl: './auth-page.component.scss'
+  styleUrl: './auth-page.component.scss',
 })
 export class AuthPageComponent {
-
+  constructor() {
+    console.log('init');
+  }
 }

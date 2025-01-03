@@ -18,5 +18,11 @@ export class CardComponent {
 
   onMouseDown(event: MouseEvent): void {
     event.preventDefault();
+    event.stopPropagation();
+  }
+
+  prevent(event: MouseEvent) {
+    event.preventDefault();
+    event.stopPropagation();
   }
 }

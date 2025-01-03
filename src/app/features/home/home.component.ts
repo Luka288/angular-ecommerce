@@ -8,6 +8,7 @@ import { CardComponent } from '../shared/components/card/card.component';
 import { GaleriaComponent } from '../shared/components/galeria/galeria.component';
 import { thumbnailInterface } from '../shared/interfaces/slider.interface';
 import { SaveItemsService } from '../shared/services/save-items.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -24,6 +25,7 @@ import { SaveItemsService } from '../shared/services/save-items.service';
 export class HomeComponent {
   private readonly everrestProducts = inject(ProductsService);
   private readonly perviousProducts = inject(SaveItemsService);
+  private readonly router = inject(ActivatedRoute);
 
   products: products[] = [];
   brands: string[] = [];
@@ -32,9 +34,9 @@ export class HomeComponent {
   seenThree: products[] = [];
 
   ngOnInit(): void {
-    this.everrestProducts.getProducts().subscribe((res) => {
-      this.products = res;
-      this.brands = res
+    this.router.data.subscribe((res) => {
+      this.products = res['products'];
+      this.brands = this.products
         .map((product) => product.brand)
         .filter((value, index, self) => self.indexOf(value) === index)
         .filter(
@@ -48,24 +50,19 @@ export class HomeComponent {
     this.perviousProducts.getSavedItems().subscribe((res) => {
       this.seenItems(res);
     });
-
-    console.log(this.seenThree);
   }
 
   loadRandomProducts() {
-    this.everrestProducts.randomProducts().subscribe((res) => {
-      this.randomThree = res;
-      this.thumbnails = res.map((product) => ({
-        thumbnailImageSrc: product.thumbnail,
-      }));
+    this.router.data.subscribe((res) => {
+      this.randomThree = res['randomThree'];
     });
   }
+
   seenItems(ids: string[]) {
     ids.forEach((id) => {
       this.everrestProducts.productWithId(id).subscribe((res) => {
         this.seenThree.push(res);
       });
     });
-    console.log(this.seenThree);
   }
 }

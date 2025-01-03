@@ -1,5 +1,87 @@
 <main>
-  <p>
-    {{ currentProduct }}
-  </p>
+  <section class="mainInfo">
+    <div class="imageSide">
+      <p-galleria
+        [value]="currentProductLib.length ? currentProductLib : singleThumbnail"
+        [showItemNavigators]="true"
+        [circular]="true"
+        [responsiveOptions]="responsiveOptions"
+        [containerStyle]="{ 'max-width': '640px' }"
+        [numVisible]="5"
+      >
+        <ng-template #item let-item>
+          <img [src]="item.thumbnailImageSrc" />
+        </ng-template>
+        <ng-template #thumbnail let-item>
+          <img [src]="item.thumbnailImageSrc" class="images" />
+        </ng-template>
+      </p-galleria>
+
+      <div class="basicDesc">
+        <div class="titleRating">
+          <div class="title">
+            <p>
+              {{ singleItem?.title }}
+            </p>
+          </div>
+          <div class="decor">
+            <!-- ! დასადებია როუტერ ლინკი / როუტერ ლინკს გადაყავს -->
+            <!-- ! სერჩის გვერდზე სადაც არის მხოლოდ იმ ბრენდის პროდუქცია -->
+            <a href=""> See more {{ singleItem?.brand }} products</a>
+            <span class="ratingStars">
+              {{ singleItem?.rating }}
+              <p
+                *ngFor="
+                  let star of [].constructor(
+                    calcRating(singleItem?.rating).full
+                  )
+                "
+              >
+                <i class="bi bi-star-fill"></i>
+              </p>
+              <p *ngIf="calcRating(singleItem?.rating).half">
+                <i class="bi bi-star-half"></i>
+              </p>
+            </span>
+            <hr />
+            <div class="bottomDesc">
+              <p>
+                {{ singleItem?.price?.current }}
+                <span>
+                  {{ singleItem?.price?.currency }}
+                </span>
+              </p>
+            </div>
+          </div>
+          <div class="description">
+            <p>
+              brand:
+              <span>
+                {{ singleItem?.brand }}
+              </span>
+            </p>
+            <p>
+              issue date:
+              <span>
+                {{ singleItem?.issueDate | date : "dd/MM/yyyy" }}
+              </span>
+            </p>
+            <p>
+              warranty:
+              <span *ngIf="singleItem?.warranty" class="warranty">Yes</span>
+            </p>
+            <p>
+              stock:
+              <span>
+                {{ singleItem?.stock }}
+              </span>
+            </p>
+            <p class="descP">
+              {{ singleItem?.description }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </main>
