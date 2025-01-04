@@ -28,8 +28,6 @@ import { LoadingComponentComponent } from '../shared/components/loading-componen
 export class HomeComponent {
   private readonly everrestProducts = inject(ProductsService);
   private readonly perviousProducts = inject(SaveItemsService);
-  private readonly router = inject(ActivatedRoute);
-  private readonly loadingState = inject(LoadingStateService);
 
   products: products[] = [];
   brands: string[] = [];
@@ -38,33 +36,14 @@ export class HomeComponent {
   seenThree: products[] = [];
 
   loading: boolean = true;
-  loading$ = this.loadingState.loading;
 
   ngOnInit(): void {
-    // this.router.data.subscribe((res) => {
-    //   this.products = res['products'];
-    //   this.brands = this.products
-    //     .map((product) => product.brand)
-    //     .filter((value, index, self) => self.indexOf(value) === index)
-    //     .filter(
-    //       (brand) =>
-    //         this.products.filter((product) => product.brand === brand).length >=
-    //         3
-    //     );
-    //   this.loading = false;
-    //   this.loadingState.hide();
-    // });
-
     this.everrestProducts.getProducts().subscribe((res) => {
       this.products = res;
-      this.brands = this.products
-        .map((product) => product.brand)
-        .filter((value, index, self) => self.indexOf(value) === index)
-        .filter(
-          (brand) =>
-            this.products.filter((product) => product.brand === brand).length >=
-            3
-        );
+    });
+
+    this.everrestProducts.brands().subscribe((res) => {
+      this.brands = res;
     });
 
     this.perviousProducts.getSavedItems().subscribe((res) => {
@@ -75,10 +54,6 @@ export class HomeComponent {
   }
 
   loadRandomProducts() {
-    // this.router.data.subscribe((res) => {
-    //   this.randomThree = res['randomThree'];
-    // });
-
     this.everrestProducts.randomProducts().subscribe((res) => {
       this.randomThree = res;
       this.loading = false;

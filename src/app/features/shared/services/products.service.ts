@@ -6,7 +6,7 @@ import {
   single_item,
 } from '../interfaces/product.interface';
 import { API_URL } from '../consts/consts';
-import { map } from 'rxjs';
+import { map, take, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -22,6 +22,29 @@ export class ProductsService {
       .pipe(map((res) => res.products));
   }
 
+  randomProducts() {
+    return this.getProducts().pipe(
+      map((res) => {
+        const randomProduct = res.sort(() => Math.random() - 0.5);
+        return randomProduct.slice(0, 3);
+      })
+    );
+  }
+
+  brands() {
+    return this.getProducts().pipe(
+      map((res) => {
+        return res
+          .map((product) => product.brand)
+          .filter((value, index, self) => self.indexOf(value) === index)
+          .filter(
+            (brand) =>
+              res.filter((product) => product.brand === brand).length >= 3
+          );
+      })
+    );
+  }
+
   searchProducts(query?: string) {
     return this.http
       .get<base_products>(
@@ -30,17 +53,17 @@ export class ProductsService {
       .pipe(map((res) => res.products));
   }
 
-  randomProducts() {
-    return this.http
-      .get<base_products>(`${this.API}/shop/products/all?page_size=50`)
-      .pipe(
-        map((res) => {
-          //! აბრუნებს 3 რანდომულ პროდუქტს მთავარი ფეიჯისთვის
-          const randomProducts = res.products.sort(() => Math.random() - 0.5);
-          return randomProducts.slice(0, 3);
-        })
-      );
-  }
+  // randomProducts() {
+  //   return this.http
+  //     .get<base_products>(`${this.API}/shop/products/all?page_size=50`)
+  //     .pipe(
+  //       map((res) => {
+  //         //! აბრუნებს 3 რანდომულ პროდუქტს მთავარი ფეიჯისთვის
+  //         const randomProducts = res.products.sort(() => Math.random() - 0.5);
+  //         return randomProducts.slice(0, 3);
+  //       })
+  //     );
+  // }
 
   productWithId(id: string) {
     return this.http.get<products>(`${this.API}/shop/products/id/${id}`);
