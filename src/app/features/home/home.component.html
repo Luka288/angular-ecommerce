@@ -1,8 +1,8 @@
-<div class="loadingState" *ngIf="loading$ | async">
+<div class="loadingState" *ngIf="loading">
   <app-loading-component />
 </div>
 
-<main *ngIf="!(loading$ | async)">
+<main *ngIf="!loading">
   <section class="topCon">
     <div class="mainSlider">
       <app-galeria />

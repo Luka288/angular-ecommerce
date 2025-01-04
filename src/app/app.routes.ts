@@ -15,10 +15,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/home/home.component').then((c) => c.HomeComponent),
     title: 'Ecommerce | Home',
-    resolve: {
-      randomThree: randomThreeItemResolver,
-      products: mainPageResolver,
-    },
+    // resolve: {
+    //   randomThree: randomThreeItemResolver,
+    //   products: mainPageResolver,
+    // },
   },
 
   {
