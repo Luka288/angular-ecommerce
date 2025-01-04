@@ -16,8 +16,8 @@ export const routes: Routes = [
       import('./features/home/home.component').then((c) => c.HomeComponent),
     title: 'Ecommerce | Home',
     resolve: {
-      products: mainPageResolver,
       randomThree: randomThreeItemResolver,
+      products: mainPageResolver,
     },
   },
 
@@ -30,13 +30,13 @@ export const routes: Routes = [
     title: 'Ecommerce | Auth',
   },
 
-  // {
-  //   path: 'test',
-  //   loadComponent: () =>
-  //     import('./features/shared/components/galeria/galeria.component').then(
-  //       (c) => c.GaleriaComponent
-  //     ),
-  // },
+  {
+    path: 'search',
+    loadComponent: () =>
+      import('./features/search-page/search-page.component').then(
+        (c) => c.SearchPageComponent
+      ),
+  },
 
   {
     path: ':id',

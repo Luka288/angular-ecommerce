@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { debounceTime } from 'rxjs';
 import { SearchBooleanService } from '../../services/search-boolean.service';
 import { ProductsService } from '../../services/products.service';
@@ -17,8 +17,9 @@ import { AutoFocusModule } from 'primeng/autofocus';
 export class SearchComponent {
   private readonly productsService = inject(ProductsService);
   readonly searchService = inject(SearchBooleanService);
+  private readonly route = inject(Router);
 
-  searchControl = new FormControl('');
+  searchControl = new FormControl('', { nonNullable: true });
   isVisible: boolean = false;
   foundItems: products[] = [];
 
@@ -40,11 +41,10 @@ export class SearchComponent {
     });
   }
 
-  foundProducts(res: string | null): void {
+  foundProducts(res: string): void {
     this.foundItems = [];
     this.productsService.searchProducts(res).subscribe((res) => {
       this.foundItems = res;
-      console.log(res);
     });
   }
 
@@ -61,5 +61,17 @@ export class SearchComponent {
     this.isVisible = false;
     this.searchService.isSearchVisible.next(false);
     this.searchService.bottomNavSearch.next(false);
+  }
+
+  submit(event: Event): void {
+    event.preventDefault();
+    if (this.searchControl.value === '') {
+      return;
+    } else {
+      this.route.navigate(['/search'], {
+        queryParams: { query: this.searchControl.value },
+      });
+      this.foundProducts(this.searchControl.value);
+    }
   }
 }

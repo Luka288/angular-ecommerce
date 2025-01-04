@@ -27,7 +27,7 @@ export class BottomNavigationComponent {
 
   bottomSearchVisible: boolean = false;
 
-  foundProducts(res: string | null): void {
+  foundProducts(res: string): void {
     this.productsService.searchProducts(res).subscribe((res) => {
       console.log(res);
       this.foundItems = res;

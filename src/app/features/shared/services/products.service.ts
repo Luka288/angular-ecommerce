@@ -22,7 +22,7 @@ export class ProductsService {
       .pipe(map((res) => res.products));
   }
 
-  searchProducts(query: string | null) {
+  searchProducts(query?: string) {
     return this.http
       .get<base_products>(
         `${this.API}/shop/products/search?keywords=${query}&page_size=50`
@@ -48,6 +48,12 @@ export class ProductsService {
 
   singleItem(_id: string) {
     return this.http.get<single_item>(`${this.API}/shop/products/id/${_id}`);
+  }
+
+  searchProduct(_querry: string) {
+    return this.http.get<base_products>(
+      `${this.API}/shop/products/search?keywords=${_querry}&page_size=10`
+    );
   }
 }
 

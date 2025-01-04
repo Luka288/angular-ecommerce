@@ -28,7 +28,7 @@
             <!-- ! დასადებია როუტერ ლინკი / როუტერ ლინკს გადაყავს -->
             <!-- ! სერჩის გვერდზე სადაც არის მხოლოდ იმ ბრენდის პროდუქცია -->
             <a href=""> See more {{ singleItem?.brand }} products</a>
-            <span class="ratingStars">
+            <span class="ratingStars" *ngIf="singleItem?.rating">
               {{ singleItem?.rating }}
               <p
                 *ngFor="

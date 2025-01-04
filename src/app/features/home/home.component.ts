@@ -9,6 +9,8 @@ import { GaleriaComponent } from '../shared/components/galeria/galeria.component
 import { thumbnailInterface } from '../shared/interfaces/slider.interface';
 import { SaveItemsService } from '../shared/services/save-items.service';
 import { ActivatedRoute } from '@angular/router';
+import { LoadingStateService } from '../shared/services/loading-state.service';
+import { LoadingComponentComponent } from '../shared/components/loading-component/loading-component.component';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +20,7 @@ import { ActivatedRoute } from '@angular/router';
     SliderComponent,
     CardComponent,
     GaleriaComponent,
+    LoadingComponentComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -26,12 +29,16 @@ export class HomeComponent {
   private readonly everrestProducts = inject(ProductsService);
   private readonly perviousProducts = inject(SaveItemsService);
   private readonly router = inject(ActivatedRoute);
+  private readonly loadingState = inject(LoadingStateService);
 
   products: products[] = [];
   brands: string[] = [];
   randomThree: products[] = [];
   thumbnails: thumbnailInterface[] = [];
   seenThree: products[] = [];
+
+  loading: boolean = true;
+  loading$ = this.loadingState.loading;
 
   ngOnInit(): void {
     this.router.data.subscribe((res) => {
@@ -44,12 +51,15 @@ export class HomeComponent {
             this.products.filter((product) => product.brand === brand).length >=
             3
         );
+      this.loading = false;
+      this.loadingState.hide();
     });
 
-    this.loadRandomProducts();
     this.perviousProducts.getSavedItems().subscribe((res) => {
       this.seenItems(res);
     });
+
+    this.loadRandomProducts();
   }
 
   loadRandomProducts() {

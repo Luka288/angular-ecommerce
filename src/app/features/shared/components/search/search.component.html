@@ -1,13 +1,15 @@
 <div class="searchBox">
-  <input
-    type="text"
-    [formControl]="searchControl"
-    (focus)="showInput()"
-    (blur)="hideInput()"
-    #searchInput
-    placeholder="Search desired product"
-  />
-  <i class="bi bi-search searchIcon" (click)="showInput()"></i>
+  <form (submit)="submit($event)">
+    <input
+      type="text"
+      [formControl]="searchControl"
+      (focus)="showInput()"
+      (blur)="hideInput()"
+      #searchInput
+      placeholder="Search desired product"
+    />
+  </form>
+  <i class="bi bi-search searchIcon" (click)="submit($event)"></i>
   <div
     class="searchResults"
     *ngIf="isVisible"
