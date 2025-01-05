@@ -73,11 +73,9 @@ export class ProductsService {
     return this.http.get<single_item>(`${this.API}/shop/products/id/${_id}`);
   }
 
-  searchProduct(_querry: string) {
+  searchProduct(_querry: string, page_index: number = 1) {
     return this.http.get<base_products>(
-      `${this.API}/shop/products/search?keywords=${_querry}&page_size=10`
+      `${this.API}/shop/products/search?keywords=${_querry}&page_size=10&page_index=${page_index}`
     );
   }
 }
-
-// .pipe(map((res) => res.products));

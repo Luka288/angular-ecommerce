@@ -1,3 +1,34 @@
 main {
   padding-top: 90px;
+
+  .mainSection {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+
+    .items {
+      width: 75%;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .categories {
+      width: 250px;
+      height: 700px;
+      background-color: red;
+      color: white;
+    }
+  }
+
+  .paginator {
+    width: 500px;
+    height: 50px;
+    background-color: red;
+    color: white;
+    margin: auto;
+    padding-bottom: 20px;
+  }
 }

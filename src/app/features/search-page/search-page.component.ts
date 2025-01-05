@@ -25,10 +25,10 @@ export class SearchPageComponent {
     });
   }
 
-  foundItems(querry: string) {
-    this.productsService.searchProduct(querry).subscribe((res) => {
+  foundItems(querry: string, page_index: number = 1) {
+    this.productsService.searchProduct(querry, page_index).subscribe((res) => {
       this.products = res.products;
-      console.log(this.products);
+      console.log(res);
     });
   }
 }

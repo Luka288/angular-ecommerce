@@ -1,3 +1,14 @@
 <main>
-  <app-card *ngFor="let item of products" [singleItem]="item"></app-card>
+  <section class="mainSection">
+    <div class="categories">
+      <h1>categories</h1>
+    </div>
+
+    <div class="items">
+      <app-card *ngFor="let item of products" [singleItem]="item" />
+    </div>
+  </section>
+  <div class="paginator">
+    <h1>paginator</h1>
+  </div>
 </main>
