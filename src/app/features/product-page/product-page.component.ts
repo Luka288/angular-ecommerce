@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { SaveItemsService } from '../shared/services/save-items.service';
 import { ProductsService } from '../shared/services/products.service';
 import { single_item } from '../shared/interfaces/product.interface';
@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-product-page',
-  imports: [GalleriaModule, CommonModule],
+  imports: [GalleriaModule, CommonModule, RouterModule],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss',
 })

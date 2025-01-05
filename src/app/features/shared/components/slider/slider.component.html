@@ -8,8 +8,7 @@
   <ng-template let-product pTemplate="item">
     <div
       class="border border-surface rounded-border m-2 p-4 card"
-      (click)="onProductClick()"
-      [routerLink]="['/', product._id]"
+      [routerLink]="['/product', product._id]"
     >
       <div class="mb-4">
         <div class="relative mx-auto">

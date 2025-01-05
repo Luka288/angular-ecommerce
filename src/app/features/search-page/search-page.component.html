@@ -1,4 +1,10 @@
 <main>
+  <section class="quickInfo">
+    <p>
+      Found Items for <span class="textDecor">{{ searchQuerry }}</span> found
+      <span class="textDecor">{{ products.length }}</span>
+    </p>
+  </section>
   <section class="mainSection">
     <div class="categories">
       <h1>categories</h1>
@@ -8,7 +14,35 @@
       <app-card *ngFor="let item of products" [singleItem]="item" />
     </div>
   </section>
-  <div class="paginator">
-    <h1>paginator</h1>
+
+  <!-- paginator -->
+  <div class="paginator" *ngIf="totalPages">
+    <ul class="controlsUl">
+      <li
+        [class.denied]="currentPage === 1"
+        (click)="previousPage(currentPage - 1)"
+      >
+        <a class="controls">Previous</a>
+      </li>
+    </ul>
+    <ul>
+      <li
+        *ngFor="let page of [].constructor(totalPages); let i = index"
+        [class.active]="i + 1 === currentPage"
+        (click)="handlePage(i + 1)"
+      >
+        <a>
+          {{ i + 1 }}
+        </a>
+      </li>
+    </ul>
+    <ul class="controlsUl">
+      <li
+        [class.denied]="currentPage === totalPages"
+        (click)="nextPage(currentPage + 1)"
+      >
+        <a class="controls">Next </a>
+      </li>
+    </ul>
   </div>
 </main>
