@@ -23,10 +23,6 @@ export class SelectComponent {
     nonNullable: true,
   });
 
-  ngOnChanges(SimpleChanges: SimpleChanges) {
-    console.log(this.stockOfProduct);
-  }
-
   userQty() {
     // გადასვემს პროდუქტის გვერდს მომხმარებლის არჩეულ
     // რაოდენობას

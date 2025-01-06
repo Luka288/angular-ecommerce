@@ -72,6 +72,8 @@ export class SearchComponent {
         queryParams: { query: this.searchControl.value },
       });
       this.foundProducts(this.searchControl.value);
+      this.searchControl.reset();
+      this.hideInput();
     }
   }
 }

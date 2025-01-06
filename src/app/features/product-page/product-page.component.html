@@ -46,12 +46,29 @@
             </span>
             <hr />
             <div class="bottomDesc">
+              @if (singleItem?.price?.discountPercentage) {
+              <p class="discoundted">
+                -{{ singleItem?.price?.discountPercentage }}%
+                <span>
+                  {{ singleItem?.price?.current }}
+                  {{ singleItem?.price?.currency }}
+                </span>
+              </p>
+              <p class="before">
+                last price
+                <span>
+                  {{ singleItem?.price?.beforeDiscount }}
+                  {{ singleItem?.price?.currency }}
+                </span>
+              </p>
+              }@else {
               <p>
                 {{ singleItem?.price?.current }}
                 <span>
                   {{ singleItem?.price?.currency }}
                 </span>
               </p>
+              }
             </div>
           </div>
           <div class="description">
@@ -113,10 +130,19 @@
         }
       </div>
       <div class="buttons">
-        <button class="btn btn-warning" [disabled]="singleItem?.stock === 0">
+        <button
+          class="btn btn-warning"
+          [disabled]="singleItem?.stock === 0"
+          (click)="addToCart(singleItem!._id, selectedQuantity)"
+        >
           Add to cart
         </button>
-        <button class="btn btn-primary">Add to wishlist</button>
+        <button
+          class="btn btn-primary"
+          (click)="addToWishlist(singleItem!._id)"
+        >
+          Add to wishlist
+        </button>
       </div>
     </div>
   </section>

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SaveItemsService } from '../shared/services/save-items.service';
 import { ProductsService } from '../shared/services/products.service';
@@ -29,14 +29,13 @@ export class ProductPageComponent {
   singleThumbnail: single_thumbnail[] = [];
   arrayOfStock!: number;
 
-  selectedQuantity: number = 0;
+  selectedQuantity: number = 1;
 
   responsiveOptions = responsiveOptions;
 
   constructor() {
     this.actSnap.paramMap.subscribe((params) => {
       let product_id = params.get('id');
-      console.log(params);
 
       this.perviousProducts.saveItems(product_id!);
       this.loadSingle(product_id!);
@@ -46,17 +45,18 @@ export class ProductPageComponent {
   loadSingle(_id: string) {
     this.actSnap.data.subscribe((res) => {
       this.singleItem = res['singleItem_resolve'];
-      console.log(res['singleItem_resolve']);
       this.singleItem?.images.forEach((image) => {
         this.currentProductLib.push({
           thumbnailImageSrc: image,
         });
       });
 
+      // ? ავტომატურად არ ცარიელდება
+      this.currentProductLib = [];
+      this.singleThumbnail = [];
+
       // იღებს რესპონსიდან მხოლოდ სტოკს
       this.arrayOfStock = res['singleItem_resolve'].stock;
-
-      console.log(this.arrayOfStock);
 
       this.singleThumbnail = [
         {
@@ -84,5 +84,17 @@ export class ProductPageComponent {
   // იჭერს იუზერის არჩეულ რაოდენობას
   catchQty(qty: number) {
     this.selectedQuantity = qty;
+  }
+
+  // in progress
+
+  addToCart(_id: string, qty: number) {
+    // card ზე დასამატებელი ინფორმაცია
+    console.log({ product_id: _id, quantity: qty });
+  }
+
+  addToWishlist(_id: string) {
+    // wishlist ისთვის უბრალოდ _id
+    console.log(_id);
   }
 }
