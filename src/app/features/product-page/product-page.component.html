@@ -3,7 +3,7 @@
     <div class="imageSide">
       <p-galleria
         [value]="currentProductLib.length ? currentProductLib : singleThumbnail"
-        [showItemNavigators]="true"
+        [showItemNavigators]="false"
         [circular]="true"
         [responsiveOptions]="responsiveOptions"
         [containerStyle]="{ 'max-width': '640px' }"
@@ -25,9 +25,7 @@
             </p>
           </div>
           <div class="decor">
-            <!-- ! დასადებია როუტერ ლინკი / როუტერ ლინკს გადაყავს -->
-            <!-- ! სერჩის გვერდზე სადაც არის მხოლოდ იმ ბრენდის პროდუქცია -->
-            <a [routerLink]="['/search', singleItem?.brand]">
+            <a (click)="navigateToSearch(singleItem!.brand)" class="seeMore">
               See more {{ singleItem?.brand }} products
             </a>
             <span class="ratingStars" *ngIf="singleItem?.rating">
@@ -38,10 +36,11 @@
                     calcRating(singleItem?.rating).full
                   )
                 "
+                class="star"
               >
                 <i class="bi bi-star-fill"></i>
               </p>
-              <p *ngIf="calcRating(singleItem?.rating).half">
+              <p *ngIf="calcRating(singleItem?.rating).half" class="star">
                 <i class="bi bi-star-half"></i>
               </p>
             </span>
@@ -83,6 +82,41 @@
             </p>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="purchaseContainer">
+      <div class="head">
+        <p>Buy for</p>
+        <span>
+          {{ singleItem?.price?.current }} {{ singleItem?.price?.currency }}
+        </span>
+      </div>
+      <div class="body">
+        <!-- თუ იუზერი ავტორიზირებულია -->
+        <div class="textWrap">
+          @if (true) {
+          <p>
+            We will deliver the product to your address. Prior to the delivery
+            date, we will contact you to confirm the accuracy of the provided
+            information.
+          </p>
+          }
+        </div>
+        @if (singleItem!.stock > 0) {
+        <p>Select Quantity:</p>
+        <app-select
+          [stock]="arrayOfStock"
+          (quantitySelected)="catchQty($event)"
+        />
+        }@else{
+        <p class="text-danger">Out of stock</p>
+        }
+      </div>
+      <div class="buttons">
+        <button class="btn btn-warning" [disabled]="singleItem?.stock === 0">
+          Add to cart
+        </button>
+        <button class="btn btn-primary">Add to wishlist</button>
       </div>
     </div>
   </section>

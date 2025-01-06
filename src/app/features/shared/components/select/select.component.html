@@ -1,0 +1,13 @@
+<select
+  class="form-select"
+  aria-label="Default select example"
+  [formControl]="quantityControl"
+  (change)="userQty()"
+>
+  <option
+    *ngFor="let quantity of [].constructor(stockOfProduct); let i = index"
+    [value]="i + 1"
+  >
+    {{ i + 1 }}
+  </option>
+</select>

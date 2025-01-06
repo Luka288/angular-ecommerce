@@ -17,7 +17,7 @@
   >
     <div class="searchResult">
       @for (item of foundItems; track $index) {
-      <a [routerLink]="['./', item._id]" (click)="hideInput()">
+      <a [routerLink]="['/product', item._id]" (click)="hideInput()">
         <i class="bi bi-search"></i>
         <span>
           {{ item.title }}
