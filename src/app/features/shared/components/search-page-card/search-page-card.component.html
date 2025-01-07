@@ -1,0 +1,28 @@
+<div class="mainCard" [routerLink]="['/product', itemInput._id]">
+  <div class="imageSide">
+    <img [src]="itemInput.thumbnail" [alt]="itemInput.title" />
+  </div>
+  <div class="cardBody">
+    <div class="itemName">
+      <p>
+        {{ itemInput.brand }}
+      </p>
+      <p>
+        {{ itemInput.title }}
+      </p>
+      <p>rating stars</p>
+    </div>
+    <div class="price">
+      <p>
+        {{ itemInput.price.current }}
+        {{ itemInput.price.currency | transformCurrency }}
+        <span *ngIf="itemInput.price.discountPercentage"
+          >Old price {{ itemInput.price.beforeDiscount }}</span
+        >
+      </p>
+    </div>
+    <div class="buttons">
+      <button class="btn btn-warning">Add to cart</button>
+    </div>
+  </div>
+</div>

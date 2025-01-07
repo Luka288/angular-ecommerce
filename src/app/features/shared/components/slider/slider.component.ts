@@ -6,10 +6,18 @@ import { TagModule } from 'primeng/tag';
 import { products } from '../../interfaces/product.interface';
 import { responsiveOptions } from '../../consts/consts';
 import { RouterLink } from '@angular/router';
+import { TransformCurrencyPipe } from '../../pipes/transform-currency.pipe';
 
 @Component({
   selector: 'app-slider',
-  imports: [CommonModule, CarouselModule, ButtonModule, TagModule, RouterLink],
+  imports: [
+    CommonModule,
+    CarouselModule,
+    ButtonModule,
+    TagModule,
+    RouterLink,
+    TransformCurrencyPipe,
+  ],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.scss',
 })

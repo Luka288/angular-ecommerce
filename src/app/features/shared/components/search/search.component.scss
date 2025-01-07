@@ -61,6 +61,12 @@
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
+
+      .placeHolderTxt {
+        text-align: center;
+        font-size: 30px;
+        font-family: "Raleway";
+      }
     }
   }
 }

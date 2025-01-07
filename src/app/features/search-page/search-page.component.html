@@ -7,11 +7,12 @@
   </section>
   <section class="mainSection">
     <div class="categories">
-      <h1>categories</h1>
+      <app-panel-menu [panelInfo]="panelItems" />
     </div>
 
     <div class="items">
-      <app-card *ngFor="let item of products" [singleItem]="item" />
+      <!-- <app-card *ngFor="let item of products" [singleItem]="item" /> -->
+      <app-search-page-card *ngFor="let item of products" [itemInfo]="item" />
     </div>
   </section>
 
@@ -41,7 +42,7 @@
         [class.denied]="currentPage === totalPages"
         (click)="nextPage(currentPage + 1)"
       >
-        <a class="controls">Next </a>
+        <a class="controls">Next</a>
       </li>
     </ul>
   </div>

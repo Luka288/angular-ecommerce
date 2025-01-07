@@ -15,10 +15,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/home/home.component').then((c) => c.HomeComponent),
     title: 'Ecommerce | Home',
-    // resolve: {
-    //   randomThree: randomThreeItemResolver,
-    //   products: mainPageResolver,
-    // },
+  },
+
+  {
+    path: 'panel',
+    loadComponent: () =>
+      import(
+        './features/shared/components/panel-menu/panel-menu.component'
+      ).then((c) => c.PanelMenuComponent),
   },
 
   {

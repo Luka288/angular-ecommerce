@@ -4,10 +4,17 @@ import { TruncatePipe } from '../../pipes/Truncate.pipe';
 import { RouterLink } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
+import { TransformCurrencyPipe } from '../../pipes/transform-currency.pipe';
 
 @Component({
   selector: 'app-card',
-  imports: [TruncatePipe, RouterLink, CardModule, ButtonModule],
+  imports: [
+    TruncatePipe,
+    RouterLink,
+    CardModule,
+    ButtonModule,
+    TransformCurrencyPipe,
+  ],
   templateUrl: './card.component.html',
   styleUrl: './card.component.scss',
 })

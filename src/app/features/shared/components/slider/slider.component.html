@@ -30,7 +30,7 @@
             <span class="priceText">
               {{ product.price.current }}
             </span>
-            {{ product.price.currency }}
+            {{ product.price.currency | transformCurrency }}
           </p>
         </div>
         <span>

@@ -13,7 +13,9 @@ main {
       gap: 30px;
       display: flex;
       flex-wrap: wrap;
+      flex-direction: column;
       justify-content: center;
+      margin: auto;
     }
 
     .categories {

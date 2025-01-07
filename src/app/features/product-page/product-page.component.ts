@@ -11,10 +11,17 @@ import { GalleriaModule } from 'primeng/galleria';
 import { responsiveOptions } from '../shared/consts/consts';
 import { CommonModule } from '@angular/common';
 import { SelectComponent } from '../shared/components/select/select.component';
+import { TransformCurrencyPipe } from '../shared/pipes/transform-currency.pipe';
 
 @Component({
   selector: 'app-product-page',
-  imports: [GalleriaModule, CommonModule, RouterModule, SelectComponent],
+  imports: [
+    GalleriaModule,
+    CommonModule,
+    RouterModule,
+    SelectComponent,
+    TransformCurrencyPipe,
+  ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss',
 })
@@ -44,6 +51,10 @@ export class ProductPageComponent {
 
   loadSingle(_id: string) {
     this.actSnap.data.subscribe((res) => {
+      // ? ავტომატურად არ ცარიელდება
+      this.currentProductLib = [];
+      this.singleThumbnail = [];
+
       this.singleItem = res['singleItem_resolve'];
       this.singleItem?.images.forEach((image) => {
         this.currentProductLib.push({
@@ -51,9 +62,7 @@ export class ProductPageComponent {
         });
       });
 
-      // ? ავტომატურად არ ცარიელდება
-      this.currentProductLib = [];
-      this.singleThumbnail = [];
+      console.log(res);
 
       // იღებს რესპონსიდან მხოლოდ სტოკს
       this.arrayOfStock = res['singleItem_resolve'].stock;

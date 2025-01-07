@@ -61,6 +61,7 @@ export class SearchComponent {
     this.isVisible = false;
     this.searchService.isSearchVisible.next(false);
     this.searchService.bottomNavSearch.next(false);
+    this.searchControl.reset();
   }
 
   submit(event: Event): void {
