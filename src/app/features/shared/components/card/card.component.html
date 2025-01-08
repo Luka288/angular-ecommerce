@@ -1,5 +1,10 @@
 <p-card
-  [style]="{ width: '22rem', overflow: 'hidden' }"
+  [style]="{
+    width: '22rem',
+    overflow: 'hidden',
+    background: 'white',
+    color: 'black'
+  }"
   [routerLink]="['/product', item._id]"
   class="restyled-card"
 >
@@ -15,8 +20,8 @@
   <p>
     {{ item.description | truncate }}
   </p>
-  <ng-template #footer>
-    <div class="flex gap-4 mt-1">
+  <ng-template #footer id="footer">
+    <div class="footer">
       <p-button
         label="Wishlist"
         severity="secondary"

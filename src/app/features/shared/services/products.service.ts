@@ -7,6 +7,7 @@ import {
 } from '../interfaces/product.interface';
 import { API_URL } from '../consts/consts';
 import { map, take, tap } from 'rxjs';
+import { BrandNames } from '../interfaces/brands.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -73,9 +74,19 @@ export class ProductsService {
     return this.http.get<single_item>(`${this.API}/shop/products/id/${_id}`);
   }
 
-  searchProduct(_querry: string, page_index: number = 1) {
+  searchProduct(
+    _querry: string,
+    page_index: number = 1,
+    price_max: number = 10000, // default ად ფასი
+    sort_by: string = 'price',
+    sort_dir: string = 'asc'
+  ) {
     return this.http.get<base_products>(
-      `${this.API}/shop/products/search?keywords=${_querry}&page_size=10&page_index=${page_index}`
+      `${this.API}/shop/products/search?keywords=${_querry}&page_size=10&page_index=${page_index}&price_max=${price_max}&sort_by=${sort_by}&sort_direction=${sort_dir}`
     );
+  }
+
+  loadBrands() {
+    return this.http.get<string>(`${this.API}/shop/products/brands`);
   }
 }

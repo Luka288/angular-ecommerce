@@ -1,4 +1,9 @@
-import { Component, inject, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  inject,
+  numberAttribute,
+  SimpleChanges,
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SaveItemsService } from '../shared/services/save-items.service';
 import { ProductsService } from '../shared/services/products.service';
@@ -61,8 +66,6 @@ export class ProductPageComponent {
           thumbnailImageSrc: image,
         });
       });
-
-      console.log(res);
 
       // იღებს რესპონსიდან მხოლოდ სტოკს
       this.arrayOfStock = res['singleItem_resolve'].stock;

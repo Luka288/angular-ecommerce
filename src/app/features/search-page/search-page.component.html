@@ -1,18 +1,129 @@
 <main>
-  <section class="quickInfo">
-    <p>
-      Found Items for <span class="textDecor">{{ searchQuerry }}</span> found
-      <span class="textDecor">{{ products.length }}</span>
-    </p>
-  </section>
   <section class="mainSection">
     <div class="categories">
-      <app-panel-menu [panelInfo]="panelItems" />
+      <form [formGroup]="categoryForm">
+        <div class="filterBrands">
+          <p>Filter by brand:</p>
+          <select class="form-select" formControlName="brandFilter">
+            <option value="" selected>Select brand</option>
+            <option *ngFor="let item of panelItems" [value]="item">
+              {{ item }}
+            </option>
+          </select>
+        </div>
+
+        <div class="priceFilter">
+          <label for="customRange1" class="form-label"
+            >Maximum price range:
+            {{ this.categoryForm.controls.priceRange.value | currency }}</label
+          >
+          <input
+            type="range"
+            class="changedRange"
+            id="customRange1"
+            formControlName="priceRange"
+            min="500"
+            max="10000"
+            step="100"
+            [value]="priceControl"
+          />
+        </div>
+
+        <div class="sortBy">
+          <div class="boxTitle">
+            <p>Sorty by</p>
+          </div>
+
+          <div class="wrapOrders">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="sortDir"
+                id="ascending"
+                value="asc"
+                formControlName="sortDir"
+              />
+              <label class="form-check-label" for="ascending"
+                >Ascending order</label
+              >
+            </div>
+
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="sortDir"
+                id="descending"
+                value="desc"
+                formControlName="sortDir"
+              />
+              <label class="form-check-label" for="descending"
+                >Descending order</label
+              >
+            </div>
+          </div>
+          <div class="defRadios">
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="sortBy"
+                id="price"
+                value="price"
+                formControlName="sortBy"
+              />
+              <label class="form-check-label" for="price">Price</label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="sortBy"
+                id="rating"
+                value="rating"
+                formControlName="sortBy"
+              />
+              <label class="form-check-label" for="rating">Rating</label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="sortBy"
+                id="issueDate"
+                value="issue_date"
+                formControlName="sortBy"
+              />
+              <label class="form-check-label" for="issueDate">Issue Date</label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="sortBy"
+                id="titleSort"
+                value="title"
+                formControlName="sortBy"
+              />
+              <label class="form-check-label" for="titleSort">Title</label>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-warning" (click)="resetFilters()">
+          Reset filters
+        </button>
+      </form>
     </div>
 
     <div class="items">
-      <!-- <app-card *ngFor="let item of products" [singleItem]="item" /> -->
-      <app-search-page-card *ngFor="let item of products" [itemInfo]="item" />
+      @for (item of products; track $index) {
+      <app-search-page-card [itemInfo]="item" />
+      }@empty {
+      <p>Nothing found :(</p>
+      }
+
+      <!-- *ngFor="let item of products" -->
     </div>
   </section>
 

@@ -19,10 +19,29 @@ main {
     }
 
     .categories {
-      width: 250px;
+      width: 290px;
       height: 700px;
-      background-color: red;
+      padding: 20px;
+      // background-color: red;
       color: white;
+      border: 1px solid #d5d9d9;
+
+      form {
+        color: black;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .priceFilter {
+          .changedRange {
+            width: 100%;
+          }
+        }
+
+        .wrapOrders {
+          margin-bottom: 20px;
+        }
+      }
     }
   }
 

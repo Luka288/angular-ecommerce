@@ -3,9 +3,9 @@
   height: auto;
   font-size: 20px;
   border-radius: 3px;
-  // padding: 10px;
+  padding: 10px;
   // border: 1px solid black;
-  background-color: white;
+  background-color: white !important;
   font-family: "Roboto", "Sans-Serif";
   text-align: center;
   display: flex;
@@ -21,6 +21,12 @@
 
   .weightCorrection {
     font-weight: 300;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
   }
 }
 

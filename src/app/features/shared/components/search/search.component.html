@@ -1,6 +1,12 @@
 <div class="searchBox">
   <form (submit)="submit($event)">
     <input
+      [style]="{
+        width: '22rem',
+        overflow: 'hidden',
+        background: 'white',
+        color: 'black'
+      }"
       type="text"
       [formControl]="searchControl"
       (focus)="showInput()"

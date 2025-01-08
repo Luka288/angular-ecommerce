@@ -13,7 +13,7 @@ main {
 
   .container {
     width: 75%;
-    height: 500px;
+    height: auto;
     margin: auto;
     margin-top: 50px;
     background-color: white;
@@ -23,7 +23,7 @@ main {
 
     .carusel {
       width: 50%;
-      height: 500px;
+      height: 550px;
       display: flex;
       flex-direction: column;
       margin: auto;
