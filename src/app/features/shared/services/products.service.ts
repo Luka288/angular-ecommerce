@@ -6,8 +6,7 @@ import {
   single_item,
 } from '../interfaces/product.interface';
 import { API_URL } from '../consts/consts';
-import { map, take, tap } from 'rxjs';
-import { BrandNames } from '../interfaces/brands.interface';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -54,18 +53,6 @@ export class ProductsService {
       .pipe(map((res) => res.products));
   }
 
-  // randomProducts() {
-  //   return this.http
-  //     .get<base_products>(`${this.API}/shop/products/all?page_size=50`)
-  //     .pipe(
-  //       map((res) => {
-  //         //! აბრუნებს 3 რანდომულ პროდუქტს მთავარი ფეიჯისთვის
-  //         const randomProducts = res.products.sort(() => Math.random() - 0.5);
-  //         return randomProducts.slice(0, 3);
-  //       })
-  //     );
-  // }
-
   productWithId(id: string) {
     return this.http.get<products>(`${this.API}/shop/products/id/${id}`);
   }
@@ -77,7 +64,7 @@ export class ProductsService {
   searchProduct(
     _querry: string,
     page_index: number = 1,
-    price_max: number = 10000, // default ად ფასი
+    price_max: number = 10000,
     sort_by: string = 'price',
     sort_dir: string = 'asc'
   ) {

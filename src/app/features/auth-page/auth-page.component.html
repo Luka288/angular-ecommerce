@@ -1,3 +1,18 @@
 <main>
-  <p>auth-page works!</p>
+  <form class="example-form" [formGroup]="authForm">
+    <mat-form-field class="example-full-width">
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        matInput
+        formControlName="emailFormControl"
+        placeholder="Ex. pat@example.com"
+      />
+      @if (authForm.controls.emailFormControl.hasError('required')) {
+      <mat-error>Email is <strong>required</strong></mat-error>
+      }
+    </mat-form-field>
+  </form>
 </main>
+
+<!-- [errorStateMatcher]="matcher" -->

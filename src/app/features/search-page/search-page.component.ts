@@ -4,7 +4,6 @@ import { ActivatedRoute, ResolveEnd, Router } from '@angular/router';
 import { products } from '../shared/interfaces/product.interface';
 import { CommonModule } from '@angular/common';
 import { SearchPageCardComponent } from '../shared/components/search-page-card/search-page-card.component';
-import { BrandsService } from '../shared/services/brands.service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 
@@ -55,7 +54,7 @@ export class SearchPageComponent {
   }
 
   // ვუსმენ მთლიან ფორმას თითო მნიშვნელობის შეცვლისას
-  // იღებს value ებს destructured  ით და გადასცემს ფუნქციას
+  // იღებს value ებს destructure ით და გადასცემს ფუნქციას
   // საიდანაც უკვე ვიღებთ პროდუქტებს
   trackFilers() {
     this.categoryForm.valueChanges
@@ -90,6 +89,10 @@ export class SearchPageComponent {
         this.products = res.products;
         this.currentPage = res.page;
         this.totalPages = Math.floor(res.total / res.limit);
+
+        // კოდი გადატანლია getBrands() ფუნქციაში ყოველი foundItems - ის
+        // გამოძახებაზე ადუბლირებდა ბრენდებს
+
         // res.products.map((brand) => this.panelItems.push(brand.brand));
       });
   }
