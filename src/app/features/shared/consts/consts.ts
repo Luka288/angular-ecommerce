@@ -24,15 +24,35 @@ export const baseNav: navigation[] = [
     iconSrc: ['bi', 'bi-box-arrow-in-right'],
   },
 ];
-// ! ლოგინის აიკონი
-// iconSrc: 'bi bi-box-arrow-in-righ',
 
-// ! ავტორიზირებული იუზერისთვის
-// {
-//   title: 'profile',
-//   path: '',
-//   iconSrc: 'bi bi-person-circle',
-// },
+export const authNav: navigation[] = [
+  {
+    title: 'home',
+    path: '/home',
+  },
+
+  {
+    title: 'support',
+    path: '',
+  },
+
+  {
+    title: 'contact us',
+    path: '',
+  },
+
+  {
+    title: 'profile',
+    path: '',
+    iconSrc: ['bi', 'bi-person-circle'],
+  },
+
+  {
+    title: 'Logout',
+    path: '/home',
+    iconSrc: ['bi', 'bi-box-arrow-left'],
+  },
+];
 
 export const API_URL = new InjectionToken<string>('');
 
@@ -44,11 +64,16 @@ export const responsiveOptions = [
   },
   {
     breakpoint: '768px',
-    numVisible: 2,
-    numScroll: 2,
+    numVisible: 1,
+    numScroll: 1,
   },
   {
     breakpoint: '560px',
+    numVisible: 1,
+    numScroll: 1,
+  },
+  {
+    breakpoint: '375px',
     numVisible: 1,
     numScroll: 1,
   },

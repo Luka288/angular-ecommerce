@@ -65,16 +65,16 @@ export class SearchComponent {
   }
 
   submit(event: Event): void {
+    event.stopPropagation();
     event.preventDefault();
     if (this.searchControl.value === '') {
       return;
-    } else {
-      this.route.navigate(['/search'], {
-        queryParams: { query: this.searchControl.value },
-      });
-      this.foundProducts(this.searchControl.value);
-      this.searchControl.reset();
-      this.hideInput();
     }
+    this.route.navigate(['/search'], {
+      queryParams: { query: this.searchControl.value },
+    });
+    this.foundProducts(this.searchControl.value);
+    this.searchControl.reset();
+    this.hideInput();
   }
 }

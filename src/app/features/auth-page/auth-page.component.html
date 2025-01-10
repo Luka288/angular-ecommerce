@@ -1,18 +1,50 @@
 <main>
-  <form class="example-form" [formGroup]="authForm">
-    <mat-form-field class="example-full-width">
-      <mat-label>Email</mat-label>
-      <input
-        type="email"
-        matInput
-        formControlName="emailFormControl"
-        placeholder="Ex. pat@example.com"
-      />
-      @if (authForm.controls.emailFormControl.hasError('required')) {
-      <mat-error>Email is <strong>required</strong></mat-error>
-      }
-    </mat-form-field>
-  </form>
-</main>
+  <mat-tab-group>
+    <mat-tab label="Login">
+      <form
+        class="example-form"
+        [formGroup]="authForm"
+        (ngSubmit)="submitLogin()"
+      >
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input
+            type="email"
+            matInput
+            formControlName="emailFormControl"
+            placeholder="Your Email"
+          />
+          @if (authForm.controls.emailFormControl.hasError('email')) {
+          <mat-error>Please enter a valid email address</mat-error>
+          } @if (authForm.controls.emailFormControl.hasError('required')) {
+          <mat-error>Email is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
 
-<!-- [errorStateMatcher]="matcher" -->
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input
+            class="customSize"
+            matInput
+            type="password"
+            formControlName="passwordControl"
+            placeholder="Password"
+          />
+          @if (authForm.controls.passwordControl.hasError('minlength')) {
+          <mat-error>Password must be 8 or more characters</mat-error>
+          }@if (authForm.controls.passwordControl.hasError('maxlength')) {
+          <mat-error>Password must be less then 16 characters</mat-error>
+          } @if (authForm.controls.passwordControl.hasError('required')) {
+          <mat-error>Password is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+
+        <div class="buttons">
+          <button class="btn btn-primary" type="submit">Login</button>
+          <a href="">Forgot password?</a>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Register">Content 2</mat-tab>
+  </mat-tab-group>
+</main>

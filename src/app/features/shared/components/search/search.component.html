@@ -15,7 +15,11 @@
       placeholder="Search desired product"
     />
   </form>
-  <i class="bi bi-search searchIcon" (click)="submit($event)"></i>
+  <i
+    class="bi bi-search searchIcon"
+    (click)="submit($event)"
+    (mousedown)="onMouseDown($event)"
+  ></i>
   <div
     class="searchResults"
     *ngIf="isVisible"

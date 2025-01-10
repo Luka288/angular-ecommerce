@@ -14,7 +14,7 @@
     </div>
 
     <ul class="navigation-buttons">
-      @for (navItems of base_nav; track $index) {
+      @for (navItems of currentNav; track $index) {
       <li class="nav-items" *ngIf="!navItems.iconSrc">
         <a
           [routerLink]="navItems.path"
@@ -29,6 +29,7 @@
           *ngIf="navItems.iconSrc"
           [class]="navItems.iconSrc"
           [routerLink]="navItems.path"
+          (click)="navItems.title === 'Logout' ? logOut($event) : null"
         >
           {{ navItems.title }}
         </i>
@@ -37,12 +38,8 @@
     </ul>
   </div>
   <!-- ! for authenticated user -->
-  <!-- <p-avatar
-    image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png"
-    class="mr-2"
-    size="xlarge"
-    shape="circle"
-  /> -->
+  <!-- იუზერის ფოტო/> -->
+
   <div
     [class.activeDropDown]="toggleNav"
     [class.inactiveDropDown]="!toggleNav"
@@ -51,7 +48,7 @@
     setClass="inactiveDropDown"
   >
     <ul [class.inactive]="!toggleNav">
-      @for (navItems of base_nav; track $index) {
+      @for (navItems of currentNav; track $index) {
       <li *ngIf="!navItems.iconSrc">
         <a
           [routerLink]="navItems.path"
