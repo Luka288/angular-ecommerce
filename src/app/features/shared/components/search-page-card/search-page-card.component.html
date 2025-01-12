@@ -34,24 +34,13 @@
         >
       </p>
     </div>
-    <div class="buttons">
-      <button class="btn btn-warning" (click)="$event.stopPropagation()">
-        Add to cart
+    <div
+      class="buttons"
+      (click)="$event.stopPropagation(); $event.preventDefault()"
+    >
+      <button class="btn btn-warning" [disabled]="!verifyUser()">
+        {{ verifyUser() ? "Add to cart" : "Sign in to buy" }}
       </button>
     </div>
   </div>
 </div>
-
-<!-- * popover -->
-<!-- 
-<span
-  class="d-inline-block"
-  tabindex="0"
-  data-bs-toggle="popover"
-  data-bs-trigger="hover focus"
-  data-bs-content="Disabled popover"
->
-  <button class="btn btn-primary" type="button" disabled>
-    Disabled button
-  </button>
-</span> -->

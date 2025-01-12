@@ -4,7 +4,12 @@ import {
   numberAttribute,
   SimpleChanges,
 } from '@angular/core';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  ResolveEnd,
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { SaveItemsService } from '../shared/services/save-items.service';
 import { ProductsService } from '../shared/services/products.service';
 import { single_item } from '../shared/interfaces/product.interface';
@@ -17,6 +22,9 @@ import { responsiveOptions } from '../shared/consts/consts';
 import { CommonModule } from '@angular/common';
 import { SelectComponent } from '../shared/components/select/select.component';
 import { TransformCurrencyPipe } from '../shared/pipes/transform-currency.pipe';
+import { AuthService } from '../shared/services/auth.service';
+import { CartService } from '../shared/services/cart.service';
+import { catchError, tap } from 'rxjs';
 
 @Component({
   selector: 'app-product-page',
@@ -35,6 +43,8 @@ export class ProductPageComponent {
   private readonly perviousProducts = inject(SaveItemsService);
   private readonly everest = inject(ProductsService);
   private readonly router = inject(Router);
+  private readonly authService = inject(AuthService);
+  private readonly cartService = inject(CartService);
 
   singleItem: single_item | null = null;
   currentProductLib: thumbnailInterface[] = [];
@@ -84,6 +94,10 @@ export class ProductPageComponent {
     return { full, half };
   }
 
+  verifyUser(): boolean {
+    return this.authService.checkUser();
+  }
+
   // გადაყავს მომხმარებელი სერჩის ფეიჯზე სადაც არის
   // მხოლო კონკრეტული ბრენიდს პროდუქცია
   navigateToSearch(_brand: string) {
@@ -103,6 +117,29 @@ export class ProductPageComponent {
   addToCart(_id: string, qty: number) {
     // card ზე დასამატებელი ინფორმაცია
     console.log({ product_id: _id, quantity: qty });
+
+    this.cartService
+      .createCart(_id, qty)!
+      .pipe(
+        tap((res) => {}),
+        catchError((err) => {
+          if (
+            err.error.error === 'User already created cart, use patch endpoint'
+          ) {
+            this.updateCart(_id, qty);
+          }
+          return '';
+        })
+      )
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  updateCart(id: string, qty: number) {
+    this.cartService.updateCart(id, qty).subscribe((res) => {
+      console.log(res);
+    });
   }
 
   addToWishlist(_id: string) {

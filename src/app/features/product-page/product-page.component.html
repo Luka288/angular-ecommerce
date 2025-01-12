@@ -131,14 +131,16 @@
         }
       </div>
       <div class="buttons">
+        <!-- * განახლებული ღილაკი user state მიხედვით იცვლის ფორმას -->
         <button
           class="btn btn-warning"
-          [disabled]="singleItem?.stock === 0"
+          [disabled]="singleItem?.stock === 0 || !verifyUser()"
           (click)="addToCart(singleItem!._id, selectedQuantity)"
         >
-          Add to cart
+          {{ verifyUser() ? "Add to cart" : "You must login" }}
         </button>
         <button
+          *ngIf="verifyUser()"
           class="btn btn-primary"
           (click)="addToWishlist(singleItem!._id)"
         >
