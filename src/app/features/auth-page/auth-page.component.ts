@@ -1,16 +1,16 @@
 import { Component, inject } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../shared/services/auth.service';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
 import { catchError, tap } from 'rxjs';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-auth-page',
@@ -62,5 +62,4 @@ export class AuthPageComponent {
   }
 }
 
-// TODO : alerts service optimize login
 // TODO: !register!

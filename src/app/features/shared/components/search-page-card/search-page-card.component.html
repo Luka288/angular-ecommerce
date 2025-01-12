@@ -10,7 +10,20 @@
       <p>
         {{ itemInput.title }}
       </p>
-      <p>Rating stars : {{ itemInput.rating }}</p>
+      <div class="ratingStars">
+        <span class="ratingStars">
+          Rating: {{ ratingInput! | round : 1 }}
+          <p
+            *ngFor="let star of [].constructor(calcRating(ratingInput!).full)"
+            class="star"
+          >
+            <i class="bi bi-star-fill"></i>
+          </p>
+          <p *ngIf="calcRating(ratingInput!).half" class="star">
+            <i class="bi bi-star-half"></i>
+          </p>
+        </span>
+      </div>
     </div>
     <div class="price">
       <p>
@@ -22,7 +35,23 @@
       </p>
     </div>
     <div class="buttons">
-      <button class="btn btn-warning">Add to cart</button>
+      <button class="btn btn-warning" (click)="$event.stopPropagation()">
+        Add to cart
+      </button>
     </div>
   </div>
 </div>
+
+<!-- * popover -->
+<!-- 
+<span
+  class="d-inline-block"
+  tabindex="0"
+  data-bs-toggle="popover"
+  data-bs-trigger="hover focus"
+  data-bs-content="Disabled popover"
+>
+  <button class="btn btn-primary" type="button" disabled>
+    Disabled button
+  </button>
+</span> -->

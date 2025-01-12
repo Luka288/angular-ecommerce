@@ -33,6 +33,21 @@
       :nth-child(3) {
         font-size: 14px;
       }
+
+      .ratingStars {
+        display: flex;
+        gap: 3px;
+        font-weight: 350;
+
+        i {
+          color: orange;
+        }
+
+        .ratingSpan {
+          display: flex;
+          gap: 3px;
+        }
+      }
     }
 
     .price {

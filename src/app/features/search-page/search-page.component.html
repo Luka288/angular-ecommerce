@@ -118,7 +118,7 @@
 
     <div class="items">
       @for (item of products; track $index) {
-      <app-search-page-card [itemInfo]="item" />
+      <app-search-page-card [itemInfo]="item" [rating]="item.rating" />
       }@empty {
       <p>Nothing found :(</p>
       }
