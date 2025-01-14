@@ -3,6 +3,9 @@ import { Inject, inject, Injectable } from '@angular/core';
 import { API_URL } from '../consts/consts';
 import { userCart } from '../interfaces/cart.interface';
 import { userTokenEnum } from '../enums/token.enums';
+import { single_item } from '../interfaces/product.interface';
+import { tap } from 'rxjs';
+import { AlertsServiceService } from './alerts-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -47,5 +50,38 @@ export class CartService {
     return this.http.patch<userCart>(`${this.API}/shop/cart/product`, body, {
       headers,
     });
+  }
+
+  getUserCart() {
+    const token = localStorage.getItem(userTokenEnum.refresh_token);
+
+    const headers = new HttpHeaders({
+      accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.get<userCart>(`${this.API}/shop/cart`, { headers });
+  }
+
+  removeItem(id: string) {
+    const token = localStorage.getItem(userTokenEnum.refresh_token) || '';
+
+    const headers = new HttpHeaders({
+      accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    const body = {
+      id: id,
+    };
+
+    return this.http.delete<userCart>(`${this.API}/shop/cart/product`, {
+      headers,
+      body,
+    });
+  }
+
+  getItem(itemId: string) {
+    return this.http.get<single_item>(`${this.API}/shop/products/id/${itemId}`);
   }
 }

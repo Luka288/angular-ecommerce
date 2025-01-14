@@ -3,6 +3,8 @@ import { mainPageResolver } from './features/shared/resolvers/main-page.resolver
 import { randomThreeItemResolver } from './features/shared/resolvers/random-three-item.resolver';
 import { singleItemResolver } from './features/shared/resolvers/single-item.resolver';
 import { authGuard } from './features/shared/guards/auth.guard';
+import { userState } from './features/shared/enums/user.state.enum';
+import { userGuard } from './features/shared/guards/user.guard';
 
 export const routes: Routes = [
   {
@@ -54,6 +56,14 @@ export const routes: Routes = [
     resolve: {
       singleItem_resolve: singleItemResolver,
     },
+  },
+
+  {
+    path: 'cart',
+    loadComponent: () =>
+      import('./features/cart/cart.component').then((c) => c.CartComponent),
+    title: 'Ecommerce | Cart page',
+    canActivate: [userGuard],
   },
 
   {

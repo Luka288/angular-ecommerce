@@ -9,6 +9,7 @@ export const userGuard: CanActivateFn = (route, state) => {
   const accessToken = localStorage.getItem(userTokenEnum.refresh_token);
 
   if (!refreshToken && !accessToken) {
+    return router.createUrlTree(['/home']);
   }
 
   return true;

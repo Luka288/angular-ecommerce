@@ -121,7 +121,9 @@ export class ProductPageComponent {
     this.cartService
       .createCart(_id, qty)!
       .pipe(
-        tap((res) => {}),
+        tap((res) => {
+          console.log(res);
+        }),
         catchError((err) => {
           if (
             err.error.error === 'User already created cart, use patch endpoint'

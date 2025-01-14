@@ -1,0 +1,37 @@
+<div class="card-body">
+  <div class="mainBody">
+    <div class="imageContainer">
+      <img [src]="singleItem?.thumbnail" alt="" />
+    </div>
+    <div class="baseInfo">
+      <div class="titleContainer">
+        <p class="titleP">
+          {{ singleItem?.title }}
+        </p>
+      </div>
+      <div class="rating">
+        <p>
+          {{ singleItem?.rating! | round : 1 }}
+        </p>
+      </div>
+      <div class="priceCon">
+        <p>Price of one : {{ singleItem?.price?.current }}</p>
+      </div>
+    </div>
+    <div class="qtyCon">
+      <label for="quantity">Quantity</label>
+      <input
+        [formControl]="quantityCange"
+        id="form1"
+        min="1"
+        name="quantity"
+        [value]="cartItemInput.quantity"
+        type="number"
+        class="form-control form-control-sm"
+      />
+    </div>
+  </div>
+  <div class="removeItem">
+    <i class="bi bi-trash" (click)="remove(singleItem!._id)"></i>
+  </div>
+</div>

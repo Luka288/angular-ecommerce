@@ -1,0 +1,39 @@
+<main>
+  <section class="mainContainer">
+    <div class="leftSide">
+      <div class="containerTitle">
+        <p class="titleP">shopping cart</p>
+        <p>{{ baseProduct.length }} items</p>
+      </div>
+      <div class="itemsBody">
+        <app-cart-item
+          *ngFor="let items of baseProduct"
+          [cartItem]="items"
+          (onItemRemove)="removedItem($event)"
+          (totalPriceOutput)="updateTotalPrice($event)"
+        />
+      </div>
+      <a routerLink="/" class="back"
+        ><span><i class="bi bi-arrow-left"></i></span>Back to home</a
+      >
+    </div>
+    <div class="rightSide">
+      <div class="topContainer">
+        <p>Summary</p>
+      </div>
+      <div class="summaryBody">
+        <div class="baseInfo">
+          <p>items: {{ baseProduct.length }}</p>
+          <p>{{ totalPrice }}$</p>
+        </div>
+        <div class="shipping">
+          <p>shipping</p>
+          <p>standard shipping</p>
+        </div>
+      </div>
+      <div class="rightFooter">
+        <p>total: {{ totalPrice }}$</p>
+      </div>
+    </div>
+  </section>
+</main>

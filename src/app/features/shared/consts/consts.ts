@@ -1,7 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { navigation } from '../interfaces/navigation.interface';
 
-//! დეფოლტ იუზერის ნავიგაცია (როცა ავტორიზირებული არაა)
 export const baseNav: navigation[] = [
   {
     title: 'home',
@@ -10,11 +9,6 @@ export const baseNav: navigation[] = [
 
   {
     title: 'support',
-    path: '',
-  },
-
-  {
-    title: 'contact us',
     path: '',
   },
 
@@ -37,8 +31,8 @@ export const authNav: navigation[] = [
   },
 
   {
-    title: 'contact us',
-    path: '',
+    title: 'Cart',
+    path: '/cart',
   },
 
   {
