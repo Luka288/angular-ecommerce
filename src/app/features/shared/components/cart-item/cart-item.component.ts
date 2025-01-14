@@ -4,7 +4,7 @@ import { CartService } from '../../services/cart.service';
 import { single_item } from '../../interfaces/product.interface';
 import { RoundPipe } from '../../pipes/round.pipe';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { tap } from 'rxjs';
+import { debounceTime, tap } from 'rxjs';
 import { AlertsServiceService } from '../../services/alerts-service.service';
 
 @Component({
@@ -22,6 +22,7 @@ export class CartItemComponent {
   @Output() totalPriceOutput = new EventEmitter<number>();
 
   singleItem: single_item | null = null;
+  itemStockLimit: number = 0;
 
   quantityCange = new FormControl();
 
@@ -44,12 +45,14 @@ export class CartItemComponent {
   getItem(itemId: string) {
     this.cartService.getItem(itemId).subscribe((res) => {
       this.singleItem = res;
+      this.itemStockLimit = res.stock;
     });
   }
 
   trackForChanges() {
     this.quantityCange.valueChanges
       .pipe(
+        debounceTime(300),
         tap((res) => {
           if (res) {
             this.alerts.toast('Item quantity updated', 'success', '');
@@ -57,12 +60,13 @@ export class CartItemComponent {
         })
       )
       .subscribe((res) => {
-        this.cartService
-          .updateCart(this.singleItem!._id, res)
-          .subscribe((res) => {
-            // console.log(res);
-            this.totalPriceOutput.emit(res.total.price.current);
-          });
+        this.updateCart(res);
       });
+  }
+
+  updateCart(qty: number) {
+    this.cartService.updateCart(this.singleItem!._id, qty).subscribe((res) => {
+      this.totalPriceOutput.emit(res.total.price.current);
+    });
   }
 }

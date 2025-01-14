@@ -1,4 +1,8 @@
-<main>
+<div class="notFound" *ngIf="baseProduct.length === 0">
+  <h1>No items found</h1>
+</div>
+
+<main *ngIf="baseProduct.length > 0">
   <section class="mainContainer">
     <div class="leftSide">
       <div class="containerTitle">
