@@ -21,3 +21,8 @@ export interface totalItemsInfo {
   quantity: number;
   products: number;
 }
+
+export interface checkOut {
+  success: boolean;
+  message: string;
+}

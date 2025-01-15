@@ -10,16 +10,24 @@
         </p>
       </div>
       <div class="rating">
-        <p>
-          {{ singleItem?.rating! | round : 1 }}
+        <p>Rating: {{ singleItem?.rating! | round : 1 }}</p>
+        <p
+          *ngFor="
+            let stars of [].constructor(itemRating(singleItem?.rating).full)
+          "
+        >
+          <i class="bi bi-star-fill"></i>
+        </p>
+        <p *ngIf="itemRating(singleItem?.rating).half">
+          <i class="bi bi-star-half"></i>
         </p>
       </div>
       <div class="priceCon">
-        <p>Price of one : {{ singleItem?.price?.current }}</p>
+        <p>Product price: {{ singleItem?.price?.current }}</p>
       </div>
     </div>
     <div class="qtyCon">
-      <label for="quantity">Quantity</label>
+      <label for="quantity">Quantity:</label>
       <input
         [formControl]="quantityCange"
         id="form1"
@@ -29,6 +37,7 @@
         [value]="cartItemInput.quantity"
         type="number"
         class="form-control form-control-sm"
+        (input)="handleLimits()"
       />
     </div>
   </div>

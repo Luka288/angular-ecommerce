@@ -2,6 +2,12 @@
   <h1>No items found</h1>
 </div>
 
+<div class="purchaseCom">
+  <div class="imageC">
+    <img src="https://cdn-icons-png.flaticon.com/512/9724/9724266.png" alt="" />
+  </div>
+</div>
+
 <main *ngIf="baseProduct.length > 0">
   <section class="mainContainer">
     <div class="leftSide">
@@ -37,6 +43,11 @@
       </div>
       <div class="rightFooter">
         <p>total: {{ totalPrice }}$</p>
+      </div>
+      <div class="bottomC">
+        <button class="btn btn-warning" (click)="purchaseProducts()">
+          Place order
+        </button>
       </div>
     </div>
   </section>

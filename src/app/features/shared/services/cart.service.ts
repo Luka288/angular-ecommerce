@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, inject, Injectable } from '@angular/core';
 import { API_URL } from '../consts/consts';
-import { userCart } from '../interfaces/cart.interface';
+import { checkOut, userCart } from '../interfaces/cart.interface';
 import { userTokenEnum } from '../enums/token.enums';
 import { single_item } from '../interfaces/product.interface';
 import { tap } from 'rxjs';
@@ -83,5 +83,26 @@ export class CartService {
 
   getItem(itemId: string) {
     return this.http.get<single_item>(`${this.API}/shop/products/id/${itemId}`);
+  }
+
+  orderProducts() {
+    const token = localStorage.getItem(userTokenEnum.refresh_token);
+
+    console.log(token);
+
+    const headers = new HttpHeaders({
+      accept: '*/*',
+      Authorization: `Bearer ${token}`,
+    });
+
+    return this.http.post<checkOut>(
+      `${this.API}/shop/cart/checkout`,
+      {
+        //ცარიელი body
+      },
+      {
+        headers,
+      }
+    );
   }
 }

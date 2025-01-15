@@ -50,4 +50,12 @@ export class CartComponent {
   updateTotalPrice(price: number) {
     this.totalPrice = price;
   }
+
+  purchaseProducts() {
+    this.cartService.orderProducts().subscribe((res) => {
+      console.log(res);
+      if (res.success) {
+      }
+    });
+  }
 }

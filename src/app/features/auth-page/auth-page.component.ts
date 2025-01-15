@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
@@ -11,16 +11,25 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-auth-page',
-  imports: [MatInputModule, MatTabsModule, ReactiveFormsModule, CommonModule],
+  imports: [
+    MatInputModule,
+    MatTabsModule,
+    ReactiveFormsModule,
+    CommonModule,
+    MatSelectModule,
+  ],
   templateUrl: './auth-page.component.html',
   styleUrl: './auth-page.component.scss',
 })
 export class AuthPageComponent {
   private readonly authService = inject(AuthService);
   private readonly alert = inject(AlertsServiceService);
+
+  tabIndex: number = 0;
 
   authForm = new FormGroup({
     emailFormControl: new FormControl('lukagaxokidze28@gmail.com', [
@@ -35,7 +44,41 @@ export class AuthPageComponent {
     ]),
   });
 
-  constructor() {}
+  signUpForm = new FormGroup({
+    firstName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(16),
+    ]),
+
+    lastName: new FormControl('', [
+      Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(16),
+    ]),
+
+    emailControl: new FormControl('', [Validators.email, Validators.required]),
+
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      Validators.maxLength(16),
+    ]),
+
+    address: new FormControl('', [Validators.required]),
+
+    phone: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^\\+?[0-9]{7,15}$'),
+    ]),
+
+    zipcode: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^\\d{4}(-\\d{4})?$'),
+    ]),
+
+    gender: new FormControl('', [Validators.required]),
+  });
 
   submitLogin() {
     if (!this.authForm.valid) {
@@ -59,6 +102,30 @@ export class AuthPageComponent {
         })
       )
       .subscribe();
+  }
+
+  userRegister() {
+    if (!this.signUpForm.valid) {
+      this.signUpForm.markAllAsTouched();
+      this.alert.toast('Registration form is not valid', 'error', '');
+      return;
+    }
+
+    this.tabIndex = 0;
+
+    console.log(this.signUpForm.value); // Log form data for debugging
+    this.alert.toast('Account registered', 'success', 'Check email to verify');
+
+    // Reset the form
+    this.signUpForm.reset();
+
+    // Optionally, reset the form's touched status
+    this.signUpForm.markAsUntouched();
+  }
+
+  resetForm() {
+    this.signUpForm.reset();
+    this.signUpForm.markAsUntouched();
   }
 }
 

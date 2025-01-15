@@ -6,10 +6,11 @@ import { RoundPipe } from '../../pipes/round.pipe';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, tap } from 'rxjs';
 import { AlertsServiceService } from '../../services/alerts-service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-cart-item',
-  imports: [RoundPipe, ReactiveFormsModule],
+  imports: [RoundPipe, ReactiveFormsModule, CommonModule],
   templateUrl: './cart-item.component.html',
   styleUrl: './cart-item.component.scss',
 })
@@ -27,14 +28,10 @@ export class CartItemComponent {
   quantityCange = new FormControl();
 
   ngOnInit(): void {
-    console.log(this.cartItemInput);
-
     this.quantityCange.setValue(this.cartItemInput.quantity);
-
     if (this.cartItemInput.productId) {
       this.getItem(this.cartItemInput.productId);
     }
-
     this.trackForChanges();
   }
 
@@ -65,8 +62,25 @@ export class CartItemComponent {
   }
 
   updateCart(qty: number) {
-    this.cartService.updateCart(this.singleItem!._id, qty).subscribe((res) => {
-      this.totalPriceOutput.emit(res.total.price.current);
-    });
+    this.cartService
+      .updateCart(this.singleItem!._id, qty)
+      .pipe(debounceTime(250))
+      .subscribe((res) => {
+        this.totalPriceOutput.emit(res.total.price.current);
+      });
+  }
+
+  handleLimits() {
+    if (this.quantityCange.value > this.itemStockLimit) {
+      this.quantityCange.setValue(this.itemStockLimit);
+    } else if (this.quantityCange.value < 0) {
+      this.quantityCange.setValue(1);
+    }
+  }
+
+  itemRating(rating?: number): { full: number; half: number } {
+    const full = Math.floor(rating!);
+    const half = rating! % 1 >= 0.5 ? 1 : 0;
+    return { full, half };
   }
 }

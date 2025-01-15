@@ -1,5 +1,5 @@
 <main>
-  <mat-tab-group>
+  <mat-tab-group [selectedIndex]="tabIndex">
     <mat-tab label="Login">
       <form
         class="example-form"
@@ -45,6 +45,167 @@
         </div>
       </form>
     </mat-tab>
-    <mat-tab label="Register">Content 2</mat-tab>
+    <mat-tab label="Register">
+      <form
+        class="example-form"
+        [formGroup]="signUpForm"
+        (ngSubmit)="userRegister()"
+      >
+        <mat-form-field>
+          <mat-label>First name</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="First name"
+            formControlName="firstName"
+          />
+          @if (signUpForm.controls.firstName.hasError('minlength') &&
+          signUpForm.controls.firstName.touched) {
+          <mat-error>Enter more then 2 characters</mat-error>
+          }@if (signUpForm.controls.firstName.hasError('maxlength') &&
+          signUpForm.controls.firstName.touched) {
+          <mat-error>Enter less then 16 characters</mat-error>
+          } @if (signUpForm.controls.firstName.hasError('required') &&
+          signUpForm.controls.firstName.touched) {
+          <mat-error>First name is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+
+        <!-- last name -->
+
+        <mat-form-field>
+          <mat-label>Last name</mat-label>
+          <input
+            type="text"
+            matInput
+            placeholder="Last name"
+            formControlName="lastName"
+          />
+          @if (signUpForm.controls.lastName.hasError('minlength')&&
+          signUpForm.controls.lastName.touched) {
+          <mat-error>Enter more then 2 characters</mat-error>
+          }@if (signUpForm.controls.lastName.hasError('maxlength') &&
+          signUpForm.controls.lastName.touched) {
+          <mat-error>Enter less then 16 characters</mat-error>
+          } @if (signUpForm.controls.lastName.hasError('required') &&
+          signUpForm.controls.lastName.touched) {
+          <mat-error>last name is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+
+        <!-- email -->
+
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input
+            type="email"
+            matInput
+            formControlName="emailControl"
+            placeholder="Your Email"
+          />
+          @if (signUpForm.controls.emailControl.hasError('email') &&
+          signUpForm.controls.emailControl.touched) {
+          <mat-error>Please enter a valid email address</mat-error>
+          } @if (signUpForm.controls.emailControl.hasError('required') &&
+          signUpForm.controls.emailControl.touched) {
+          <mat-error>Email is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+
+        <!-- password -->
+
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input
+            type="password"
+            matInput
+            formControlName="password"
+            placeholder="Enter password"
+          />
+          @if (signUpForm.controls.password.hasError('required') &&
+          signUpForm.controls.password.touched) {
+          <mat-error>Password is <strong>required</strong></mat-error>
+          } @if (signUpForm.controls.password.hasError('minlength') &&
+          signUpForm.controls.password.touched) {
+          <mat-error>Enter 8 or more then 8 characters</mat-error>
+          } @if (signUpForm.controls.password.hasError('maxlength') &&
+          signUpForm.controls.password.touched) {
+          <mat-error>Enter 16 or less then 16 characters</mat-error>
+          }
+        </mat-form-field>
+
+        <!-- address -->
+        <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="address"
+            placeholder="Enter city name"
+          />
+          @if (signUpForm.controls.address.hasError('required') &&
+          signUpForm.controls.address.touched) {
+          <mat-error>Address is <strong>required</strong></mat-error>
+          }
+        </mat-form-field>
+
+        <!-- phone -->
+        <mat-form-field>
+          <mat-label>Phone number</mat-label>
+          <input
+            type="tel"
+            matInput
+            formControlName="phone"
+            placeholder="Enter yor phone number"
+          />
+          @if (signUpForm.controls.phone.hasError('required') &&
+          signUpForm.controls.phone.touched) {
+          <mat-error>Phone number is <strong>required</strong></mat-error>
+          }@if(signUpForm.controls.phone.hasError('pattern') &&
+          signUpForm.controls.phone.touched){
+          <mat-error>
+            Please enter a valid phone number (7 to 15 digits, optional '+' at
+            the beginning).
+          </mat-error>
+          }
+        </mat-form-field>
+
+        <!-- zipcode -->
+
+        <mat-form-field>
+          <mat-label>Zipcode</mat-label>
+          <input
+            type="text"
+            matInput
+            formControlName="zipcode"
+            placeholder="Enter zipcode (1234 or 12345-6789)"
+          />
+          @if (signUpForm.controls.zipcode.hasError('required') &&
+          signUpForm.controls.zipcode.touched) {
+          <mat-error>Zipcode is <strong>required</strong></mat-error>
+          }@if(signUpForm.controls.zipcode.hasError('pattern') &&
+          signUpForm.controls.zipcode.touched){
+          <mat-error>
+            Please enter a valid ZIP code (e.g., 12345 or 12345-6789).
+          </mat-error>
+          }
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label aria-disabled="true">Select gender</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="MALE">Male</mat-option>
+            <mat-option value="FEMALE">Female</mat-option>
+            <mat-option value="OTHER">Other</mat-option>
+          </mat-select>
+          @if (signUpForm.controls.gender.hasError('required') &&
+          signUpForm.controls.gender.touched ) {
+          <mat-error> Gender is <strong>required</strong>.</mat-error>
+          }
+        </mat-form-field>
+
+        <button class="btn btn-warning" type="submit">Reigster</button>
+      </form>
+    </mat-tab>
   </mat-tab-group>
 </main>

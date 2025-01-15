@@ -83,6 +83,16 @@ main {
         font-size: 20px;
         text-transform: uppercase;
       }
+
+      .bottomC {
+        width: fit-content;
+        margin: auto;
+
+        button {
+          width: 250px;
+          font-size: 21px;
+        }
+      }
     }
   }
 }

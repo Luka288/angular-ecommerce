@@ -24,6 +24,18 @@
 
     .baseInfo {
       font-size: 15px;
+
+      .rating {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        p {
+          i {
+            color: orange;
+          }
+        }
+      }
     }
 
     .qtyCon {
