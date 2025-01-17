@@ -37,7 +37,7 @@ export const authNav: navigation[] = [
 
   {
     title: 'profile',
-    path: '',
+    path: '/profile',
     iconSrc: ['bi', 'bi-person-circle'],
   },
 
@@ -68,6 +68,12 @@ export const responsiveOptions = [
   },
   {
     breakpoint: '375px',
+    numVisible: 1,
+    numScroll: 1,
+  },
+
+  {
+    breakpoint: '320px',
     numVisible: 1,
     numScroll: 1,
   },

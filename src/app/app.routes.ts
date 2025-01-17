@@ -21,11 +21,13 @@ export const routes: Routes = [
   },
 
   {
-    path: 'panel',
+    path: 'profile',
     loadComponent: () =>
-      import(
-        './features/shared/components/panel-menu/panel-menu.component'
-      ).then((c) => c.PanelMenuComponent),
+      import('./features/profile/profile.component').then(
+        (c) => c.ProfileComponent
+      ),
+    title: 'Profile page',
+    canActivate: [userGuard],
   },
 
   {

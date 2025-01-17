@@ -17,6 +17,18 @@
       cursor: pointer;
     }
   }
+
+  .bef {
+    font-size: 22px;
+    padding: 10px;
+    color: red;
+    text-decoration: line-through;
+  }
+
+  .curr {
+    font-size: 22px;
+    color: green;
+  }
 }
 
 .card {
@@ -24,7 +36,7 @@
   height: 470px;
   margin: 10px;
   text-align: center;
-  font-family: "Raleway", sans-serif;
+  font-family: "Roboto", sans-serif;
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
@@ -59,6 +71,19 @@
   .carusel {
     .card {
       width: 225px;
+    }
+  }
+}
+
+// 320px break
+@media (max-width: 320px) {
+  .carusel {
+    .card {
+      width: 175px;
+
+      img {
+        width: 155px;
+      }
     }
   }
 }

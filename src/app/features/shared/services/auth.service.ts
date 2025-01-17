@@ -5,6 +5,11 @@ import { UserTokens } from '../interfaces/tokens.interface';
 import { BehaviorSubject, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { userTokenEnum } from '../enums/token.enums';
+import {
+  userSignUp,
+  verifyUser,
+} from '../interfaces/user.registration.interface';
+import { userAvatar } from '../consts/avatar.generate';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +20,8 @@ export class AuthService {
 
   private authStateSubject = new BehaviorSubject<boolean>(this.checkUser());
   authState$ = this.authStateSubject.asObservable();
+
+  userAvatar = userAvatar;
 
   constructor(@Inject(API_URL) private API: string) {}
 
@@ -56,5 +63,16 @@ export class AuthService {
     localStorage.removeItem(userTokenEnum.access_token);
     localStorage.removeItem(userTokenEnum.refresh_token);
     this.authStateSubject.next(false);
+  }
+
+  registerUser(userObject: userSignUp) {
+    userObject.avatar = `${this.userAvatar}?seed=${userObject.firstName}`;
+    return this.http.post(`${this.API}/auth/sign_up`, userObject);
+  }
+
+  verifyEmail(userEmail: string) {
+    return this.http.post<verifyUser>(`${this.API}/auth/verify_email`, {
+      email: userEmail,
+    });
   }
 }

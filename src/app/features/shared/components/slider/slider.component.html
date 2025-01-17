@@ -27,10 +27,21 @@
       <div class="flex justify-between items-center">
         <div class="mt-0 font-semibold text-xl">
           <p>
+            @if (product.price.discountPercentage) {
+            <span class="bef">
+              {{ product.price.beforeDiscount }}
+              {{ product.price.currency | transformCurrency }}
+            </span>
+            <span class="curr">
+              {{ product.price.current }}
+              {{ product.price.currency | transformCurrency }}
+            </span>
+            }@else {
             <span class="priceText">
               {{ product.price.current }}
             </span>
             {{ product.price.currency | transformCurrency }}
+            }
           </p>
         </div>
         <span>

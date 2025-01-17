@@ -1,6 +1,5 @@
 <p-card
   [style]="{
-    width: '22rem',
     overflow: 'hidden',
     background: 'white',
     color: 'black'
@@ -12,13 +11,25 @@
     <img alt="Card" class="w-full" [src]="item.thumbnail" />
   </ng-template>
   <ng-template #title>
-    {{ item.title }}
+    {{ item.title | truncate : 10 }}
   </ng-template>
   <ng-template #subtitle>
-    {{ item.price.current }} {{ item.price.currency | transformCurrency }}
+    @if (item.price.discountPercentage) {
+    <span class="bef">
+      {{ item.price.beforeDiscount }}
+      {{ item.price.currency | transformCurrency }}
+    </span>
+    <span class="curr">
+      {{ item.price.current }} {{ item.price.currency | transformCurrency }}
+    </span>
+    }@else {
+    <span class="curr">
+      {{ item.price.current }} {{ item.price.currency | transformCurrency }}
+    </span>
+    }
   </ng-template>
   <p>
-    {{ item.description | truncate }}
+    {{ item.description | truncate : 10 }}
   </p>
   <ng-template #footer id="footer">
     <div class="footer">

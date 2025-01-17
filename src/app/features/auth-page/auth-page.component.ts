@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { userSignUp } from '../shared/interfaces/user.registration.interface';
 
 @Component({
   selector: 'app-auth-page',
@@ -57,7 +58,7 @@ export class AuthPageComponent {
       Validators.maxLength(16),
     ]),
 
-    emailControl: new FormControl('', [Validators.email, Validators.required]),
+    email: new FormControl('', [Validators.email, Validators.required]),
 
     password: new FormControl('', [
       Validators.required,
@@ -67,7 +68,7 @@ export class AuthPageComponent {
 
     address: new FormControl('', [Validators.required]),
 
-    phone: new FormControl('', [
+    phone: new FormControl('+995', [
       Validators.required,
       Validators.pattern('^\\+?[0-9]{7,15}$'),
     ]),
@@ -75,6 +76,12 @@ export class AuthPageComponent {
     zipcode: new FormControl('', [
       Validators.required,
       Validators.pattern('^\\d{4}(-\\d{4})?$'),
+    ]),
+
+    age: new FormControl('', [
+      Validators.required,
+      Validators.min(18),
+      Validators.max(100),
     ]),
 
     gender: new FormControl('', [Validators.required]),
@@ -111,15 +118,29 @@ export class AuthPageComponent {
       return;
     }
 
-    this.tabIndex = 0;
+    const userObject = this.signUpForm.value as userSignUp;
 
-    console.log(this.signUpForm.value); // Log form data for debugging
-    this.alert.toast('Account registered', 'success', 'Check email to verify');
+    this.authService
+      .registerUser(userObject)
+      .pipe(
+        tap((res) => {
+          if (res) {
+            this.alert.toast(
+              'Account registered',
+              'success',
+              'Check email to verify'
+            );
+            this.verify(userObject.email);
+          }
+        }),
+        catchError((err) => {
+          this.alert.toast(err.error.errorKeys, 'error', '');
+          return err;
+        })
+      )
+      .subscribe();
 
-    // Reset the form
-    this.signUpForm.reset();
-
-    // Optionally, reset the form's touched status
+    this.resetForm();
     this.signUpForm.markAsUntouched();
   }
 
@@ -127,6 +148,13 @@ export class AuthPageComponent {
     this.signUpForm.reset();
     this.signUpForm.markAsUntouched();
   }
-}
 
-// TODO: !register!
+  verify(email: string) {
+    this.authService.verifyEmail(email).subscribe((res) => {
+      if (res.status === 200) {
+        this.alert.alert('Check email to verify', 'success', res.message);
+        console.log(res.message);
+      }
+    });
+  }
+}

@@ -135,3 +135,11 @@ main {
     }
   }
 }
+
+@media (min-width: 768px) {
+  main {
+    .mainSection {
+      gap: 15px;
+    }
+  }
+}

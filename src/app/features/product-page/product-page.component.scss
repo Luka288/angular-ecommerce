@@ -182,7 +182,8 @@ main {
 
       .buttons {
         display: flex;
-        flex-direction: column;
+        // flex-direction: column;
+        justify-content: center;
         padding-top: 20px;
         gap: 20px;
 
