@@ -1,10 +1,131 @@
 main {
   padding-top: 90px;
+
+  .ver {
+    width: 350px;
+    padding-top: 190px;
+    margin: auto;
+    text-align: center;
+  }
+  .mainSection {
+    width: 100%;
+    height: 100%;
+
+    .profileCont {
+      width: 100%;
+      height: 100%;
+      padding: 20px;
+      display: flex;
+      // align-items: center;
+      justify-content: space-evenly;
+
+      .base {
+        width: 500px;
+        height: 500px;
+        border: 2px solid #eafeff;
+        margin: auto;
+        border-radius: 10px;
+        gap: 15px;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+
+        .imageC {
+          padding: 20px;
+
+          img {
+            width: 150px;
+            height: 150px;
+            border: 13px solid #cacaca;
+            border-radius: 50%;
+            background-color: #add8e6;
+          }
+        }
+
+        .baseInf {
+          width: 100%;
+          height: 100%;
+          background-color: #f8f8f8;
+          padding: 20px;
+          margin: auto;
+
+          p {
+            font-size: 20px;
+            font-weight: 700;
+            text-transform: capitalize;
+
+            span {
+              font-weight: 400;
+            }
+          }
+        }
+
+        .user {
+          text-transform: capitalize;
+          font-weight: 600;
+          font-size: 25px;
+          font-family: "Roboto", "Sans-Serif";
+        }
+      }
+
+      .mainInf {
+        width: 950px;
+        height: 350px;
+        padding: 20px;
+        border-radius: 12px;
+        background-color: #f8f8f8;
+        border: 2px solid #eafeff;
+
+        .top {
+          p {
+            font-size: 25px;
+            font-weight: 600;
+          }
+
+          i {
+            background-color: #f8f8f8;
+            border-radius: 50%;
+            color: black;
+          }
+        }
+
+        .information {
+          font-family: "Roboto", "Sans-Serif";
+
+          .infC {
+            width: fit-content;
+            height: fit-content;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            // border: 1px solid black;
+            padding: 7px;
+            border-radius: 3px;
+            font-size: 20px;
+            gap: 30px;
+
+            p {
+              display: flex;
+              gap: 5px;
+              margin: 0;
+              padding: 0px;
+              font-weight: 600;
+              text-transform: capitalize;
+
+              span {
+                font-weight: 350;
+                text-transform: none;
+              }
+
+              i {
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
-.ver {
-  width: 350px;
-  padding-top: 190px;
-  margin: auto;
-  text-align: center;
-}
+// #FFFFFF

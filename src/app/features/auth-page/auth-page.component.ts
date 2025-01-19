@@ -13,6 +13,7 @@ import {
 } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { userSignUp } from '../shared/interfaces/user.registration.interface';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-auth-page',
@@ -22,6 +23,7 @@ import { userSignUp } from '../shared/interfaces/user.registration.interface';
     ReactiveFormsModule,
     CommonModule,
     MatSelectModule,
+    RouterLink,
   ],
   templateUrl: './auth-page.component.html',
   styleUrl: './auth-page.component.scss',

@@ -10,6 +10,7 @@ import {
   verifyUser,
 } from '../interfaces/user.registration.interface';
 import { userAvatar } from '../consts/avatar.generate';
+import { recover } from '../interfaces/passrecover.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -73,6 +74,12 @@ export class AuthService {
   verifyEmail(userEmail: string) {
     return this.http.post<verifyUser>(`${this.API}/auth/verify_email`, {
       email: userEmail,
+    });
+  }
+
+  recoverPass(usrEmail: string) {
+    return this.http.post<recover>(`${this.API}/auth/recovery`, {
+      email: usrEmail,
     });
   }
 }

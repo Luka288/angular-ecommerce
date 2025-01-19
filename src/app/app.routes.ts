@@ -41,6 +41,15 @@ export const routes: Routes = [
   },
 
   {
+    path: 'reset-password',
+    loadComponent: () =>
+      import('./features/reset-password/reset-password.component').then(
+        (c) => c.ResetPasswordComponent
+      ),
+    title: 'Reset Password',
+  },
+
+  {
     path: 'search',
     loadComponent: () =>
       import('./features/search-page/search-page.component').then(

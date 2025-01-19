@@ -1,10 +1,75 @@
-<div class="ver" *ngIf="!currUser?.verified">
-  <a href="http://gmail.com/">Verify account (check email)</a>
-  <p>to see profile information you must verify email address</p>
-</div>
+<main>
+  <div class="ver" *ngIf="!base?.verified">
+    <a href="http://gmail.com/">Verify account (check email)</a>
+    <p>to see profile information you must verify email address</p>
+  </div>
+  <section class="mainSection" *ngIf="base?.verified">
+    <div class="profileCont">
+      <div class="base">
+        <div class="imageC">
+          <img [src]="base?.avatar" alt="" />
+        </div>
+        <div class="user">
+          <p>{{ base?.firstName }} {{ base?.lastName }}</p>
+        </div>
+        <div class="baseInf">
+          <p>
+            user ID :
+            <span>
+              {{ base?._id }}
+            </span>
+          </p>
+          <p>age : {{ base?.age }}</p>
+        </div>
+      </div>
 
-<!-- <main *ngIf="currUser.verified">
-  <section class="mainSection">
-    <p>Hello {{ currUser.firstName }} {{ currUser.lastName }}</p>
+      <div class="mainInf">
+        <div class="top">
+          <p><i class="bi bi-info"></i> General information</p>
+        </div>
+        <div class="information">
+          <div class="infC">
+            <p *ngFor="let inf of convertObj(currUser); let i = index">
+              {{ inf.label }}:
+
+              <span>
+                {{ inf.value }}
+              </span>
+
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                data-bs-whatever="@fat"
+              >
+                <i class="bi bi-pencil" (click)="updateKey = inf.Key"></i>
+              </button>
+              <!-- <i class="bi bi-pencil" (click)="updateKey = inf[0]"></i> -->
+            </p>
+            <app-modal />
+
+            <div class="wrapInput">
+              <form
+                action=""
+                (submit)="
+                  $event.preventDefault();
+                  updateUser(updateKey, updateTrack.value)
+                "
+              >
+                <!-- <input
+                  type="text"
+                  [formControl]="updateTrack"
+                  [placeholder]="updateKey"
+                /> -->
+              </form>
+            </div>
+
+            <!-- <i class="bi bi-pencil"></i> -->
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
-</main> -->
+</main>
+<!-- reset-password უნდა იყოს auth page ის child ელემენტი -->
