@@ -1,11 +1,11 @@
 .card-body {
-  width: 100%;
-  height: auto;
+  width: 750px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  border-top: 1px solid #737373;
-  border-bottom: 1px solid #737373;
+  // justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  padding: 15px;
 
   .mainBody {
     display: flex;
@@ -13,8 +13,15 @@
     gap: 30px;
 
     .imageContainer {
-      width: 150px;
-      height: 150px;
+      width: 170px;
+      height: 170px;
+      border-radius: 8px;
+      background-color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
       img {
         width: 150px;
         height: 150px;
@@ -23,7 +30,20 @@
     }
 
     .baseInfo {
+      width: 250px;
+      display: flex;
+      flex-direction: column;
       font-size: 15px;
+      color: #333;
+
+      .titleContainer {
+        .titleP {
+          font-size: 16px;
+          font-weight: 600;
+          color: #222;
+          margin: 0;
+        }
+      }
 
       .rating {
         display: flex;
@@ -31,28 +51,82 @@
         gap: 10px;
 
         p {
+          margin: 0;
+
           i {
             color: orange;
           }
         }
       }
+
+      .priceCon {
+        font-size: 14px;
+        color: #6d6a6a;
+        font-weight: 500;
+      }
     }
 
     .qtyCon {
       display: flex;
-      justify-content: center;
       align-items: center;
+      gap: 10px;
+
+      label {
+        font-size: 14px;
+        color: #6b6a6a;
+        font-weight: 500;
+      }
 
       input {
-        width: 150px;
+        width: 70px;
+        padding: 5px;
+        font-size: 15px;
+        border: 1px solid #c5c3c3;
+        border-radius: 4px;
+        outline: none;
       }
     }
   }
 
   .removeItem {
     i {
-      font-size: 25px;
+      color: #e74c3c;
+      font-size: 20px;
       cursor: pointer;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    width: 100%;
+    flex-direction: column;
+
+    .mainBody {
+      .imageContainer {
+        width: 100px;
+        height: 100px;
+        img {
+          width: 100px;
+          height: 100px;
+        }
+      }
+
+      .baseInfo {
+        font-size: 12px;
+      }
+
+      .qtyCon {
+        input {
+          width: 100px;
+        }
+      }
+    }
+
+    .removeItem {
+      i {
+        font-size: 20px;
+      }
     }
   }
 }

@@ -1,21 +1,15 @@
-<div class="notFound" *ngIf="baseProduct.length === 0">
-  <h1>No items found</h1>
-</div>
-
-<div class="purchaseCom">
-  <div class="imageC">
-    <img src="https://cdn-icons-png.flaticon.com/512/9724/9724266.png" alt="" />
+<main>
+  <div class="notFound" *ngIf="baseProduct.length === 0">
+    <p>not found</p>
   </div>
-</div>
 
-<main *ngIf="baseProduct.length > 0">
-  <section class="mainContainer">
-    <div class="leftSide">
-      <div class="containerTitle">
-        <p class="titleP">shopping cart</p>
-        <p>{{ baseProduct.length }} items</p>
+  <section *ngIf="baseProduct.length > 0">
+    <div class="mItems">
+      <div class="cartHeader">
+        <p>Total items: {{ baseProduct.length }}</p>
       </div>
-      <div class="itemsBody">
+
+      <div class="items">
         <app-cart-item
           *ngFor="let items of baseProduct"
           [cartItem]="items"
@@ -23,32 +17,29 @@
           (totalPriceOutput)="updateTotalPrice($event)"
         />
       </div>
-      <a routerLink="/" class="back"
-        ><span><i class="bi bi-arrow-left"></i></span>Back to home</a
-      >
     </div>
-    <div class="rightSide">
-      <div class="topContainer">
+
+    <aside>
+      <div class="totalPrice">
         <p>Summary</p>
+        <p>Total Price: {{ totalPrice }}</p>
       </div>
-      <div class="summaryBody">
-        <div class="baseInfo">
-          <p>items: {{ baseProduct.length }}</p>
-          <p>{{ totalPrice }}$</p>
-        </div>
-        <div class="shipping">
-          <p>shipping</p>
-          <p>standard shipping</p>
-        </div>
+      <div class="shipping">
+        <p>shipping details</p>
+        <p>
+          After placing your order, we will deliver the product to the address
+          provided in your profile. Additionally, we will contact you to confirm
+          the delivery details and ensure the item is sent to the correct
+          address.
+        </p>
       </div>
-      <div class="rightFooter">
+
+      <div class="bottomC">
+        <button class="" (click)="purchaseProducts()">Place order</button>
         <p>total: {{ totalPrice }}$</p>
       </div>
-      <div class="bottomC">
-        <button class="btn btn-warning" (click)="purchaseProducts()">
-          Place order
-        </button>
-      </div>
-    </div>
+    </aside>
+
+    <div class="bott"></div>
   </section>
 </main>

@@ -1,96 +1,103 @@
 main {
-  width: 100%;
-  height: 100%;
+  height: 100vh;
+  background-color: #f8f9fa;
   padding-top: 90px;
 
-  .mainContainer {
-    color: black;
-    width: 65%;
-    height: 750px;
-    display: flex;
+  section {
+    width: 85%;
+    height: fit-content;
     margin: auto;
-    font-family: "Roboto", "Sans-Serif";
-    text-transform: capitalize;
-    border: 2px solid #737373;
+    margin-top: 100px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 
-    .leftSide {
-      width: 70%;
-      height: 750px;
-      padding: 20px;
+    .mItems {
+      width: 50%;
+      height: 500px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
 
-      .containerTitle {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-
-        :nth-child(1) {
-          font-size: 2.5rem;
-          font-weight: 550;
-        }
-
-        :nth-child(2) {
-          color: #7b7b7b;
-        }
-      }
-
-      .itemsBody {
-        width: 100%;
-        height: 500px;
+      .items {
         overflow-y: auto;
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        align-items: center;
+        gap: 15px;
       }
 
-      a.back {
-        color: black;
-        text-decoration: none;
+      .cartHeader {
+        text-transform: capitalize;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #333;
+
+        p {
+          font-size: 22px;
+          font-weight: 550;
+          color: #333;
+        }
       }
     }
 
-    .rightSide {
-      width: 30%;
-      height: 750px;
+    aside {
+      width: 500px;
+      height: fit-content;
+      border: 1px solid #dcdcdc;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       padding: 20px;
 
-      .topContainer {
+      .totalPrice {
         display: flex;
-        align-items: center;
+        justify-content: space-evenly;
+        text-transform: capitalize;
+        font-size: 26px;
+        border-bottom: 1px solid #e0e0e0;
 
         p {
-          font-size: 2.5rem;
+          font-weight: 700;
+        }
+      }
+
+      .shipping {
+        text-transform: capitalize;
+        margin: auto;
+        padding: 25px;
+
+        :nth-child(1) {
+          font-size: 20px;
           font-weight: 550;
         }
       }
 
-      .summaryBody {
-        width: 100%;
-        height: 250px;
-        border-top: 2px solid #737373;
-        border-bottom: 2px solid #737373;
-        text-transform: uppercase;
-        font-size: 19px;
-
-        .baseInfo {
-          padding-top: 25px;
-          display: flex;
-          justify-content: space-between;
-        }
-      }
-
-      .rightFooter {
-        padding-top: 25px;
-        font-size: 20px;
-        text-transform: uppercase;
-      }
-
       .bottomC {
-        width: fit-content;
-        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        padding-top: 15px;
+        border-top: 1px solid #e0e0e0;
+
+        p {
+          font-size: 25px;
+          text-transform: capitalize;
+          font-weight: 500;
+        }
 
         button {
-          width: 250px;
-          font-size: 21px;
+          padding: 15px;
+          font-size: 15px;
+          font-weight: 500;
+          border: none;
+          color: #333;
+          background-color: #ffc107;
+          transition: all 0.3s;
+
+          &:hover {
+            background-color: #ffca28;
+            transition: all 0.3s;
+          }
         }
       }
     }
@@ -104,4 +111,30 @@ main {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+@media (max-width: 768px) {
+  main {
+    height: 100%;
+
+    section {
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+
+      .mItems {
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        .items {
+          width: 75%;
+        }
+      }
+    }
+  }
+
+  aside {
+    width: 100%;
+  }
 }

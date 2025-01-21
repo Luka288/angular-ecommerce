@@ -35,19 +35,28 @@
               <span>
                 {{ inf.value }}
               </span>
-
               <button
                 type="button"
                 class="btn btn-primary"
                 data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                data-bs-whatever="@fat"
+                data-bs-target="#staticBackdrop"
+                (click)="
+                  updateKey = inf.Key;
+                  updateValue = inf.value;
+                  propLabel = inf.label;
+                  isModalOpen = true
+                "
               >
                 <i class="bi bi-pencil" (click)="updateKey = inf.Key"></i>
               </button>
-              <!-- <i class="bi bi-pencil" (click)="updateKey = inf[0]"></i> -->
             </p>
-            <app-modal />
+            <app-modal
+              [propertyKey]="updateKey"
+              [propertyValue]="updateValue"
+              [propertyLabel]="propLabel"
+              [isOpen]="isModalOpen"
+              (emitValue)="catchValue($event)"
+            />
 
             <div class="wrapInput">
               <form
@@ -56,16 +65,8 @@
                   $event.preventDefault();
                   updateUser(updateKey, updateTrack.value)
                 "
-              >
-                <!-- <input
-                  type="text"
-                  [formControl]="updateTrack"
-                  [placeholder]="updateKey"
-                /> -->
-              </form>
+              ></form>
             </div>
-
-            <!-- <i class="bi bi-pencil"></i> -->
           </div>
         </div>
       </div>

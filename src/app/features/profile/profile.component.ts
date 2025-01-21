@@ -4,6 +4,7 @@ import { baseUser, currUser } from '../shared/interfaces/user.interface';
 import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from '../shared/components/modal/modal.component';
+import { AlertsServiceService } from '../shared/services/alerts-service.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,11 +14,14 @@ import { ModalComponent } from '../shared/components/modal/modal.component';
 })
 export class ProfileComponent {
   private readonly userService = inject(UserService);
+  private readonly alert = inject(AlertsServiceService);
 
-  // ჭირდება რეფაქტორი
   currUser!: currUser;
   base: baseUser | null = null;
+  updateValue: string | number | null = null;
   updateKey: string = '';
+  propLabel: string | undefined;
+  isModalOpen: boolean = false;
 
   updateTrack = new FormControl('', { nonNullable: true });
 
@@ -37,12 +41,12 @@ export class ProfileComponent {
     const information = [
       {
         label: 'First name',
-        Key: 'FirstName',
+        Key: 'firstName',
         value: obj.firstName,
       },
       {
         label: 'Last name',
-        Key: 'LastName',
+        Key: 'lastName',
         value: obj.lastName,
       },
 
@@ -81,7 +85,6 @@ export class ProfileComponent {
         value: obj.zipcode,
       },
     ];
-
     return information;
   }
 
@@ -95,7 +98,13 @@ export class ProfileComponent {
       console.log(res);
       if (res) {
         this.updateTrack.reset();
+        this.alert.alert('Profile updated successfully', 'success', '');
+        this.currentUser();
       }
     });
+  }
+
+  catchValue(event: { key: string; value: string | number }) {
+    this.updateUser(event.key, event.value);
   }
 }

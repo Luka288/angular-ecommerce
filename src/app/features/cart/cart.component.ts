@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { CartItemComponent } from '../shared/components/cart-item/cart-item.component';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
+import { CardComponent } from '../shared/components/card/card.component';
+import { TransformCurrencyPipe } from '../shared/pipes/transform-currency.pipe';
 
 @Component({
   selector: 'app-cart',
@@ -34,6 +36,7 @@ export class CartComponent {
       this.baseItems.push(res.total);
       this.totalPrice = res.total.price.current;
       console.log(this.baseItems);
+      console.log(res);
     });
   }
 
@@ -59,3 +62,10 @@ export class CartComponent {
     });
   }
 }
+
+// <app-cart-item
+// *ngFor="let items of baseProduct"
+// [cartItem]="items"
+// (onItemRemove)="removedItem($event)"
+// (totalPriceOutput)="updateTotalPrice($event)"
+// />

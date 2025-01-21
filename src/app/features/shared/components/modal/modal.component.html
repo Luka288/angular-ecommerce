@@ -1,14 +1,18 @@
 <div
   class="modal fade"
-  id="exampleModal"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
   tabindex="-1"
-  aria-labelledby="exampleModalLabel"
+  aria-labelledby="staticBackdropLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">
+          Change {{ propertyLabel }}
+        </h1>
         <button
           type="button"
           class="btn-close"
@@ -17,24 +21,68 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-name" class="col-form-label"
-              >Recipient:</label
-            >
-            <input type="text" class="form-control" id="recipient-name" />
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
-        </form>
+        <div class="modal-body">
+          <form
+            (submit)="
+              $event.preventDefault();
+              updatedValue(propertyKey!, userChange.controls.inputControl.value)
+            "
+            [formGroup]="userChange"
+          >
+            <div class="mb-3" *ngIf="propertyKey !== 'gender'">
+              <label for="recipient-name" class="col-form-label"
+                >Change {{ propertyLabel }}:</label
+              >
+              <input
+                formControlName="inputControl"
+                type="text"
+                class="form-control"
+                id="recipient-name"
+                [placeholder]="'Enter new ' + propertyLabel"
+                (focus)="onFocus()"
+              />
+              @if (userChange.controls.inputControl.hasError('email')) {
+              <p class="text-danger">Enter correct email</p>
+              } @if (userChange.controls.inputControl.hasError('email')) {
+              <p class="text-danger">Enter correct email</p>
+              }
+            </div>
+            <div class="genderSelect" *ngIf="propertyKey === 'gender'">
+              <label for="recipient-name" class="col-form-label"
+                >Change {{ propertyLabel }}:</label
+              >
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                formControlName="genderControl"
+              >
+                <option selected disabled>Select Gender</option>
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+                <option value="OTHER">Other</option>
+              </select>
+            </div>
+          </form>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+          (click)="resetForm()"
+        >
           Close
         </button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="
+            updatedValue(propertyKey!, userChange.controls.inputControl.value)
+          "
+        >
+          Save
+        </button>
       </div>
     </div>
   </div>

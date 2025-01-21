@@ -18,7 +18,7 @@ import {
   thumbnailInterface,
 } from '../shared/interfaces/slider.interface';
 import { GalleriaModule } from 'primeng/galleria';
-import { responsiveOptions } from '../shared/consts/consts';
+import { responsiveOptions, galeriaResponsive } from '../shared/consts/consts';
 import { CommonModule } from '@angular/common';
 import { SelectComponent } from '../shared/components/select/select.component';
 import { TransformCurrencyPipe } from '../shared/pipes/transform-currency.pipe';
@@ -53,7 +53,7 @@ export class ProductPageComponent {
 
   selectedQuantity: number = 1;
 
-  responsiveOptions = responsiveOptions;
+  responsiveOptions = galeriaResponsive;
 
   constructor() {
     this.actSnap.paramMap.subscribe((params) => {

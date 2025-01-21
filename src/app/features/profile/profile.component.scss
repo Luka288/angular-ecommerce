@@ -121,7 +121,81 @@ main {
                 cursor: pointer;
               }
             }
+
+            button.modalTog {
+              width: 30px;
+              height: 30px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
           }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  main {
+    .mainSection {
+      .profileCont {
+        flex-wrap: wrap;
+        gap: 15px;
+
+        .mainInf {
+          width: fit-content;
+          height: 550px;
+
+          .information {
+            .infC {
+              flex-direction: column;
+              gap: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 375px) {
+  main {
+    .mainSection {
+      .profileCont {
+        .mainInf {
+          height: 450px;
+
+          .information {
+            .infC {
+              p {
+                font-size: 15px;
+
+                button {
+                  width: 20px;
+                  height: 20px;
+                  font-size: 10px;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  main {
+    .mainSection {
+      .profileCont {
+        justify-content: center;
+        .mainInf {
+          width: 300px;
+          height: 500px;
         }
       }
     }
