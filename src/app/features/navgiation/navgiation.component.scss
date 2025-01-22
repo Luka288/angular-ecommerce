@@ -196,3 +196,15 @@ nav {
     }
   }
 }
+
+@media (max-width: 320px) {
+  nav {
+    .classic-navigation {
+      .navigation-buttons {
+        li {
+          text-align: center;
+        }
+      }
+    }
+  }
+}

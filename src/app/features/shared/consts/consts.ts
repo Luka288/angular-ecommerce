@@ -36,7 +36,7 @@ export const authNav: navigation[] = [
   },
 
   {
-    title: 'profile',
+    title: 'Profile',
     path: '/profile',
     iconSrc: ['bi', 'bi-person-circle'],
   },
@@ -47,8 +47,6 @@ export const authNav: navigation[] = [
     iconSrc: ['bi', 'bi-box-arrow-left'],
   },
 ];
-
-export const API_URL = new InjectionToken<string>('');
 
 export const responsiveOptions = [
   {
@@ -98,4 +96,12 @@ export const galeriaResponsive = [
     numVisible: 1,
     maxWidth: '300px',
   },
+];
+
+export const API_URL = new InjectionToken<string>('');
+
+export const disabledRoutes: string[] = [
+  '/auth',
+  '/profile',
+  '/reset-password',
 ];

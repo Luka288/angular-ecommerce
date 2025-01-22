@@ -1,5 +1,6 @@
 main {
   padding-top: 90px;
+  padding-bottom: 50px;
 
   .mainSection {
     width: 100%;
@@ -140,6 +141,31 @@ main {
   main {
     .mainSection {
       gap: 15px;
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  main {
+    .mainSection {
+      gap: 25px;
+      flex-wrap: wrap;
+
+      .categories {
+        width: 100%;
+      }
+
+      .items {
+        width: 100%;
+      }
+    }
+
+    .paginator {
+      .controlsUl {
+        li {
+          width: auto;
+        }
+      }
     }
   }
 }

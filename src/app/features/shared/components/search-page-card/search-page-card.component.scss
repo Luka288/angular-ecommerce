@@ -65,3 +65,10 @@
     }
   }
 }
+
+@media (max-width: 425px) {
+  .mainCard {
+    flex-direction: column;
+    height: fit-content;
+  }
+}

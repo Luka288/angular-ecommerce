@@ -29,6 +29,7 @@
                 "input": "public"
               }
             ],
+
             "styles": [
               "node_modules/primeicons/primeicons.css",
               "@angular/material/prebuilt-themes/magenta-violet.css",
