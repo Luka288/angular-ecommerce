@@ -1,140 +1,128 @@
 main {
-  height: 100vh;
-  background-color: #f8f9fa;
   padding-top: 90px;
 
-  section {
-    width: 85%;
-    height: fit-content;
-    margin: auto;
-    margin-top: 100px;
+  .mainSec {
+    width: 100%;
+    height: auto;
     display: flex;
-    justify-content: space-between;
+    padding-top: 30px;
+    // flex-direction: row;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
 
-    .mItems {
-      width: 50%;
+    .left {
+      width: 75%;
       height: 500px;
-      overflow: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-
-      .items {
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-      }
-
-      .cartHeader {
-        text-transform: capitalize;
-        margin-bottom: 20px;
-        border-bottom: 1px solid #333;
-
-        p {
-          font-size: 22px;
-          font-weight: 550;
-          color: #333;
-        }
-      }
+      overflow-y: auto;
     }
 
-    aside {
-      width: 500px;
-      height: fit-content;
-      border: 1px solid #dcdcdc;
-      background-color: white;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    .right {
+      width: 75%;
+      height: 250px;
+      background-color: #f6f4f1;
       padding: 20px;
+      font-family: "Raleway", "sans-serif";
 
-      .totalPrice {
+      .baseContainer {
+        width: 100%;
         display: flex;
-        justify-content: space-evenly;
-        text-transform: capitalize;
-        font-size: 26px;
-        border-bottom: 1px solid #e0e0e0;
+        justify-content: space-between;
 
-        p {
-          font-weight: 700;
+        .sideInfo {
+          .totalItems {
+            p {
+              text-transform: capitalize;
+              font-size: clamp(13px, 2vw, 20px);
+            }
+          }
+
+          .totPrice {
+            font-family: "Roboto", "sans-serif";
+            font-size: clamp(13px, 2vw, 25px);
+          }
         }
-      }
 
-      .shipping {
-        text-transform: capitalize;
-        margin: auto;
-        padding: 25px;
-
-        :nth-child(1) {
-          font-size: 20px;
-          font-weight: 550;
-        }
-      }
-
-      .bottomC {
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        padding-top: 15px;
-        border-top: 1px solid #e0e0e0;
-
-        p {
-          font-size: 25px;
+        .del {
+          width: 25%;
           text-transform: capitalize;
-          font-weight: 500;
+
+          .head {
+            .deliv {
+              span {
+                color: #2832c2;
+                text-transform: uppercase;
+                font-family: "Roboto", "Sans-Serif";
+                text-decoration: underline 2px solid #2832c2;
+              }
+            }
+          }
+
+          .cBody {
+            p {
+              font-size: clamp(10px, 2vw, 15px);
+
+              span {
+                text-transform: uppercase;
+                font-family: "Roboto", "sans-serif";
+              }
+            }
+          }
         }
 
-        button {
-          padding: 15px;
-          font-size: 15px;
-          font-weight: 500;
-          border: none;
-          color: #333;
-          background-color: #ffc107;
-          transition: all 0.3s;
+        .btnCon {
+          width: 25%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 15px;
+          font-family: "Roboto", "sans-serif";
 
-          &:hover {
-            background-color: #ffca28;
-            transition: all 0.3s;
+          .tot {
+            p {
+              font-size: clamp(13px, 2vw, 20px);
+            }
+          }
+
+          .btns {
+            display: flex;
+            gap: 15px;
           }
         }
       }
     }
   }
-}
 
-.notFound {
-  width: 100%;
-  height: 100vh;
-  padding-top: 90px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+  .comp {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
 
-@media (max-width: 768px) {
-  main {
-    height: 100%;
-
-    section {
-      flex-direction: column;
+    .complated {
+      width: 500px;
+      height: 350px;
+      border: 1px solid #cecdcd;
+      border-radius: 10px;
+      background-color: white;
+      text-align: center;
+      display: flex;
+      justify-content: center;
       align-items: center;
-      gap: 30px;
+      flex-direction: column;
 
-      .mItems {
-        width: 100%;
-        display: flex;
-        align-items: center;
-
-        .items {
-          width: 75%;
-        }
+      .text {
+        font-family: "Raleway", "sans-serif";
+        font-size: 25px;
+        color: #2832c2;
+        text-transform: uppercase;
       }
     }
   }
+}
 
-  aside {
-    width: 100%;
-  }
+.none {
+  padding-top: 90px;
 }

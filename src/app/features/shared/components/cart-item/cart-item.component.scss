@@ -1,14 +1,21 @@
 .card-body {
-  width: 750px;
+  width: auto;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   // justify-content: space-between;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background-color: #f9f9f9;
   padding: 15px;
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
 
   .mainBody {
+    width: fit-content;
     display: flex;
+    justify-content: space-around;
+    align-items: center;
+    // flex-wrap: wrap;
     padding: 20px;
     gap: 30px;
 
@@ -30,15 +37,16 @@
     }
 
     .baseInfo {
-      width: 250px;
+      width: 35%;
       display: flex;
       flex-direction: column;
-      font-size: 15px;
+      // font-size: 15px;
       color: #333;
 
       .titleContainer {
         .titleP {
-          font-size: 16px;
+          // font-size: 16px;
+          font-size: clamp(10px, 2vw, 18px);
           font-weight: 600;
           color: #222;
           margin: 0;
@@ -47,12 +55,13 @@
 
       .rating {
         display: flex;
-        align-items: center;
         gap: 10px;
 
         p {
-          margin: 0;
+          font-size: clamp(10px, 2vw, 13px);
+        }
 
+        span {
           i {
             color: orange;
           }
@@ -60,7 +69,8 @@
       }
 
       .priceCon {
-        font-size: 14px;
+        font-size: clamp(10px, 2vw, 15px);
+
         color: #6d6a6a;
         font-weight: 500;
       }
@@ -85,47 +95,71 @@
         border-radius: 4px;
         outline: none;
       }
-    }
-  }
 
-  .removeItem {
-    i {
-      color: #e74c3c;
-      font-size: 20px;
-      cursor: pointer;
+      .removeItem {
+        i {
+          color: #e74c3c;
+          font-size: 20px;
+          cursor: pointer;
+        }
+      }
     }
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 760px) {
   .card-body {
-    width: 100%;
-    flex-direction: column;
+    .mainBody {
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .rating {
+      display: flex;
+      gap: 10px;
+
+      span {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .card-body {
+    text-align: center;
 
     .mainBody {
+      gap: 10px;
+
       .imageContainer {
-        width: 100px;
-        height: 100px;
-        img {
-          width: 100px;
-          height: 100px;
-        }
+        display: none;
       }
 
       .baseInfo {
-        font-size: 12px;
-      }
+        width: auto;
 
-      .qtyCon {
-        input {
-          width: 100px;
+        .titleContainer {
+          .titleP {
+            font-size: 15px;
+          }
         }
-      }
-    }
 
-    .removeItem {
-      i {
-        font-size: 20px;
+        .rating {
+          padding-top: 3px;
+          justify-content: center;
+
+          p {
+            font-size: 15px;
+          }
+        }
+
+        .priceCon {
+          p {
+            font-size: 15px;
+          }
+        }
       }
     }
   }

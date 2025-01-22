@@ -1,15 +1,5 @@
-import {
-  Component,
-  inject,
-  numberAttribute,
-  SimpleChanges,
-} from '@angular/core';
-import {
-  ActivatedRoute,
-  ResolveEnd,
-  Router,
-  RouterModule,
-} from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SaveItemsService } from '../shared/services/save-items.service';
 import { ProductsService } from '../shared/services/products.service';
 import { single_item } from '../shared/interfaces/product.interface';
@@ -18,13 +8,14 @@ import {
   thumbnailInterface,
 } from '../shared/interfaces/slider.interface';
 import { GalleriaModule } from 'primeng/galleria';
-import { responsiveOptions, galeriaResponsive } from '../shared/consts/consts';
+import { galeriaResponsive } from '../shared/consts/consts';
 import { CommonModule } from '@angular/common';
 import { SelectComponent } from '../shared/components/select/select.component';
 import { TransformCurrencyPipe } from '../shared/pipes/transform-currency.pipe';
 import { AuthService } from '../shared/services/auth.service';
 import { CartService } from '../shared/services/cart.service';
 import { catchError, tap } from 'rxjs';
+import { AlertsServiceService } from '../shared/services/alerts-service.service';
 
 @Component({
   selector: 'app-product-page',
@@ -45,6 +36,7 @@ export class ProductPageComponent {
   private readonly router = inject(Router);
   private readonly authService = inject(AuthService);
   private readonly cartService = inject(CartService);
+  private readonly alert = inject(AlertsServiceService);
 
   singleItem: single_item | null = null;
   currentProductLib: thumbnailInterface[] = [];
@@ -115,13 +107,13 @@ export class ProductPageComponent {
   // in progress
 
   addToCart(_id: string, qty: number) {
-    // card ზე დასამატებელი ინფორმაცია
-    console.log({ product_id: _id, quantity: qty });
-
     this.cartService
       .createCart(_id, qty)!
       .pipe(
         tap((res) => {
+          if (res) {
+            this.alert.toast('Item added to cart', 'success', '');
+          }
           console.log(res);
         }),
         catchError((err) => {
@@ -141,6 +133,9 @@ export class ProductPageComponent {
   updateCart(id: string, qty: number) {
     this.cartService.updateCart(id, qty).subscribe((res) => {
       console.log(res);
+      if (res) {
+        this.alert.toast('Item added to cart', 'success', '');
+      }
     });
   }
 

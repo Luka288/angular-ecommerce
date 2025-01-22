@@ -11,13 +11,13 @@
       </div>
       <div class="rating">
         <p>Rating: {{ singleItem?.rating! | round : 1 }}</p>
-        <p
+        <span
           *ngFor="
             let stars of [].constructor(itemRating(singleItem?.rating).full)
           "
         >
           <i class="bi bi-star-fill"></i>
-        </p>
+        </span>
         <p *ngIf="itemRating(singleItem?.rating).half">
           <i class="bi bi-star-half"></i>
         </p>
@@ -39,9 +39,9 @@
         class="form-control form-control-sm"
         (input)="handleLimits()"
       />
+      <div class="removeItem">
+        <i class="bi bi-trash" (click)="remove(singleItem!._id)"></i>
+      </div>
     </div>
-  </div>
-  <div class="removeItem">
-    <i class="bi bi-trash" (click)="remove(singleItem!._id)"></i>
   </div>
 </div>

@@ -30,7 +30,7 @@
               See more {{ singleItem?.brand }} products
             </a>
             <span class="ratingStars" *ngIf="singleItem?.rating">
-              {{ singleItem?.rating }}
+              Rating: {{ singleItem?.rating }}
               <p
                 *ngFor="
                   let star of [].constructor(

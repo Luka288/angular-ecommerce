@@ -1,45 +1,79 @@
-<main>
-  <div class="notFound" *ngIf="baseProduct.length === 0">
-    <p>not found</p>
-  </div>
+<div class="none" *ngIf="baseProduct.length === 0">
+  <h1>cart is empty</h1>
+</div>
 
-  <section *ngIf="baseProduct.length > 0">
-    <div class="mItems">
-      <div class="cartHeader">
-        <p>Total items: {{ baseProduct.length }}</p>
+<main *ngIf="baseProduct.length > 0">
+  <div class="comp" *ngIf="toggleLoading">
+    @if (isSuccess) {
+    <div class="complated">
+      <div class="text">
+        <p>Payment Successful</p>
+        <p>You will be redirected in {{ count }}</p>
       </div>
-
-      <div class="items">
-        <app-cart-item
-          *ngFor="let items of baseProduct"
-          [cartItem]="items"
-          (onItemRemove)="removedItem($event)"
-          (totalPriceOutput)="updateTotalPrice($event)"
-        />
+      <div class="btn">
+        <button class="btn btn-primary" routerLink="/home">Home page</button>
       </div>
     </div>
+    }@else if (!isSuccess) {
+    <h1>Payment failed</h1>
+    }
+  </div>
 
-    <aside>
-      <div class="totalPrice">
-        <p>Summary</p>
-        <p>Total Price: {{ totalPrice }}</p>
-      </div>
-      <div class="shipping">
-        <p>shipping details</p>
-        <p>
-          After placing your order, we will deliver the product to the address
-          provided in your profile. Additionally, we will contact you to confirm
-          the delivery details and ensure the item is sent to the correct
-          address.
-        </p>
-      </div>
+  <section class="mainSec" *ngIf="!toggleLoading">
+    <div class="left">
+      <app-cart-item
+        *ngFor="let items of baseProduct"
+        [cartItem]="items"
+        (onItemRemove)="removedItem($event)"
+        (totalPriceOutput)="updateTotalPrice($event)"
+      />
+    </div>
+    <div class="right">
+      <div class="baseContainer">
+        <div class="sideInfo">
+          <div class="totalItems">
+            <p>{{ baseProduct.length }} items in your cart</p>
+          </div>
+          <div class="totPrice">
+            <p>Total price: {{ totalPrice | currency : "USD" }}</p>
+          </div>
+        </div>
+        <div class="del">
+          <div class="head">
+            <p class="deliv">
+              estimated delivery time <span>1 - 2 weeks</span>
+            </p>
+            <div class="cBody">
+              <p>
+                return policy:
+                <span>
+                  puchased product will be eligable to return in 30 days period
+                </span>
+              </p>
+            </div>
+            <div class="bott">
+              <p>
+                total quantity of items in your cart:
+                <span>{{ totalQty }}</span>
+              </p>
+            </div>
+          </div>
+        </div>
 
-      <div class="bottomC">
-        <button class="" (click)="purchaseProducts()">Place order</button>
-        <p>total: {{ totalPrice }}$</p>
+        <div class="btnCon">
+          <div class="tot">
+            <p>Total price: {{ totalPrice | currency : "USD" }}</p>
+          </div>
+          <div class="btns">
+            <button class="btn btn-success" (click)="purchaseProducts()">
+              Checkout
+            </button>
+            <button class="btn btn-danger" (click)="clearCart()">
+              Clear cart
+            </button>
+          </div>
+        </div>
       </div>
-    </aside>
-
-    <div class="bott"></div>
+    </div>
   </section>
 </main>
