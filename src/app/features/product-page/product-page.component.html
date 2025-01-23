@@ -150,4 +150,18 @@
       </div>
     </div>
   </section>
+
+  <section class="simItems">
+    <div class="titleCont">
+      <p>similar items</p>
+    </div>
+    <div class="sliderC">
+      <app-slider
+        *ngIf="categoryItems.length"
+        [sliderItem]="categoryItems"
+        (emitItemid)="emitedItemId($event)"
+      />
+      <!-- <app-base-slider *ngIf="categoryItems.length" [items]="categoryItems" /> -->
+    </div>
+  </section>
 </main>

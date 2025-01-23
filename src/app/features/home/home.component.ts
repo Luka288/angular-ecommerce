@@ -11,6 +11,9 @@ import { SaveItemsService } from '../shared/services/save-items.service';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingStateService } from '../shared/services/loading-state.service';
 import { LoadingComponentComponent } from '../shared/components/loading-component/loading-component.component';
+import { CartService } from '../shared/services/cart.service';
+import { AlertsServiceService } from '../shared/services/alerts-service.service';
+import { catchError, tap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +31,8 @@ import { LoadingComponentComponent } from '../shared/components/loading-componen
 export class HomeComponent {
   private readonly everrestProducts = inject(ProductsService);
   private readonly perviousProducts = inject(SaveItemsService);
+  private readonly cartService = inject(CartService);
+  private readonly alerts = inject(AlertsServiceService);
 
   products: products[] = [];
   brands: string[] = [];
@@ -66,5 +71,33 @@ export class HomeComponent {
         this.seenThree.push(res);
       });
     });
+  }
+
+  updateCart(_id: string, qty: number = 1) {
+    this.cartService.updateCart(_id, qty).subscribe((res) => {
+      console.log(res);
+      if (res) {
+        this.alerts.toast('Item updated in cart', 'success', '');
+      }
+    });
+  }
+
+  sliderCart(_id: string, qty: number = 1) {
+    this.cartService
+      .createCart(_id, qty)
+      .pipe(
+        tap((res) => {
+          if (res) {
+            this.alerts.toast('Item added to cart', 'success', '');
+          }
+        }),
+        catchError((err) => {
+          if (!err.ok) {
+            this.updateCart(_id, qty);
+          }
+          return '';
+        })
+      )
+      .subscribe((res) => {});
   }
 }

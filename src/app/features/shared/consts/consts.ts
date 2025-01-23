@@ -104,4 +104,5 @@ export const disabledRoutes: string[] = [
   '/auth',
   '/profile',
   '/reset-password',
+  '/cart',
 ];

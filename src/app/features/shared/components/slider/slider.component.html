@@ -50,13 +50,18 @@
           <p-button
             icon="pi pi-shopping-cart"
             styleClass="ml-2"
-            (click)="prevent($event)"
+            (click)="
+              $event.preventDefault();
+              $event.stopPropagation();
+              addToCart(product._id)
+            "
+            [disabled]="product.stock === 0 ? true : false"
           ></p-button>
           <p-button
             icon="pi pi-heart"
             severity="secondary"
             [outlined]="true"
-            (click)="prevent($event)"
+            (click)="$event.preventDefault(); $event.stopPropagation()"
           ></p-button>
         </span>
       </div>

@@ -1,5 +1,16 @@
 .base-nav {
   display: none;
+
+  .customClass {
+    a {
+      position: relative;
+      i {
+        span {
+          font-size: 13px;
+        }
+      }
+    }
+  }
 }
 
 .searchModal {

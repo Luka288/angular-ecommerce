@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
@@ -24,6 +30,7 @@ import { TransformCurrencyPipe } from '../../pipes/transform-currency.pipe';
 export class SliderComponent {
   @Input({ alias: 'sliderItem' }) sliderItem: products[] = [];
   @Input({ alias: 'brand' }) brand: string | undefined = undefined;
+  @Output() emitItemid = new EventEmitter<string>();
 
   products!: products[];
   filteredItems: products[] = [];
@@ -44,10 +51,12 @@ export class SliderComponent {
     } else {
       this.filteredItems = this.sliderItem;
     }
+    console.log(this.sliderItem);
   }
 
-  onProductClick() {
-    console.log('test');
+  addToCart(_id: string) {
+    console.log(_id);
+    this.emitItemid.emit(_id);
   }
 
   prevent(event: MouseEvent) {
@@ -55,17 +64,3 @@ export class SliderComponent {
     event.stopPropagation();
   }
 }
-
-// this.everrestProducts.getProducts().subscribe((res) => {
-//   this.products = res;
-//   console.log(this.products);
-// });
-
-//! სლაიდერის სეტაპი
-// <p-tag
-// [value]="product.inventoryStatus"
-// [severity]="'success'"
-// class="absolute"
-// styleClass="dark:!bg-surface-900"
-// [ngStyle]="{ 'left.px': 5, 'top.px': 5 }"
-// ></p-tag>

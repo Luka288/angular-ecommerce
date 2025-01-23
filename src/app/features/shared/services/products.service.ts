@@ -76,4 +76,10 @@ export class ProductsService {
   loadBrands() {
     return this.http.get<string>(`${this.API}/shop/products/brands`);
   }
+
+  getCategory(_id: string) {
+    return this.http.get<base_products>(
+      `${this.API}/shop/products/category/${_id}`
+    );
+  }
 }

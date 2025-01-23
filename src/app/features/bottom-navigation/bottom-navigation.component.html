@@ -10,10 +10,16 @@
         <i class="bi bi-search"></i>
       </a>
     </li>
-    <li>
+    <li class="customClass">
       <a>
-        <!-- <i class="bi bi-bag-heart-fill"></i> -->
-        <i class="bi bi-cart3" routerLink="/cart"></i>
+        <i class="bi bi-cart3" routerLink="/cart">
+          <span
+            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+            *ngIf="counter > 0"
+          >
+            {{ counter }}
+          </span>
+        </i>
       </a>
     </li>
     <li>

@@ -4,8 +4,7 @@ import { API_URL } from '../consts/consts';
 import { checkOut, userCart } from '../interfaces/cart.interface';
 import { userTokenEnum } from '../enums/token.enums';
 import { single_item } from '../interfaces/product.interface';
-import { tap } from 'rxjs';
-import { AlertsServiceService } from './alerts-service.service';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +13,13 @@ export class CartService {
   private readonly http = inject(HttpClient);
 
   constructor(@Inject(API_URL) private API: string) {}
+
+  counterSubject = new BehaviorSubject<number>(0);
+  counter$ = this.counterSubject.asObservable();
+
+  updateCounter(value: number) {
+    this.counterSubject.next(value);
+  }
 
   // თუ იუზერს არ აქვს Cart
   createCart(id: string, qty: number) {
@@ -29,9 +35,11 @@ export class CartService {
       quantity: qty,
     };
 
-    return this.http.post<userCart>(`${this.API}/shop/cart/product`, reqBody, {
-      headers,
-    });
+    return this.http
+      .post<userCart>(`${this.API}/shop/cart/product`, reqBody, {
+        headers,
+      })
+      .pipe(tap((res) => this.updateCounter(res.total.quantity)));
   }
 
   updateCart(id: string, quantity: number) {
@@ -47,9 +55,11 @@ export class CartService {
       quantity,
     };
 
-    return this.http.patch<userCart>(`${this.API}/shop/cart/product`, body, {
-      headers,
-    });
+    return this.http
+      .patch<userCart>(`${this.API}/shop/cart/product`, body, {
+        headers,
+      })
+      .pipe(tap((res) => this.updateCounter(res.total.quantity)));
   }
 
   getUserCart() {
@@ -60,7 +70,9 @@ export class CartService {
       Authorization: `Bearer ${token}`,
     });
 
-    return this.http.get<userCart>(`${this.API}/shop/cart`, { headers });
+    return this.http
+      .get<userCart>(`${this.API}/shop/cart`, { headers })
+      .pipe(tap((res) => this.updateCounter(res.total.quantity)));
   }
 
   removeItem(id: string) {
@@ -75,10 +87,12 @@ export class CartService {
       id: id,
     };
 
-    return this.http.delete<userCart>(`${this.API}/shop/cart/product`, {
-      headers,
-      body,
-    });
+    return this.http
+      .delete<userCart>(`${this.API}/shop/cart/product`, {
+        headers,
+        body,
+      })
+      .pipe(tap((res) => this.updateCounter(res.total.quantity)));
   }
 
   getItem(itemId: string) {

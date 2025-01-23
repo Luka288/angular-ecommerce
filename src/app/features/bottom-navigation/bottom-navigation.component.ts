@@ -1,4 +1,9 @@
-import { Component, inject } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  inject,
+  SimpleChanges,
+} from '@angular/core';
 import { SearchComponent } from '../shared/components/search/search.component';
 import { WindowResizeDirective } from '../shared/directives/window-resize.directive';
 import {
@@ -13,6 +18,7 @@ import { ProductsService } from '../shared/services/products.service';
 import { products } from '../shared/interfaces/product.interface';
 import { filter, map } from 'rxjs';
 import { disabledRoutes } from '../shared/consts/consts';
+import { CartService } from '../shared/services/cart.service';
 
 @Component({
   selector: 'app-bottom-navigation',
@@ -24,9 +30,13 @@ export class BottomNavigationComponent {
   private readonly productsService = inject(ProductsService);
   readonly searchService = inject(SearchBooleanService);
   private readonly router = inject(Router);
+  private readonly cartService = inject(CartService);
+  private readonly changeDetector = inject(ChangeDetectorRef);
 
+  counter: number = 0;
   foundItems: products[] = [];
   isVisible: boolean = true;
+  bottomSearchVisible: boolean = false;
 
   readonly forbiddenRoutes: string[] = disabledRoutes;
 
@@ -44,11 +54,16 @@ export class BottomNavigationComponent {
     });
   }
 
-  bottomSearchVisible: boolean = false;
+  ngOnInit() {
+    this.cartService.counter$.subscribe((res) => {
+      this.counter = res;
+      console.log(this.counter);
+      this.changeDetector.detectChanges();
+    });
+  }
 
   foundProducts(res: string): void {
     this.productsService.searchProducts(res).subscribe((res) => {
-      console.log(res);
       this.foundItems = res;
     });
   }

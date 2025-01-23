@@ -38,6 +38,10 @@
     <div class="containerTitle">
       <p>Choose from {{ brand }}</p>
     </div>
-    <app-slider [sliderItem]="products" [brand]="brand" />
+    <app-slider
+      [sliderItem]="products"
+      [brand]="brand"
+      (emitItemid)="sliderCart($event)"
+    />
   </section>
 </main>

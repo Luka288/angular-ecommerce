@@ -195,6 +195,23 @@ main {
       }
     }
   }
+
+  .simItems {
+    width: 75%;
+    border: 1px solid #d5d9d9;
+    margin: auto;
+    padding: 20px;
+    margin-bottom: 25px;
+    // margin-top: 90px;
+
+    .titleCont {
+      p {
+        font-size: 30px;
+        font-weight: 450;
+        text-transform: capitalize;
+      }
+    }
+  }
 }
 
 @media (max-width: 768px) {
@@ -208,6 +225,7 @@ main {
       flex-direction: column;
 
       .imageSide {
+        width: 100%;
         flex-direction: column;
       }
 

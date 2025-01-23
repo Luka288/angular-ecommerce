@@ -45,8 +45,7 @@ export class CartComponent {
       this.baseItems.push(res.total);
       this.totalPrice = res.total.price.current;
       this.totalQty = res.total.quantity;
-      console.log(this.baseItems);
-      console.log(res);
+      this.cartService.counterSubject.next(res.total.quantity);
     });
   }
 

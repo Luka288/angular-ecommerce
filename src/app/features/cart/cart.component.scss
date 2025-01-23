@@ -126,3 +126,43 @@ main {
 .none {
   padding-top: 90px;
 }
+
+@media (max-width: 768px) {
+  main {
+    .mainSec {
+      .right {
+        height: fit-content;
+
+        .baseContainer {
+          flex-wrap: wrap;
+          height: fit-content;
+          justify-content: center;
+          /* align-items: center; */
+          width: fit-content;
+
+          .sideInfo {
+            width: fit-content;
+            height: fit-content;
+          }
+
+          .del {
+            width: fit-content;
+            height: fit-content;
+          }
+
+          .btnCon {
+            width: fit-content;
+            height: fit-content;
+
+            .tot {
+              p {
+                text-align: center;
+                font-size: 21px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

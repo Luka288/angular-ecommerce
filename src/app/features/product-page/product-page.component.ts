@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SaveItemsService } from '../shared/services/save-items.service';
 import { ProductsService } from '../shared/services/products.service';
-import { single_item } from '../shared/interfaces/product.interface';
+import { products, single_item } from '../shared/interfaces/product.interface';
 import {
   single_thumbnail,
   thumbnailInterface,
@@ -16,6 +16,7 @@ import { AuthService } from '../shared/services/auth.service';
 import { CartService } from '../shared/services/cart.service';
 import { catchError, tap } from 'rxjs';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
+import { SliderComponent } from '../shared/components/slider/slider.component';
 
 @Component({
   selector: 'app-product-page',
@@ -25,6 +26,7 @@ import { AlertsServiceService } from '../shared/services/alerts-service.service'
     RouterModule,
     SelectComponent,
     TransformCurrencyPipe,
+    SliderComponent,
   ],
   templateUrl: './product-page.component.html',
   styleUrl: './product-page.component.scss',
@@ -43,7 +45,10 @@ export class ProductPageComponent {
   singleThumbnail: single_thumbnail[] = [];
   arrayOfStock!: number;
 
+  categoryItems: products[] = [];
+
   selectedQuantity: number = 1;
+  currentId: string | undefined = undefined;
 
   responsiveOptions = galeriaResponsive;
 
@@ -54,6 +59,8 @@ export class ProductPageComponent {
       this.perviousProducts.saveItems(product_id!);
       this.loadSingle(product_id!);
     });
+
+    this.getSimilarItems();
   }
 
   loadSingle(_id: string) {
@@ -68,7 +75,6 @@ export class ProductPageComponent {
           thumbnailImageSrc: image,
         });
       });
-
       // იღებს რესპონსიდან მხოლოდ სტოკს
       this.arrayOfStock = res['singleItem_resolve'].stock;
 
@@ -78,6 +84,7 @@ export class ProductPageComponent {
         },
       ];
     });
+    this.currentId = this.singleItem?.category?.id;
   }
 
   calcRating(rating?: number): { full: number; half: number } {
@@ -116,6 +123,8 @@ export class ProductPageComponent {
           }
           console.log(res);
         }),
+
+        //! რეფაქტორი
         catchError((err) => {
           if (
             err.error.error === 'User already created cart, use patch endpoint'
@@ -142,5 +151,15 @@ export class ProductPageComponent {
   addToWishlist(_id: string) {
     // wishlist ისთვის უბრალოდ _id
     console.log(_id);
+  }
+
+  getSimilarItems() {
+    this.everest.getCategory('1').subscribe((res) => {
+      this.categoryItems.push(...res.products);
+    });
+  }
+
+  emitedItemId(_id: string, qty: number = this.selectedQuantity) {
+    this.addToCart(_id, qty);
   }
 }
