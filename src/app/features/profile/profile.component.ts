@@ -7,6 +7,7 @@ import { ModalComponent } from '../shared/components/modal/modal.component';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
 import { userTokenEnum } from '../shared/enums/token.enums';
 import { catchError, tap } from 'rxjs';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-profile',
@@ -120,27 +121,11 @@ export class ProfileComponent {
     this.userService
       .passwordChange(passwords.oldPassword, passwords.newPassword)
       .pipe(
-        tap((res) => {
-          if (res) {
-            // იშლება ძველი ტოკენი
-            localStorage.removeItem(userTokenEnum.access_token);
-            localStorage.removeItem(userTokenEnum.refresh_token);
-
-            // ინახება ახალი ტოკენი
-            localStorage.setItem(userTokenEnum.access_token, res.access_token);
-            localStorage.setItem(
-              userTokenEnum.refresh_token,
-              res.refresh_token
-            );
-            this.alert.alert('Password changed successfully', 'success', '');
-          }
-        }),
-        catchError((err) => {
-          console.log(err);
-          this.alert.alert(err.error.error, 'error', '');
-          return err;
+        tap({
+          next: () => this.alert.alert('Password changed', 'success', ''),
+          error: (e) => this.alert.alert(e.error.error, 'error', ''),
         })
       )
-      .subscribe((res) => {});
+      .subscribe();
   }
 }

@@ -7,7 +7,7 @@ import {
   currUser,
   updatedResponse,
 } from '../interfaces/user.interface';
-import { last, map, tap } from 'rxjs';
+import { catchError, last, map, tap, throwError } from 'rxjs';
 import { replaceTokens } from '../interfaces/password.interface';
 
 @Injectable({
@@ -82,12 +82,18 @@ export class UserService {
       newPassword: newPassword,
     };
 
-    return this.http.patch<replaceTokens>(
-      `${this.API}/auth/change_password`,
-      body,
-      {
+    return this.http
+      .patch<replaceTokens>(`${this.API}/auth/change_password`, body, {
         headers,
-      }
-    );
+      })
+      .pipe(
+        tap((res) => {
+          localStorage.setItem(userTokenEnum.access_token, res.access_token);
+          localStorage.setItem(userTokenEnum.refresh_token, res.refresh_token);
+        }),
+        catchError((err) => {
+          return throwError(() => err);
+        })
+      );
   }
 }

@@ -45,9 +45,7 @@
                 (focus)="onFocus()"
               />
               @if (userChange.controls.inputControl.hasError('email')) {
-              <p class="text-danger">Enter correct email</p>
-              } @if (userChange.controls.inputControl.hasError('email')) {
-              <p class="text-danger">Enter correct email</p>
+              <p class="errorMessage">Enter correct <strong>email</strong></p>
               }
             </div>
             <div class="genderSelect" *ngIf="propertyKey === 'gender'">
@@ -87,19 +85,27 @@
                 @if
                 (passwordChangeForm.controls.oldPassword.hasError('minlength'))
                 {
-                <p class="text-danger">
-                  Password must be more then 8 or more characters
+                <p class="errorMessage">
+                  <strong>password</strong> must be more then 8 or more
+                  characters
                 </p>
                 }@else if
                 (passwordChangeForm.controls.oldPassword.hasError('maxlength'))
                 {
-                <p class="text-danger">
-                  Password must be less then 16 characters
+                <p class="errorMessage">
+                  <strong>password</strong> must be less then 16 characters
                 </p>
                 }@else if
                 (passwordChangeForm.controls.oldPassword.hasError('maxlength')
                 && passwordChangeForm.controls.oldPassword.touched) {
-                <p class="text-danger">old password is required</p>
+                <p class="errorMessage">
+                  old <strong>password</strong>r is required
+                </p>
+                }@else if (passwordChangeForm.controls.oldPassword.value ===
+                passwordChangeForm.controls.newPassword.value &&
+                passwordChangeForm.controls.oldPassword.value !== '' &&
+                passwordChangeForm.controls.newPassword.value !== '' ) {
+                <p class="errorMessage">Passwords cannot be same</p>
                 }
               </div>
 
@@ -114,6 +120,32 @@
                   id="newPassword"
                   [placeholder]="'Enter new ' + propertyLabel"
                 />
+                @if (passwordChangeForm.controls.oldPassword.value ===
+                passwordChangeForm.controls.newPassword.value &&
+                passwordChangeForm.controls.oldPassword.value !== '' &&
+                passwordChangeForm.controls.newPassword.value !== '' ) {
+                <p class="errorMessage">
+                  <strong>Passwords</strong> cannot be same
+                </p>
+                }@else if
+                (passwordChangeForm.controls.newPassword.hasError('required') &&
+                passwordChangeForm.controls.newPassword.touched) {
+                <p class="errorMessage">
+                  <strong>Password</strong> is required
+                </p>
+                }@else if
+                (passwordChangeForm.controls.newPassword.hasError('minlength')
+                && passwordChangeForm.controls.newPassword.touched) {
+                <p class="errorMessage">
+                  <strong>Password</strong> must be at least 8 characters
+                </p>
+                }@else if
+                (passwordChangeForm.controls.newPassword.hasError('maxlength')
+                && passwordChangeForm.controls.newPassword.touched) {
+                <p class="errorMessage">
+                  <strong>Password</strong> must be less then 16 characters
+                </p>
+                }
               </div>
             </div>
             <button

@@ -12,10 +12,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-modal',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, MatInputModule],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
 })
@@ -40,12 +41,16 @@ export class ModalComponent {
   });
 
   passwordChangeForm = new FormGroup({
-    oldPassword: new FormControl('', [
+    oldPassword: new FormControl('niniko7877', [
       Validators.minLength(8),
       Validators.maxLength(16),
       Validators.required,
     ]),
-    newPassword: new FormControl('', [Validators.minLength(8)]),
+    newPassword: new FormControl('niniko787', [
+      Validators.minLength(8),
+      Validators.maxLength(16),
+      Validators.required,
+    ]),
   });
 
   ngOnChanges() {
@@ -81,7 +86,8 @@ export class ModalComponent {
   submit() {
     if (
       !this.passwordChangeForm.controls.oldPassword.value ||
-      !this.passwordChangeForm.controls.newPassword.value
+      !this.passwordChangeForm.controls.newPassword.value ||
+      !this.passwordChangeForm.valid
     ) {
       this.passwordChangeForm.markAllAsTouched();
       return;
@@ -90,10 +96,10 @@ export class ModalComponent {
     const newPassword = this.passwordChangeForm.controls.newPassword.value;
 
     this.submitPassword(oldPassword!, newPassword!);
+    this.passwordChangeForm.reset();
   }
 
   submitPassword(oldPassword: string, newPassword: string) {
     this.emitNewPassword.emit({ oldPassword, newPassword });
-    this.passwordChangeForm.reset();
   }
 }
