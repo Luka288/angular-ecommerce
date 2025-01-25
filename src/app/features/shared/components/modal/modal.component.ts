@@ -35,6 +35,8 @@ export class ModalComponent {
     newPassword: string;
   }>();
 
+  currGender: string = '';
+
   userChange = new FormGroup({
     inputControl: new FormControl('', { nonNullable: true }),
     genderControl: new FormControl('Select Gender', { nonNullable: true }),
@@ -53,18 +55,15 @@ export class ModalComponent {
     ]),
   });
 
-  ngOnChanges() {
-    if (this.propertyKey === 'password') {
-    } else {
-      this.updatedValue;
-    }
-  }
-
   onFocus() {
     if (this.propertyKey === 'email') {
       this.userChange.controls.inputControl.setValidators([Validators.email]);
       this.userChange.controls.inputControl.updateValueAndValidity();
-    } else if (this.propertyKey === 'gender') {
+    } else {
+      this.userChange.controls.inputControl.removeValidators([
+        Validators.email,
+      ]);
+      this.userChange.controls.inputControl.updateValueAndValidity();
     }
   }
 
@@ -76,8 +75,14 @@ export class ModalComponent {
   }
 
   updatedValue(key: string, updatedVal: string | number) {
+    console.log({ key, updatedVal });
+
     if (updatedVal === '' || !this.userChange.controls.inputControl.valid) {
       return;
+    }
+
+    if (this.propertyKey === 'gender' && this.currGender !== '') {
+      this.emitValue.emit({ key, value: updatedVal });
     }
     this.emitValue.emit({ key, value: updatedVal });
     this.userChange.controls.inputControl.reset();
@@ -92,6 +97,14 @@ export class ModalComponent {
       this.passwordChangeForm.markAllAsTouched();
       return;
     }
+
+    if (this.propertyKey === 'gender') {
+      const gender = this.userChange.controls.genderControl.value;
+      this.updatedValue(this.propertyKey, gender);
+    }
+  }
+
+  submitPass() {
     const oldPassword = this.passwordChangeForm.controls.oldPassword.value;
     const newPassword = this.passwordChangeForm.controls.newPassword.value;
 

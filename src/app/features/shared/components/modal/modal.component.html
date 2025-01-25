@@ -149,7 +149,7 @@
             <button
               type="submit"
               class="btn btn-primary m-2"
-              (click)="submit()"
+              (click)="submitPass()"
             >
               Save Password
             </button>
@@ -174,13 +174,7 @@
           Close
         </button>
 
-        <button
-          type="submit"
-          class="btn btn-primary"
-          (click)="
-            updatedValue(propertyKey!, userChange.controls.inputControl.value)
-          "
-        >
+        <button type="submit" class="btn btn-primary" (click)="submit()">
           Save
         </button>
       </div>

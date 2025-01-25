@@ -26,8 +26,8 @@ export const authNav: navigation[] = [
   },
 
   {
-    title: 'support',
-    path: '',
+    title: 'about',
+    path: '/about',
   },
 
   {

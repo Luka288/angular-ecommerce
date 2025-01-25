@@ -99,11 +99,9 @@ export class ProfileComponent {
   }
 
   updateUser(key: string, updated: string | number) {
-    console.log(key, updated);
     if (updated === '') {
       return;
     }
-
     this.userService.updateUser(key, updated).subscribe((res) => {
       if (res) {
         this.updateTrack.reset();

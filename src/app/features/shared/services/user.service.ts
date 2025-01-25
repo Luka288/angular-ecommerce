@@ -32,7 +32,6 @@ export class UserService {
 
     return this.http.get<baseUser>(`${this.API}/auth`, { headers }).pipe(
       map((res) => {
-        // ჭირდება რეფაქტორი
         const currInfo: currUser = {
           firstName: res.firstName,
           lastName: res.lastName,
