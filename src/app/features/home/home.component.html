@@ -24,7 +24,7 @@
       </div>
       <div class="seenItemsItems">
         @for (item of seenThree; track $index) {
-        <app-card [singleItem]="item" />
+        <app-card [singleItem]="item" (cartItemId)="emitedItem($event)" />
         }
       </div>
     </div>

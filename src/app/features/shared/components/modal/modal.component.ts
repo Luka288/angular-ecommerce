@@ -29,10 +29,31 @@ export class ModalComponent {
     value: string | number;
   }>();
 
+  @Output() emitNewPassword = new EventEmitter<{
+    oldPassword: string;
+    newPassword: string;
+  }>();
+
   userChange = new FormGroup({
     inputControl: new FormControl('', { nonNullable: true }),
     genderControl: new FormControl('Select Gender', { nonNullable: true }),
   });
+
+  passwordChangeForm = new FormGroup({
+    oldPassword: new FormControl('', [
+      Validators.minLength(8),
+      Validators.maxLength(16),
+      Validators.required,
+    ]),
+    newPassword: new FormControl('', [Validators.minLength(8)]),
+  });
+
+  ngOnChanges() {
+    if (this.propertyKey === 'password') {
+    } else {
+      this.updatedValue;
+    }
+  }
 
   onFocus() {
     if (this.propertyKey === 'email') {
@@ -55,5 +76,24 @@ export class ModalComponent {
     }
     this.emitValue.emit({ key, value: updatedVal });
     this.userChange.controls.inputControl.reset();
+  }
+
+  submit() {
+    if (
+      !this.passwordChangeForm.controls.oldPassword.value ||
+      !this.passwordChangeForm.controls.newPassword.value
+    ) {
+      this.passwordChangeForm.markAllAsTouched();
+      return;
+    }
+    const oldPassword = this.passwordChangeForm.controls.oldPassword.value;
+    const newPassword = this.passwordChangeForm.controls.newPassword.value;
+
+    this.submitPassword(oldPassword!, newPassword!);
+  }
+
+  submitPassword(oldPassword: string, newPassword: string) {
+    this.emitNewPassword.emit({ oldPassword, newPassword });
+    this.passwordChangeForm.reset();
   }
 }

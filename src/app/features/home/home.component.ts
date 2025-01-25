@@ -100,4 +100,8 @@ export class HomeComponent {
       )
       .subscribe((res) => {});
   }
+
+  emitedItem(_id: string, qty: number = 1) {
+    console.log({ _id, qty });
+  }
 }

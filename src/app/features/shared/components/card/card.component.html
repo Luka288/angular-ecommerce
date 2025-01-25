@@ -45,7 +45,7 @@
         label="Add to cart"
         class="w-full"
         styleClass="w-full"
-        (click)="prevent($event)"
+        (click)="prevent($event); emitItem(item._id)"
       />
     </div>
   </ng-template>

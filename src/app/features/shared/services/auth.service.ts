@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, inject, Injectable } from '@angular/core';
 import { API_URL } from '../consts/consts';
 import { UserTokens } from '../interfaces/tokens.interface';
@@ -11,6 +11,7 @@ import {
 } from '../interfaces/user.registration.interface';
 import { userAvatar } from '../consts/avatar.generate';
 import { recover } from '../interfaces/passrecover.interface';
+import { replaceTokens } from '../interfaces/password.interface';
 
 @Injectable({
   providedIn: 'root',

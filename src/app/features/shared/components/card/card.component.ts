@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { products } from '../../interfaces/product.interface';
 import { TruncatePipe } from '../../pipes/Truncate.pipe';
 import { RouterLink } from '@angular/router';
 import { CardModule } from 'primeng/card';
 import { ButtonModule } from 'primeng/button';
 import { TransformCurrencyPipe } from '../../pipes/transform-currency.pipe';
+import { _getOptionScrollPosition } from '@angular/material/core';
 
 @Component({
   selector: 'app-card',
@@ -20,6 +21,7 @@ import { TransformCurrencyPipe } from '../../pipes/transform-currency.pipe';
 })
 export class CardComponent {
   @Input({ alias: 'singleItem' }) item!: products;
+  @Output() cartItemId = new EventEmitter<string>();
 
   constructor() {}
 
@@ -31,5 +33,9 @@ export class CardComponent {
   prevent(event: MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
+  }
+
+  emitItem(_id: string) {
+    this.cartItemId.emit(_id);
   }
 }

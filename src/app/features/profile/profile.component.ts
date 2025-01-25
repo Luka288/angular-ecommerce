@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ModalComponent } from '../shared/components/modal/modal.component';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
+import { userTokenEnum } from '../shared/enums/token.enums';
+import { catchError, tap } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -34,6 +36,7 @@ export class ProfileComponent {
       this.base = res.base;
       this.currUser = res.baseInf;
       this.convertObj(this.currUser);
+      console.log(this.currUser.password);
     });
   }
 
@@ -54,6 +57,12 @@ export class ProfileComponent {
         label: 'Email',
         Key: 'email',
         value: obj.email,
+      },
+
+      {
+        label: 'Password',
+        Key: 'password',
+        value: '****',
       },
 
       {
@@ -95,7 +104,6 @@ export class ProfileComponent {
     }
 
     this.userService.updateUser(key, updated).subscribe((res) => {
-      console.log(res);
       if (res) {
         this.updateTrack.reset();
         this.alert.alert('Profile updated successfully', 'success', '');
@@ -106,5 +114,33 @@ export class ProfileComponent {
 
   catchValue(event: { key: string; value: string | number }) {
     this.updateUser(event.key, event.value);
+  }
+
+  passwordChange(passwords: { oldPassword: string; newPassword: string }) {
+    this.userService
+      .passwordChange(passwords.oldPassword, passwords.newPassword)
+      .pipe(
+        tap((res) => {
+          if (res) {
+            // იშლება ძველი ტოკენი
+            localStorage.removeItem(userTokenEnum.access_token);
+            localStorage.removeItem(userTokenEnum.refresh_token);
+
+            // ინახება ახალი ტოკენი
+            localStorage.setItem(userTokenEnum.access_token, res.access_token);
+            localStorage.setItem(
+              userTokenEnum.refresh_token,
+              res.refresh_token
+            );
+            this.alert.alert('Password changed successfully', 'success', '');
+          }
+        }),
+        catchError((err) => {
+          console.log(err);
+          this.alert.alert(err.error.error, 'error', '');
+          return err;
+        })
+      )
+      .subscribe((res) => {});
   }
 }

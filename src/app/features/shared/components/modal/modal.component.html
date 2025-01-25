@@ -29,7 +29,10 @@
             "
             [formGroup]="userChange"
           >
-            <div class="mb-3" *ngIf="propertyKey !== 'gender'">
+            <div
+              class="mb-3"
+              *ngIf="propertyKey !== 'gender' && propertyKey !== 'password'"
+            >
               <label for="recipient-name" class="col-form-label"
                 >Change {{ propertyLabel }}:</label
               >
@@ -63,9 +66,75 @@
               </select>
             </div>
           </form>
+
+          <form
+            [formGroup]="passwordChangeForm"
+            *ngIf="propertyKey === 'password'"
+            (submit)="submit()"
+          >
+            <div class="passwordReset">
+              <div class="mb-3">
+                <label for="oldPassword" class="col-form-label"
+                  >Old Password</label
+                >
+                <input
+                  formControlName="oldPassword"
+                  type="password"
+                  class="form-control"
+                  id="oldPassword"
+                  [placeholder]="'Enter old ' + propertyLabel"
+                />
+                @if
+                (passwordChangeForm.controls.oldPassword.hasError('minlength'))
+                {
+                <p class="text-danger">
+                  Password must be more then 8 or more characters
+                </p>
+                }@else if
+                (passwordChangeForm.controls.oldPassword.hasError('maxlength'))
+                {
+                <p class="text-danger">
+                  Password must be less then 16 characters
+                </p>
+                }@else if
+                (passwordChangeForm.controls.oldPassword.hasError('maxlength')
+                && passwordChangeForm.controls.oldPassword.touched) {
+                <p class="text-danger">old password is required</p>
+                }
+              </div>
+
+              <div class="mb-3">
+                <label for="newPassword" class="col-form-label"
+                  >New Password</label
+                >
+                <input
+                  formControlName="newPassword"
+                  type="password"
+                  class="form-control"
+                  id="newPassword"
+                  [placeholder]="'Enter new ' + propertyLabel"
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary m-2"
+              (click)="submit()"
+            >
+              Save Password
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              (click)="resetForm()"
+            >
+              Close
+            </button>
+          </form>
         </div>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer" *ngIf="propertyKey !== 'password'">
         <button
           type="button"
           class="btn btn-secondary"
@@ -74,8 +143,9 @@
         >
           Close
         </button>
+
         <button
-          type="button"
+          type="submit"
           class="btn btn-primary"
           (click)="
             updatedValue(propertyKey!, userChange.controls.inputControl.value)

@@ -11,6 +11,7 @@ export interface baseUser {
   gender: string;
   phone: string;
   verified: boolean;
+  password: string;
   iat: number; // access_token
   exp: number; // refresh_token
 }
@@ -37,6 +38,7 @@ export interface currUser {
   age: number;
   phone: string;
   gender: string;
+  password: string;
   zipcode: string;
 }
 

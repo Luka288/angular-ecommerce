@@ -8,6 +8,7 @@ import {
   updatedResponse,
 } from '../interfaces/user.interface';
 import { last, map, tap } from 'rxjs';
+import { replaceTokens } from '../interfaces/password.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +42,7 @@ export class UserService {
           phone: res.phone,
           gender: res.gender,
           zipcode: res.zipcode,
+          password: res.password,
         };
 
         return { base: res, baseInf: currInfo };
@@ -64,6 +66,28 @@ export class UserService {
       `${this.API}/auth/update`,
       updateData,
       { headers }
+    );
+  }
+
+  passwordChange(oldPassword: string, newPassword: string) {
+    const token = localStorage.getItem(userTokenEnum.refresh_token);
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+
+    const body = {
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+    };
+
+    return this.http.patch<replaceTokens>(
+      `${this.API}/auth/change_password`,
+      body,
+      {
+        headers,
+      }
     );
   }
 }
