@@ -103,8 +103,7 @@
                 </p>
                 }@else if (passwordChangeForm.controls.oldPassword.value ===
                 passwordChangeForm.controls.newPassword.value &&
-                passwordChangeForm.controls.oldPassword.value !== '' &&
-                passwordChangeForm.controls.newPassword.value !== '' ) {
+                passwordChangeForm.controls.newPassword.value !== null ) {
                 <p class="errorMessage">Passwords cannot be same</p>
                 }
               </div>
@@ -122,8 +121,7 @@
                 />
                 @if (passwordChangeForm.controls.oldPassword.value ===
                 passwordChangeForm.controls.newPassword.value &&
-                passwordChangeForm.controls.oldPassword.value !== '' &&
-                passwordChangeForm.controls.newPassword.value !== '' ) {
+                passwordChangeForm.controls.newPassword.value !== null) {
                 <p class="errorMessage">
                   <strong>Passwords</strong> cannot be same
                 </p>
@@ -159,7 +157,7 @@
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
-              (click)="resetForm()"
+              (click)="resetPassform()"
             >
               Close
             </button>

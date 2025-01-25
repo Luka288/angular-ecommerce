@@ -102,4 +102,9 @@ export class ModalComponent {
   submitPassword(oldPassword: string, newPassword: string) {
     this.emitNewPassword.emit({ oldPassword, newPassword });
   }
+
+  resetPassform() {
+    this.passwordChangeForm.reset();
+    this.passwordChangeForm.untouched;
+  }
 }

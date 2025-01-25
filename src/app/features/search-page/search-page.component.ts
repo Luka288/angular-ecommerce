@@ -5,7 +5,9 @@ import { products } from '../shared/interfaces/product.interface';
 import { CommonModule } from '@angular/common';
 import { SearchPageCardComponent } from '../shared/components/search-page-card/search-page-card.component';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { debounceTime } from 'rxjs';
+import { debounceTime, tap } from 'rxjs';
+import { CartService } from '../shared/services/cart.service';
+import { AlertsServiceService } from '../shared/services/alerts-service.service';
 
 @Component({
   selector: 'app-search-page',
@@ -16,6 +18,8 @@ import { debounceTime } from 'rxjs';
 export class SearchPageComponent {
   private readonly productsService = inject(ProductsService);
   private readonly routerSnap = inject(ActivatedRoute);
+  private readonly cartService = inject(CartService);
+  private readonly alerts = inject(AlertsServiceService);
 
   products: products[] = [];
   panelItems: string[] = [];
@@ -89,11 +93,6 @@ export class SearchPageComponent {
         this.products = res.products;
         this.currentPage = res.page;
         this.totalPages = Math.floor(res.total / res.limit);
-
-        // კოდი გადატანლია getBrands() ფუნქციაში ყოველი foundItems - ის
-        // გამოძახებაზე ადუბლირებდა ბრენდებს
-
-        // res.products.map((brand) => this.panelItems.push(brand.brand));
       });
   }
 
@@ -124,5 +123,20 @@ export class SearchPageComponent {
     this.productsService.loadBrands().subscribe((res) => {
       this.panelItems = [...res];
     });
+  }
+
+  addToCart(_id: string, qty: number = 1) {
+    console.log(_id);
+
+    this.cartService
+      .createCart(_id, qty)
+      .pipe(
+        tap((res) => {
+          if (res) {
+            this.alerts.toast('Item Added to cart', 'success', '');
+          }
+        })
+      )
+      .subscribe();
   }
 }

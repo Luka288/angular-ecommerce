@@ -13,7 +13,7 @@
       </div>
       <div class="randomItems">
         @for (item of randomThree; track $index) {
-        <app-card [singleItem]="item" />
+        <app-card [singleItem]="item" (cartItemId)="emitedItem($event)" />
         }
       </div>
     </div>
@@ -24,7 +24,11 @@
       </div>
       <div class="seenItemsItems">
         @for (item of seenThree; track $index) {
-        <app-card [singleItem]="item" (cartItemId)="emitedItem($event)" />
+        <app-card
+          *ngIf="item"
+          [singleItem]="item"
+          (cartItemId)="emitedItem($event)"
+        />
         }
       </div>
     </div>

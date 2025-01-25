@@ -90,18 +90,21 @@ export class HomeComponent {
           if (res) {
             this.alerts.toast('Item added to cart', 'success', '');
           }
-        }),
-        catchError((err) => {
-          if (!err.ok) {
-            this.updateCart(_id, qty);
-          }
-          return '';
         })
       )
-      .subscribe((res) => {});
+      .subscribe();
   }
 
   emitedItem(_id: string, qty: number = 1) {
-    console.log({ _id, qty });
+    this.cartService
+      .createCart(_id, qty)
+      .pipe(
+        tap((res) => {
+          if (res) {
+            this.alerts.toast('Item added to cart', 'success', '');
+          }
+        })
+      )
+      .subscribe();
   }
 }

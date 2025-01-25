@@ -39,14 +39,15 @@
         class="w-full"
         [outlined]="true"
         styleClass="w-full"
-        (click)="prevent($event)"
+        (click)="prevent($event); emitItem(item._id)"
       />
       <p-button
         label="Add to cart"
+        [disabled]="item.stock === 0"
         class="w-full"
         styleClass="w-full"
-        (click)="prevent($event); emitItem(item._id)"
-      />
+        (click)="emitItem(item._id); prevent($event)"
+      ></p-button>
     </div>
   </ng-template>
 </p-card>

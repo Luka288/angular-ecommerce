@@ -4,7 +4,7 @@ import { API_URL } from '../consts/consts';
 import { checkOut, userCart } from '../interfaces/cart.interface';
 import { userTokenEnum } from '../enums/token.enums';
 import { single_item } from '../interfaces/product.interface';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +39,15 @@ export class CartService {
       .post<userCart>(`${this.API}/shop/cart/product`, reqBody, {
         headers,
       })
-      .pipe(tap((res) => this.updateCounter(res.total.quantity)));
+      .pipe(
+        tap((res) => this.updateCounter(res.total.quantity)),
+        catchError((err) => {
+          if (!err.ok) {
+            return this.updateCart(id, qty);
+          }
+          return '';
+        })
+      );
   }
 
   updateCart(id: string, quantity: number) {

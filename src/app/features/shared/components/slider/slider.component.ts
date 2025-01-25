@@ -51,11 +51,9 @@ export class SliderComponent {
     } else {
       this.filteredItems = this.sliderItem;
     }
-    console.log(this.sliderItem);
   }
 
   addToCart(_id: string) {
-    console.log(_id);
     this.emitItemid.emit(_id);
   }
 

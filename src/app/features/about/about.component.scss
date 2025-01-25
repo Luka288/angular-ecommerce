@@ -1,0 +1,76 @@
+main {
+  width: 100%;
+  padding-top: 90px;
+
+  section {
+    width: 75%;
+    height: 100%;
+    padding: 15px;
+    background-color: aliceblue;
+    margin: auto;
+    margin-bottom: 50px;
+
+    .top {
+      width: 65%;
+      margin: auto;
+
+      .text {
+        .titleT {
+          font-size: 25px;
+          font-weight: 500;
+        }
+
+        .mainText {
+        }
+
+        .bodyText {
+          width: fit-content;
+          margin: auto;
+          padding-top: 25px;
+          padding-bottom: 25px;
+        }
+      }
+    }
+
+    .accordion {
+      width: 350px;
+      margin: auto;
+
+      .accTitle {
+        p {
+          font-size: 25px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  main {
+    section {
+      width: 100%;
+      .top {
+        .text {
+          .titleT {
+          }
+
+          .mainText {
+          }
+
+          .bodyText {
+          }
+        }
+      }
+
+      .accordion {
+        width: 300px;
+
+        .accTitle {
+          p {
+          }
+        }
+      }
+    }
+  }
+}

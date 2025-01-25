@@ -37,5 +37,6 @@ export class CardComponent {
 
   emitItem(_id: string) {
     this.cartItemId.emit(_id);
+    console.log(_id);
   }
 }

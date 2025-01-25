@@ -78,6 +78,13 @@ export const routes: Routes = [
   },
 
   {
+    path: 'about',
+    loadComponent: () =>
+      import('./features/about/about.component').then((c) => c.AboutComponent),
+    title: 'Ecommerce | About',
+  },
+
+  {
     path: '**',
     redirectTo: 'home',
   },

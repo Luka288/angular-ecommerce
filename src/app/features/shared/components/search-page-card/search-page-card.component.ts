@@ -1,4 +1,4 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { products } from '../../interfaces/product.interface';
 import { CommonModule } from '@angular/common';
 import { TransformCurrencyPipe } from '../../pipes/transform-currency.pipe';
@@ -22,6 +22,8 @@ export class SearchPageCardComponent {
   @Input({ alias: 'itemInfo' }) itemInput!: products;
   @Input({ alias: 'rating' }) ratingInput: number | null = null;
 
+  @Output() emitCartItem = new EventEmitter<string>();
+
   // იგივე ფუნქცია რაც product page იყენებს ვარსკვლავებისთვის
   calcRating(rating?: number): { full: number; half: number } {
     const full = Math.floor(rating!);
@@ -31,5 +33,10 @@ export class SearchPageCardComponent {
 
   verifyUser(): boolean {
     return this.usercheck.checkUser();
+  }
+
+  emitItem(_id: string) {
+    this.emitCartItem.emit(_id);
+    console.log(_id);
   }
 }

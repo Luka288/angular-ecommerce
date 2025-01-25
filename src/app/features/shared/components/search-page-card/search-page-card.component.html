@@ -38,7 +38,11 @@
       class="buttons"
       (click)="$event.stopPropagation(); $event.preventDefault()"
     >
-      <button class="btn btn-warning" [disabled]="!verifyUser()">
+      <button
+        class="btn btn-warning"
+        [disabled]="!verifyUser() || itemInput.stock === 0"
+        (click)="emitItem(itemInput._id)"
+      >
         {{ verifyUser() ? "Add to cart" : "Sign in to buy" }}
       </button>
     </div>

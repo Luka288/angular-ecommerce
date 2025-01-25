@@ -8,8 +8,8 @@ export const baseNav: navigation[] = [
   },
 
   {
-    title: 'support',
-    path: '',
+    title: 'about',
+    path: '/about',
   },
 
   {
@@ -105,4 +105,5 @@ export const disabledRoutes: string[] = [
   '/profile',
   '/reset-password',
   '/cart',
+  '/about',
 ];
