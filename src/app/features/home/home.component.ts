@@ -14,6 +14,8 @@ import { LoadingComponentComponent } from '../shared/components/loading-componen
 import { CartService } from '../shared/services/cart.service';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
 import { catchError, tap } from 'rxjs';
+import { WishlistService } from '../shared/services/wishlist.service';
+import _default from '@primeng/themes/aura';
 
 @Component({
   selector: 'app-home',
@@ -33,6 +35,7 @@ export class HomeComponent {
   private readonly perviousProducts = inject(SaveItemsService);
   private readonly cartService = inject(CartService);
   private readonly alerts = inject(AlertsServiceService);
+  private readonly wishlistService = inject(WishlistService);
 
   products: products[] = [];
   brands: string[] = [];
@@ -106,5 +109,9 @@ export class HomeComponent {
         })
       )
       .subscribe();
+  }
+
+  wislistedItems(_id: string) {
+    this.wishlistService.saveItems(_id);
   }
 }

@@ -36,6 +36,11 @@ export const authNav: navigation[] = [
   },
 
   {
+    title: 'wishlist',
+    path: '/wishlist',
+  },
+
+  {
     title: 'Profile',
     path: '/profile',
     iconSrc: ['bi', 'bi-person-circle'],

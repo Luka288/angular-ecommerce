@@ -50,6 +50,15 @@ export const routes: Routes = [
   },
 
   {
+    path: 'wishlist',
+    loadComponent: () =>
+      import('./features/wishlist/wishlist.component').then(
+        (c) => c.WishlistComponent
+      ),
+    title: 'Ecommerce | Wishlist page',
+  },
+
+  {
     path: 'search',
     loadComponent: () =>
       import('./features/search-page/search-page.component').then(

@@ -1,0 +1,19 @@
+main {
+  padding-top: 90px;
+
+  section.products {
+    width: 75%;
+    height: 500px;
+    padding: 20px;
+    border: 1px solid #cccbcb;
+    margin: auto;
+    overflow: auto;
+  }
+
+  section.bottom {
+    width: 75%;
+    height: 250px;
+    margin: auto;
+    background: black;
+  }
+}

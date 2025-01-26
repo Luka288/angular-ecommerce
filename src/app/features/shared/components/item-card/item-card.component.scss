@@ -1,0 +1,39 @@
+.card-item {
+  width: 450px;
+
+  .cardBody {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+
+    .imageContainer {
+      width: 150px;
+      height: 150px;
+
+      img {
+        width: 150px;
+        height: 150px;
+        object-fit: contain;
+      }
+    }
+
+    .baseBody {
+      display: flex;
+      flex-direction: column;
+
+      .titleP {
+        font-size: 20px;
+        font-weight: 600;
+      }
+    }
+
+    .removeItem {
+      i {
+        color: red;
+        cursor: pointer;
+        font-size: 20px;
+      }
+    }
+  }
+}

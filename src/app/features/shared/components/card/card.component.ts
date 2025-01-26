@@ -22,6 +22,7 @@ import { _getOptionScrollPosition } from '@angular/material/core';
 export class CardComponent {
   @Input({ alias: 'singleItem' }) item!: products;
   @Output() cartItemId = new EventEmitter<string>();
+  @Output() wishlist = new EventEmitter<string>();
 
   constructor() {}
 
@@ -37,6 +38,9 @@ export class CardComponent {
 
   emitItem(_id: string) {
     this.cartItemId.emit(_id);
-    console.log(_id);
+  }
+
+  emitwishlistedItem(_id: string) {
+    this.wishlist.emit(_id);
   }
 }

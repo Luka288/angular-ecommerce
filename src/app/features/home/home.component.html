@@ -13,7 +13,11 @@
       </div>
       <div class="randomItems">
         @for (item of randomThree; track $index) {
-        <app-card [singleItem]="item" (cartItemId)="emitedItem($event)" />
+        <app-card
+          [singleItem]="item"
+          (cartItemId)="emitedItem($event)"
+          (wishlist)="wislistedItems($event)"
+        />
         }
       </div>
     </div>
@@ -28,6 +32,7 @@
           *ngIf="item"
           [singleItem]="item"
           (cartItemId)="emitedItem($event)"
+          (wishlist)="wislistedItems($event)"
         />
         }
       </div>

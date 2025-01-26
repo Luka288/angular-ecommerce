@@ -1,0 +1,20 @@
+<div class="card-item">
+  <div class="cardBody">
+    <div class="imageContainer">
+      <img [src]="product.thumbnail" [alt]="product.title" />
+    </div>
+    <div class="baseBody">
+      <div>
+        <p class="titleP">
+          {{ product.title }}
+        </p>
+      </div>
+      <div class="priceCon">
+        <p>Product price: {{ product.price.current }}</p>
+      </div>
+    </div>
+    <div class="removeItem">
+      <i class="bi bi-trash" (click)="remove(product._id)"></i>
+    </div>
+  </div>
+</div>

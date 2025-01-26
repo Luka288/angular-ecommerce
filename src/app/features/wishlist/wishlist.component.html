@@ -1,0 +1,10 @@
+<main>
+  <section class="products">
+    <app-item-card
+      *ngFor="let item of items"
+      (removedItem)="removeItem($event)"
+      [products]="item"
+    />
+  </section>
+  <section class="bottom"></section>
+</main>
