@@ -56,6 +56,7 @@ export const routes: Routes = [
         (c) => c.WishlistComponent
       ),
     title: 'Ecommerce | Wishlist page',
+    canActivate: [userGuard],
   },
 
   {
