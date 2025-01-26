@@ -1,5 +1,8 @@
 .card-item {
-  width: 450px;
+  width: 500px;
+  padding: 10px;
+  border: 1px solid #dad9d9;
+  background-color: #f9f9f9;
 
   .cardBody {
     width: 100%;
@@ -34,6 +37,22 @@
         cursor: pointer;
         font-size: 20px;
       }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .card-item {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .card-item {
+    width: 100%;
+
+    .cardBody {
+      flex-direction: column;
     }
   }
 }

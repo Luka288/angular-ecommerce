@@ -15,6 +15,8 @@ export class WishlistComponent {
   private readonly wishlistService = inject(WishlistService);
 
   items: single_item[] = [];
+  counter: number = 0;
+  totalPrice: number = 0;
 
   ngOnInit(): void {
     const storedItems = JSON.parse(localStorage.getItem('wishlist') || '[]');
@@ -27,7 +29,8 @@ export class WishlistComponent {
   loadItems(_id: string) {
     this.wishlistService.getItems(_id).subscribe((res) => {
       this.items.push(res);
-      console.log(res);
+      this.counter = this.items.length;
+      this.totalPrice += res.price.current;
     });
   }
 
@@ -39,5 +42,21 @@ export class WishlistComponent {
     const updatedItems = storageItems.filter((item: string) => item !== _id);
 
     localStorage.setItem('wishlist', JSON.stringify(updatedItems));
+
+    this.counter = this.items.length;
+
+    // აკლდება კონკრეტული item ის ფასი reduce მეთოდით
+    this.totalPrice = this.items.reduce(
+      (acc, item) => acc + item.price.current,
+      0
+    );
+  }
+
+  clearWishlist() {
+    localStorage.setItem('wishlist', JSON.stringify([]));
+    this.items = [];
+
+    this.counter = 0;
+    this.totalPrice = 0;
   }
 }

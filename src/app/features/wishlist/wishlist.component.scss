@@ -8,12 +8,29 @@ main {
     border: 1px solid #cccbcb;
     margin: auto;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
   }
 
   section.bottom {
     width: 75%;
     height: 250px;
     margin: auto;
-    background: black;
+    padding: 25px;
+    background-color: #f6f4f1;
+    color: black;
+    text-align: center;
+
+    .totalCounter {
+      font-family: "Roboto", "sans-serif";
+      text-transform: capitalize;
+
+      p {
+        font-size: 25px;
+        font-weight: 600;
+      }
+    }
   }
 }

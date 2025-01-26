@@ -111,4 +111,5 @@ export const disabledRoutes: string[] = [
   '/reset-password',
   '/cart',
   '/about',
+  '/wishlist',
 ];
