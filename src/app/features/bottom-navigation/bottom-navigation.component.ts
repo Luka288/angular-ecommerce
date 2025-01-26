@@ -1,17 +1,7 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  inject,
-  SimpleChanges,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { SearchComponent } from '../shared/components/search/search.component';
 import { WindowResizeDirective } from '../shared/directives/window-resize.directive';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-  RouterModule,
-} from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { SearchBooleanService } from '../shared/services/search-boolean.service';
 import { CommonModule } from '@angular/common';
 import { ProductsService } from '../shared/services/products.service';

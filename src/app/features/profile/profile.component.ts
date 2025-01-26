@@ -37,7 +37,6 @@ export class ProfileComponent {
       this.base = res.base;
       this.currUser = res.baseInf;
       this.convertObj(this.currUser);
-      console.log(this.currUser.password);
     });
   }
 

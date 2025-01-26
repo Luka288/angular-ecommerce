@@ -59,8 +59,6 @@ export class UserService {
 
     const updateData = { [key]: value };
 
-    console.log(updateData);
-
     return this.http.patch<updatedResponse>(
       `${this.API}/auth/update`,
       updateData,

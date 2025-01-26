@@ -55,18 +55,6 @@ export class ModalComponent {
     ]),
   });
 
-  onFocus() {
-    if (this.propertyKey === 'email') {
-      this.userChange.controls.inputControl.setValidators([Validators.email]);
-      this.userChange.controls.inputControl.updateValueAndValidity();
-    } else {
-      this.userChange.controls.inputControl.removeValidators([
-        Validators.email,
-      ]);
-      this.userChange.controls.inputControl.updateValueAndValidity();
-    }
-  }
-
   resetForm() {
     this.isOpen = false;
     if (!this.isOpen) {
@@ -75,8 +63,6 @@ export class ModalComponent {
   }
 
   updatedValue(key: string, updatedVal: string | number) {
-    console.log({ key, updatedVal });
-
     if (updatedVal === '' || !this.userChange.controls.inputControl.valid) {
       return;
     }
@@ -84,29 +70,30 @@ export class ModalComponent {
     if (this.propertyKey === 'gender' && this.currGender !== '') {
       this.emitValue.emit({ key, value: updatedVal });
     }
+
     this.emitValue.emit({ key, value: updatedVal });
     this.userChange.controls.inputControl.reset();
   }
 
   submit() {
-    if (
-      !this.passwordChangeForm.controls.oldPassword.value ||
-      !this.passwordChangeForm.controls.newPassword.value ||
-      !this.passwordChangeForm.valid
-    ) {
-      this.passwordChangeForm.markAllAsTouched();
-      return;
-    }
-
     if (this.propertyKey === 'gender') {
       const gender = this.userChange.controls.genderControl.value;
       this.updatedValue(this.propertyKey, gender);
     }
+
+    const updatedVal = this.userChange.controls.inputControl.value;
+
+    this.updatedValue(this.propertyKey!, updatedVal);
   }
 
   submitPass() {
     const oldPassword = this.passwordChangeForm.controls.oldPassword.value;
     const newPassword = this.passwordChangeForm.controls.newPassword.value;
+
+    if (oldPassword === newPassword) {
+      this.passwordChangeForm.markAllAsTouched();
+      return;
+    }
 
     this.submitPassword(oldPassword!, newPassword!);
     this.passwordChangeForm.reset();
