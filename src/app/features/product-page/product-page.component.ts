@@ -17,6 +17,7 @@ import { CartService } from '../shared/services/cart.service';
 import { catchError, tap } from 'rxjs';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
 import { SliderComponent } from '../shared/components/slider/slider.component';
+import { WishlistService } from '../shared/services/wishlist.service';
 
 @Component({
   selector: 'app-product-page',
@@ -39,6 +40,7 @@ export class ProductPageComponent {
   private readonly authService = inject(AuthService);
   private readonly cartService = inject(CartService);
   private readonly alert = inject(AlertsServiceService);
+  private readonly wishlistService = inject(WishlistService);
 
   singleItem: single_item | null = null;
   currentProductLib: thumbnailInterface[] = [];
@@ -50,6 +52,8 @@ export class ProductPageComponent {
   selectedQuantity: number = 1;
   currentId: string | undefined = undefined;
 
+  currentCategory: string = '';
+
   responsiveOptions = galeriaResponsive;
 
   constructor() {
@@ -60,7 +64,7 @@ export class ProductPageComponent {
       this.loadSingle(product_id!);
     });
 
-    this.getSimilarItems();
+    this.getSimilarItems(this.currentCategory);
   }
 
   loadSingle(_id: string) {
@@ -68,6 +72,8 @@ export class ProductPageComponent {
       // ? ავტომატურად არ ცარიელდება
       this.currentProductLib = [];
       this.singleThumbnail = [];
+
+      this.currentCategory = res['singleItem_resolve'].category.id;
 
       this.singleItem = res['singleItem_resolve'];
       this.singleItem?.images.forEach((image) => {
@@ -121,7 +127,6 @@ export class ProductPageComponent {
           if (res) {
             this.alert.toast('Item added to cart', 'success', '');
           }
-          console.log(res);
         }),
 
         //! რეფაქტორი
@@ -134,14 +139,11 @@ export class ProductPageComponent {
           return '';
         })
       )
-      .subscribe((res) => {
-        console.log(res);
-      });
+      .subscribe((res) => {});
   }
 
   updateCart(id: string, qty: number) {
     this.cartService.updateCart(id, qty).subscribe((res) => {
-      console.log(res);
       if (res) {
         this.alert.toast('Item added to cart', 'success', '');
       }
@@ -149,17 +151,22 @@ export class ProductPageComponent {
   }
 
   addToWishlist(_id: string) {
-    // wishlist ისთვის უბრალოდ _id
-    console.log(_id);
+    this.wishlistService.saveItems(_id);
+    this.alert.toast('Item added to wishlist', 'success', '');
   }
 
-  getSimilarItems() {
-    this.everest.getCategory('1').subscribe((res) => {
+  getSimilarItems(_categoryId: string) {
+    this.everest.getCategory(_categoryId).subscribe((res) => {
       this.categoryItems.push(...res.products);
     });
   }
 
   emitedItemId(_id: string, qty: number = this.selectedQuantity) {
     this.addToCart(_id, qty);
+  }
+
+  wishlist(_id: string) {
+    this.wishlistService.saveItems(_id);
+    this.alert.toast('Item added to wishlist', 'success', '');
   }
 }

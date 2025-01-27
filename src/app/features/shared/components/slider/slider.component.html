@@ -61,7 +61,11 @@
             icon="pi pi-heart"
             severity="secondary"
             [outlined]="true"
-            (click)="$event.preventDefault(); $event.stopPropagation()"
+            (click)="
+              $event.preventDefault();
+              $event.stopPropagation();
+              wishlistedId(product._id)
+            "
           ></p-button>
         </span>
       </div>

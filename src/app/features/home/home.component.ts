@@ -78,7 +78,6 @@ export class HomeComponent {
 
   updateCart(_id: string, qty: number = 1) {
     this.cartService.updateCart(_id, qty).subscribe((res) => {
-      console.log(res);
       if (res) {
         this.alerts.toast('Item updated in cart', 'success', '');
       }
@@ -111,7 +110,8 @@ export class HomeComponent {
       .subscribe();
   }
 
-  wislistedItems(_id: string) {
+  wishlistedItems(_id: string) {
     this.wishlistService.saveItems(_id);
+    this.alerts.toast('Item added to wishlist', 'success', '');
   }
 }

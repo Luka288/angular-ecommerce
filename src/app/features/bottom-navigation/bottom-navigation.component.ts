@@ -47,7 +47,6 @@ export class BottomNavigationComponent {
   ngOnInit() {
     this.cartService.counter$.subscribe((res) => {
       this.counter = res;
-      console.log(this.counter);
       this.changeDetector.detectChanges();
     });
   }

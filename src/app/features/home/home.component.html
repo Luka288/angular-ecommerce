@@ -16,7 +16,7 @@
         <app-card
           [singleItem]="item"
           (cartItemId)="emitedItem($event)"
-          (wishlist)="wislistedItems($event)"
+          (wishlist)="wishlistedItems($event)"
         />
         }
       </div>
@@ -32,7 +32,7 @@
           *ngIf="item"
           [singleItem]="item"
           (cartItemId)="emitedItem($event)"
-          (wishlist)="wislistedItems($event)"
+          (wishlist)="wishlistedItems($event)"
         />
         }
       </div>
@@ -51,6 +51,7 @@
       [sliderItem]="products"
       [brand]="brand"
       (emitItemid)="sliderCart($event)"
+      (emitWishlist)="wishlistedItems($event)"
     />
   </section>
 </main>

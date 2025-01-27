@@ -155,7 +155,6 @@ export class AuthPageComponent {
     this.authService.verifyEmail(email).subscribe((res) => {
       if (res.status === 200) {
         this.alert.alert('Check email to verify', 'success', res.message);
-        console.log(res.message);
       }
     });
   }

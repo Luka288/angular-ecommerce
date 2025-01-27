@@ -65,11 +65,9 @@ export class CartComponent {
 
   purchaseProducts() {
     this.cartService.orderProducts().subscribe((res) => {
-      console.log(res);
       this.toggleLoading = true;
       if (res.success) {
         this.isSuccess = true;
-        console.log(res);
         setInterval(() => {
           this.count--;
           if (this.count === 0) {

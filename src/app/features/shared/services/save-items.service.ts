@@ -10,7 +10,6 @@ export class SaveItemsService {
 
   saveItems(_id?: string): void {
     if (this.savedItems.includes(_id!)) {
-      console.log('Already saved');
       return;
     }
 

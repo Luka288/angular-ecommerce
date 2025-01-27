@@ -31,6 +31,7 @@ export class SliderComponent {
   @Input({ alias: 'sliderItem' }) sliderItem: products[] = [];
   @Input({ alias: 'brand' }) brand: string | undefined = undefined;
   @Output() emitItemid = new EventEmitter<string>();
+  @Output() emitWishlist = new EventEmitter<string>();
 
   products!: products[];
   filteredItems: products[] = [];
@@ -60,5 +61,9 @@ export class SliderComponent {
   prevent(event: MouseEvent) {
     event.preventDefault();
     event.stopPropagation();
+  }
+
+  wishlistedId(_id: string) {
+    this.emitWishlist.emit(_id);
   }
 }

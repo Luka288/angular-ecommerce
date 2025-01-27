@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { WishlistService } from '../shared/services/wishlist.service';
 import { single_item } from '../shared/interfaces/product.interface';
-import { CartItemComponent } from '../shared/components/cart-item/cart-item.component';
 import { ItemCardComponent } from '../shared/components/item-card/item-card.component';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-wishlist',
-  imports: [ItemCardComponent, ItemCardComponent, CommonModule],
+  imports: [ItemCardComponent, ItemCardComponent, CommonModule, RouterModule],
   templateUrl: './wishlist.component.html',
   styleUrl: './wishlist.component.scss',
 })

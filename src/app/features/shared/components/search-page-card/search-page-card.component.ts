@@ -15,10 +15,6 @@ import { AuthService } from '../../services/auth.service';
 export class SearchPageCardComponent {
   private readonly usercheck = inject(AuthService);
 
-  ngOnInit() {
-    console.log(this.verifyUser());
-  }
-
   @Input({ alias: 'itemInfo' }) itemInput!: products;
   @Input({ alias: 'rating' }) ratingInput: number | null = null;
 
@@ -37,6 +33,5 @@ export class SearchPageCardComponent {
 
   emitItem(_id: string) {
     this.emitCartItem.emit(_id);
-    console.log(_id);
   }
 }

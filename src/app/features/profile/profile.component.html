@@ -13,13 +13,23 @@
           <p>{{ base?.firstName }} {{ base?.lastName }}</p>
         </div>
         <div class="baseInf">
+          <p>First name: {{ base?.firstName }}</p>
+
+          <p>Last name: {{ base?.lastName }}</p>
+
+          <p>
+            email :
+            <span>
+              {{ base?.email }}
+            </span>
+          </p>
+
           <p>
             user ID :
             <span>
               {{ base?._id }}
             </span>
           </p>
-          <p>age : {{ base?.age }}</p>
         </div>
       </div>
 

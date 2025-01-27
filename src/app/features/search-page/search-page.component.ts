@@ -66,8 +66,6 @@ export class SearchPageComponent {
       .subscribe((values) => {
         const { brandFilter, priceRange, sortBy, sortDir } = values;
 
-        console.log(values);
-
         const filteredQuery = brandFilter || this.searchQuery;
 
         this.foundItems(
@@ -126,8 +124,6 @@ export class SearchPageComponent {
   }
 
   addToCart(_id: string, qty: number = 1) {
-    console.log(_id);
-
     this.cartService
       .createCart(_id, qty)
       .pipe(

@@ -1,4 +1,16 @@
-<main>
+<div class="none" *ngIf="!items.length">
+  <div class="imgCon">
+    <img src="https://cdn-icons-png.flaticon.com/512/4379/4379925.png" alt="" />
+  </div>
+  <div class="text">
+    <p>No items found in wishlist</p>
+  </div>
+  <div class="redir">
+    <button class="btn btn-warning" routerLink="home">Home page</button>
+  </div>
+</div>
+
+<main *ngIf="items.length">
   <section class="products">
     <app-item-card
       *ngFor="let item of items"

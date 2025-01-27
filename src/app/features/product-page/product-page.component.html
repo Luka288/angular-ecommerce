@@ -160,6 +160,7 @@
         *ngIf="categoryItems.length"
         [sliderItem]="categoryItems"
         (emitItemid)="emitedItemId($event)"
+        (emitWishlist)="wishlist($event)"
       />
       <!-- <app-base-slider *ngIf="categoryItems.length" [items]="categoryItems" /> -->
     </div>

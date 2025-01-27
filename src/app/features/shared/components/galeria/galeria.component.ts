@@ -11,10 +11,6 @@ import { imgUrls } from '../../consts/carouse.urls';
   styleUrl: './galeria.component.scss',
 })
 export class GaleriaComponent {
-  //! no api :(
-  // @Input() images: thumbnailInterface[] = [];
-  // [images]="thumbnails"
-
   responsiveOptions = responsiveOptions;
 
   images: thumbnailInterface[] = imgUrls;

@@ -9,7 +9,7 @@ export const imgUrls: thumbnailInterface[] = [
   {
     // samsung
     thumbnailImageSrc:
-      'https://pbs.twimg.com/card_img/1872480723724304384/PkVlVHTP?format=jpg&name=large',
+      'https://oasis.opstatics.com/content/dam/oasis/page/2021/lemonade/news/oneplus-launches-oneplus-9-series-flagship-smartphones-and-first-ever-oneplus-watch/9%20PRO%20FAMILY.jpg',
   },
 
   {

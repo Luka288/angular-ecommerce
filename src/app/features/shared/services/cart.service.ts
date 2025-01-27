@@ -40,7 +40,6 @@ export class CartService {
         headers,
       })
       .pipe(
-        tap((res) => this.updateCounter(res.total.quantity)),
         catchError((err) => {
           if (!err.ok) {
             return this.updateCart(id, qty);
@@ -67,7 +66,7 @@ export class CartService {
       .patch<userCart>(`${this.API}/shop/cart/product`, body, {
         headers,
       })
-      .pipe(tap((res) => this.updateCounter(res.total.quantity)));
+      .pipe();
   }
 
   getUserCart() {
@@ -78,9 +77,7 @@ export class CartService {
       Authorization: `Bearer ${token}`,
     });
 
-    return this.http
-      .get<userCart>(`${this.API}/shop/cart`, { headers })
-      .pipe(tap((res) => this.updateCounter(res.total.quantity)));
+    return this.http.get<userCart>(`${this.API}/shop/cart`, { headers }).pipe();
   }
 
   removeItem(id: string) {
@@ -100,7 +97,7 @@ export class CartService {
         headers,
         body,
       })
-      .pipe(tap((res) => this.updateCounter(res.total.quantity)));
+      .pipe();
   }
 
   getItem(itemId: string) {
@@ -109,8 +106,6 @@ export class CartService {
 
   orderProducts() {
     const token = localStorage.getItem(userTokenEnum.refresh_token);
-
-    console.log(token);
 
     const headers = new HttpHeaders({
       accept: '*/*',

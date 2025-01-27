@@ -7,10 +7,6 @@ import Swal, { SweetAlertIcon } from 'sweetalert2';
 export class AlertsServiceService {
   // ალერტების სერვისი (SweetAlerts)
 
-  constructor() {
-    console.log('initialized');
-  }
-
   alert(title: string, icon: SweetAlertIcon, text = '') {
     Swal.fire({ title, icon, text });
   }
