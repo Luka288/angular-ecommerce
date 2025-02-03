@@ -50,6 +50,7 @@ export class HomeComponent {
   ngOnInit(): void {
     this.everrestProducts.getProducts().subscribe((res) => {
       this.products = res;
+      this.loading = false;
     });
 
     //? ანელებს ფეიჯს
@@ -71,7 +72,6 @@ export class HomeComponent {
   loadRandomProducts() {
     this.everrestProducts.random$.subscribe((res) => {
       this.randomThree = res;
-      this.loading = false;
     });
   }
 
