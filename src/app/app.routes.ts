@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { mainPageResolver } from './features/shared/resolvers/main-page.resolver';
 import { randomThreeItemResolver } from './features/shared/resolvers/random-three-item.resolver';
 import { singleItemResolver } from './features/shared/resolvers/single-item.resolver';
 import { authGuard } from './features/shared/guards/auth.guard';
@@ -18,6 +17,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/home/home.component').then((c) => c.HomeComponent),
     title: 'Ecommerce | Home',
+    //? ანელებს ფეიჯს
+    // resolve: {
+    //   mainItemsResolver: randomThreeItemResolver,
+    // },
   },
 
   {

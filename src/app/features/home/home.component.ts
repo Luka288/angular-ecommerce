@@ -8,14 +8,13 @@ import { CardComponent } from '../shared/components/card/card.component';
 import { GaleriaComponent } from '../shared/components/galeria/galeria.component';
 import { thumbnailInterface } from '../shared/interfaces/slider.interface';
 import { SaveItemsService } from '../shared/services/save-items.service';
-import { ActivatedRoute } from '@angular/router';
-import { LoadingStateService } from '../shared/services/loading-state.service';
 import { LoadingComponentComponent } from '../shared/components/loading-component/loading-component.component';
 import { CartService } from '../shared/services/cart.service';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
-import { catchError, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { WishlistService } from '../shared/services/wishlist.service';
 import _default from '@primeng/themes/aura';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -37,6 +36,9 @@ export class HomeComponent {
   private readonly alerts = inject(AlertsServiceService);
   private readonly wishlistService = inject(WishlistService);
 
+  //? რეზოლვერისთვის
+  private readonly actSnap = inject(ActivatedRoute);
+
   products: products[] = [];
   brands: string[] = [];
   randomThree: products[] = [];
@@ -50,7 +52,12 @@ export class HomeComponent {
       this.products = res;
     });
 
-    this.everrestProducts.brands().subscribe((res) => {
+    //? ანელებს ფეიჯს
+    // this.actSnap.data.subscribe((items) => {
+    //   this.products = items['mainItemsResolver'];
+    // });
+
+    this.everrestProducts.brands$.subscribe((res) => {
       this.brands = res;
     });
 
@@ -62,7 +69,7 @@ export class HomeComponent {
   }
 
   loadRandomProducts() {
-    this.everrestProducts.randomProducts().subscribe((res) => {
+    this.everrestProducts.random$.subscribe((res) => {
       this.randomThree = res;
       this.loading = false;
     });

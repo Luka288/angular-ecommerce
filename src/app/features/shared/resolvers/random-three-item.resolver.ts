@@ -11,6 +11,8 @@ export const randomThreeItemResolver: ResolveFn<products[]> = (
 ) => {
   const everrestProducts = inject(ProductsService);
   const loadingService = inject(LoadingStateService);
+
   loadingService.show();
-  return everrestProducts.randomProducts();
+
+  return everrestProducts.getProducts();
 };

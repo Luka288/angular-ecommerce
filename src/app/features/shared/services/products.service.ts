@@ -6,7 +6,7 @@ import {
   single_item,
 } from '../interfaces/product.interface';
 import { API_URL } from '../consts/consts';
-import { map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, of, tap } from 'rxjs';
 import { BrandNames } from '../interfaces/brands.interface';
 
 @Injectable({
@@ -17,33 +17,36 @@ export class ProductsService {
 
   constructor(@Inject(API_URL) private API: string) {}
 
+  private brandsSubject = new BehaviorSubject<string[]>([]);
+  brands$ = this.brandsSubject.asObservable();
+
+  private randomItems = new BehaviorSubject<products[]>([]);
+  random$ = this.randomItems.asObservable();
+
   getProducts() {
     return this.http
       .get<base_products>(`${this.API}/shop/products/all?page_size=50`)
-      .pipe(map((res) => res.products));
-  }
+      .pipe(
+        tap((res) => {
+          const brands = res.products
+            .map((product) => product.brand)
+            .filter((value, index, self) => self.indexOf(value) === index)
+            .filter(
+              (brand) =>
+                res.products.filter((product) => product.brand === brand)
+                  .length >= 3
+            );
 
-  randomProducts() {
-    return this.getProducts().pipe(
-      map((res) => {
-        const randomProduct = res.sort(() => Math.random() - 0.5);
-        return randomProduct.slice(0, 3);
-      })
-    );
-  }
+          // მხოლოდ ბრენდების სახელი
+          this.brandsSubject.next(brands);
 
-  brands() {
-    return this.getProducts().pipe(
-      map((res) => {
-        return res
-          .map((product) => product.brand)
-          .filter((value, index, self) => self.indexOf(value) === index)
-          .filter(
-            (brand) =>
-              res.filter((product) => product.brand === brand).length >= 3
+          // რენდომული 3 აითემი
+          this.randomItems.next(
+            res.products.sort(() => Math.random() - 0.5).slice(0, 3)
           );
-      })
-    );
+        }),
+        map((res) => res.products)
+      );
   }
 
   searchProducts(query?: string) {
