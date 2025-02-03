@@ -17,6 +17,7 @@ export class WishlistComponent {
   items: single_item[] = [];
   counter: number = 0;
   totalPrice: number = 0;
+  currency_holder: string = '';
 
   ngOnInit(): void {
     const storedItems = JSON.parse(localStorage.getItem('wishlist') || '[]');
@@ -28,6 +29,7 @@ export class WishlistComponent {
 
   loadItems(_id: string) {
     this.wishlistService.getItems(_id).subscribe((res) => {
+      this.currency_holder = res.price.currency;
       this.items.push(res);
       this.counter = this.items.length;
       this.totalPrice += res.price.current;

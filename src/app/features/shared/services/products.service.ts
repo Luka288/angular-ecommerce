@@ -6,7 +6,8 @@ import {
   single_item,
 } from '../interfaces/product.interface';
 import { API_URL } from '../consts/consts';
-import { map } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
+import { BrandNames } from '../interfaces/brands.interface';
 
 @Injectable({
   providedIn: 'root',
