@@ -5,10 +5,16 @@ import { AuthService } from '../shared/services/auth.service';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LoadingComponentComponent } from '../shared/components/loading-component/loading-component.component';
 
 @Component({
   selector: 'app-reset-password',
-  imports: [MatInputModule, ReactiveFormsModule, CommonModule],
+  imports: [
+    MatInputModule,
+    ReactiveFormsModule,
+    CommonModule,
+    LoadingComponentComponent,
+  ],
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.scss',
 })
@@ -23,14 +29,21 @@ export class ResetPasswordComponent {
 
   isSended: boolean = false;
 
+  loading: boolean = false;
+
   submit() {
     if (!this.userEmail.valid) {
       return;
     }
+
+    this.loading = true;
+
     this.autService.recoverPass(this.userEmail.value!).subscribe((res) => {
+      console.log(res);
       if (res.status === 200) {
         this.alert.alert('Password sent to gmail', 'success', res.message);
         this.isSended = true;
+        this.loading = false;
         this.redirect();
       }
     });
