@@ -18,8 +18,10 @@
         >
           <i class="bi bi-star-fill"></i>
         </span>
-        <p *ngIf="itemRating(singleItem?.rating).half">
-          <i class="bi bi-star-half"></i>
+        <p>
+          <span *ngIf="itemRating(singleItem?.rating).half">
+            <i class="bi bi-star-half half-star"></i>
+          </span>
         </p>
       </div>
       <div class="priceCon">
