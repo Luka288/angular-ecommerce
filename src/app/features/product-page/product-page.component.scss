@@ -214,6 +214,18 @@ main {
   }
 }
 
+@media (max-width: 1440px) {
+  main {
+    .mainInfo {
+      align-items: normal;
+
+      .purchaseContainer {
+        margin-top: 90px;
+      }
+    }
+  }
+}
+
 @media (max-width: 768px) {
   main {
     width: 100%;
