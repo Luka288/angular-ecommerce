@@ -11,7 +11,6 @@ import {
 } from '../interfaces/user.registration.interface';
 import { userAvatar } from '../consts/avatar.generate';
 import { recover } from '../interfaces/passrecover.interface';
-import { replaceTokens } from '../interfaces/password.interface';
 
 @Injectable({
   providedIn: 'root',

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
+  inject,
   Input,
   Output,
   SimpleChanges,
@@ -11,8 +12,10 @@ import { CarouselModule } from 'primeng/carousel';
 import { TagModule } from 'primeng/tag';
 import { products } from '../../interfaces/product.interface';
 import { responsiveOptions } from '../../consts/consts';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { TransformCurrencyPipe } from '../../pipes/transform-currency.pipe';
+import { AuthService } from '../../services/auth.service';
+import { AlertsServiceService } from '../../services/alerts-service.service';
 
 @Component({
   selector: 'app-slider',
@@ -28,6 +31,10 @@ import { TransformCurrencyPipe } from '../../pipes/transform-currency.pipe';
   styleUrl: './slider.component.scss',
 })
 export class SliderComponent {
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly alert = inject(AlertsServiceService);
+
   @Input({ alias: 'sliderItem' }) sliderItem: products[] = [];
   @Input({ alias: 'brand' }) brand: string | undefined = undefined;
   @Output() emitItemid = new EventEmitter<string>();
@@ -36,7 +43,13 @@ export class SliderComponent {
   products!: products[];
   filteredItems: products[] = [];
 
+  currentUserState: boolean = false;
+
   responsiveLayout = responsiveOptions;
+
+  constructor() {
+    this.checkUser();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['sliderItem'] || changes['brand']) {
@@ -65,5 +78,23 @@ export class SliderComponent {
 
   wishlistedId(_id: string) {
     this.emitWishlist.emit(_id);
+  }
+
+  // ამოწმებს იუზერს თუ არის ავტორიზირებული
+  // redirect ფუნქციას გადაყავს იუზერი ავტორიზაციის ფეიჯზე
+  // თუ არა ავტორიზირებულმა იუზერმა გადაწყვიტა კარტაზე
+  // ნივთების დამატება
+  checkUser() {
+    this.authService.authState$.subscribe((res) => {
+      if (res) {
+        this.currentUserState = res;
+      }
+    });
+    return this.currentUserState;
+  }
+
+  redirect() {
+    this.router.navigateByUrl('/auth');
+    this.alert.toast('You must authorize first', 'error', '');
   }
 }

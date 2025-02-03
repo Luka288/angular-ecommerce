@@ -46,7 +46,10 @@
         [disabled]="item.stock === 0"
         class="w-full"
         styleClass="w-full"
-        (click)="emitItem(item._id); prevent($event)"
+        (click)="
+          currentUserState === false ? redirect() : emitItem(item._id);
+          prevent($event)
+        "
       ></p-button>
     </div>
   </ng-template>

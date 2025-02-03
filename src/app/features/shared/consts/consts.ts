@@ -13,6 +13,11 @@ export const baseNav: navigation[] = [
   },
 
   {
+    title: 'wishlist',
+    path: '/wishlist',
+  },
+
+  {
     title: 'Login',
     path: '/auth',
     iconSrc: ['bi', 'bi-box-arrow-in-right'],

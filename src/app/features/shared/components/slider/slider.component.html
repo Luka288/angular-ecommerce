@@ -45,13 +45,11 @@
           </p>
         </div>
         <span>
-          <!-- ! შესასწროებელია იუზერის მიხედვით თუ ავტორიზირებულია -->
-          <!-- ! მაშინ Add to cart სხვა შემთხვევაში View item -->
           <p-button
             icon="pi pi-shopping-cart"
             styleClass="ml-2"
             (click)="
-              $event.preventDefault();
+              currentUserState === false ? redirect() : $event.preventDefault();
               $event.stopPropagation();
               addToCart(product._id)
             "
