@@ -95,8 +95,8 @@ export class SearchPageComponent {
   foundItems(
     querry: string,
     page_index: number = 1,
-    page_size: number = this.save_page_size,
     price_max: number = this.priceControl,
+    page_size: number = this.save_page_size,
     sort_by: string = 'price',
     sort_dir: string = 'asc'
   ) {
@@ -170,9 +170,26 @@ export class SearchPageComponent {
     // სხვა შემთხევევაში რექევესტი გადის პირდაპირ
     if (this.totalItems / page_size < this.currentPage) {
       this.currentPage = 1;
-      this.foundItems(this.searchQuery, this.currentPage, page_size);
+      this.foundItems(
+        this.searchQuery,
+        this.currentPage,
+        this.priceControl,
+        page_size
+      );
     } else {
-      this.foundItems(this.searchQuery, this.currentPage, page_size);
+      this.foundItems(
+        this.searchQuery,
+        this.currentPage,
+        this.priceControl,
+        page_size
+      );
     }
   }
 }
+
+// querry: string,
+// page_index: number = 1,
+// page_size: number = this.save_page_size,
+// price_max: number = this.priceControl,
+// sort_by: string = 'price',
+// sort_dir: string = 'asc'

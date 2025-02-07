@@ -70,6 +70,7 @@ main {
     justify-content: center;
     align-items: center;
     color: black;
+    flex-wrap: wrap;
 
     ul {
       display: flex;
@@ -103,34 +104,40 @@ main {
         }
       }
     }
-    .controlsUl {
-      font-family: "Raleway", "sans-serif";
 
-      li {
-        width: 95px;
-        height: 48px;
-        background-color: white;
-        border: 1px solid #d5d9d9;
-        list-style: none;
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .wrapPaginator {
+      display: flex;
+      gap: 15px;
 
-        a {
-          font-size: 19px;
-          color: black;
-        }
+      .controlsUl {
+        font-family: "Raleway", "sans-serif";
 
-        &.denied {
-          background-color: #e0e0e0;
-          cursor: not-allowed;
-          user-select: none;
-        }
+        li {
+          width: 95px;
+          height: 48px;
+          background-color: white;
+          border: 1px solid #d5d9d9;
+          list-style: none;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
 
-        &:not(.denied):hover {
-          background-color: gainsboro;
-          transition: all 0.2s;
+          a {
+            font-size: 19px;
+            color: black;
+          }
+
+          &.denied {
+            background-color: #e0e0e0;
+            cursor: not-allowed;
+            user-select: none;
+          }
+
+          &:not(.denied):hover {
+            background-color: gainsboro;
+            transition: all 0.2s;
+          }
         }
       }
     }
@@ -141,6 +148,10 @@ main {
   main {
     .mainSection {
       gap: 15px;
+    }
+
+    .paginator {
+      margin-bottom: 90px;
     }
   }
 }
@@ -161,9 +172,30 @@ main {
     }
 
     .paginator {
-      .controlsUl {
-        li {
-          width: auto;
+      margin-bottom: 90px;
+
+      .wrapPaginator {
+        .controlsUl {
+          li {
+            width: auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 320px) {
+  main {
+    .paginator {
+      margin-bottom: 120px;
+
+      .wrapPaginator {
+        ul {
+          li {
+            width: 30px;
+            height: 50px;
+          }
         }
       }
     }

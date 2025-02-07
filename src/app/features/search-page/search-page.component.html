@@ -140,32 +140,34 @@
       />
     </div>
 
-    <ul class="controlsUl">
-      <li
-        [class.denied]="currentPage === 1"
-        (click)="previousPage(currentPage - 1)"
-      >
-        <a class="controls">Previous</a>
-      </li>
-    </ul>
-    <ul>
-      <li
-        *ngFor="let page of [].constructor(totalPages); let i = index"
-        [class.active]="i + 1 === currentPage"
-        (click)="handlePage(i + 1)"
-      >
-        <a>
-          {{ i + 1 }}
-        </a>
-      </li>
-    </ul>
-    <ul class="controlsUl">
-      <li
-        [class.denied]="currentPage === totalPages"
-        (click)="nextPage(currentPage + 1)"
-      >
-        <a class="controls">Next</a>
-      </li>
-    </ul>
+    <div class="wrapPaginator">
+      <ul class="controlsUl">
+        <li
+          [class.denied]="currentPage === 1"
+          (click)="previousPage(currentPage - 1)"
+        >
+          <a class="controls">Previous</a>
+        </li>
+      </ul>
+      <ul>
+        <li
+          *ngFor="let page of [].constructor(totalPages); let i = index"
+          [class.active]="i + 1 === currentPage"
+          (click)="handlePage(i + 1)"
+        >
+          <a>
+            {{ i + 1 }}
+          </a>
+        </li>
+      </ul>
+      <ul class="controlsUl">
+        <li
+          [class.denied]="currentPage === totalPages"
+          (click)="nextPage(currentPage + 1)"
+        >
+          <a class="controls">Next</a>
+        </li>
+      </ul>
+    </div>
   </div>
 </main>
