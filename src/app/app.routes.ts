@@ -24,6 +24,15 @@ export const routes: Routes = [
   },
 
   {
+    path: 'test',
+    loadComponent: () =>
+      import(
+        './features/shared/components/paginator-dropdown/paginator-dropdown.component'
+      ).then((c) => c.PaginatorDropdownComponent),
+    title: 'Test Page',
+  },
+
+  {
     path: 'profile',
     loadComponent: () =>
       import('./features/profile/profile.component').then(

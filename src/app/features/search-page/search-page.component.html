@@ -133,6 +133,13 @@
 
   <!-- paginator -->
   <div class="paginator" *ngIf="totalPages">
+    <div class="pageSize">
+      <app-paginator-dropdown
+        [totalPagesInput]="products.length"
+        (notifyPageSize)="getPageSize($event)"
+      />
+    </div>
+
     <ul class="controlsUl">
       <li
         [class.denied]="currentPage === 1"

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, SimpleChange, SimpleChanges } from '@angular/core';
 import { ProductsService } from '../shared/services/products.service';
 import { ActivatedRoute, ResolveEnd, Router } from '@angular/router';
 import { products } from '../shared/interfaces/product.interface';
@@ -8,10 +8,16 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, tap } from 'rxjs';
 import { CartService } from '../shared/services/cart.service';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
+import { PaginatorDropdownComponent } from '../shared/components/paginator-dropdown/paginator-dropdown.component';
 
 @Component({
   selector: 'app-search-page',
-  imports: [CommonModule, SearchPageCardComponent, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    SearchPageCardComponent,
+    ReactiveFormsModule,
+    PaginatorDropdownComponent,
+  ],
   templateUrl: './search-page.component.html',
   styleUrl: './search-page.component.scss',
 })
@@ -25,6 +31,13 @@ export class SearchPageComponent {
   panelItems: string[] = [];
   totalPages: number = 0;
   currentPage: number = 1;
+
+  totalItems: number = 0;
+
+  // default ად page ის ზომა იქნება 10
+  // მაგრამ შემდეგ ჩანაცვლდება paginator-dropdown - ისგან
+  // მოწოდებული რიცხვით
+  save_page_size: number = 10;
 
   sortedBy: string = 'price';
   priceControl: number = 10000;
@@ -72,6 +85,7 @@ export class SearchPageComponent {
           filteredQuery,
           this.currentPage,
           priceRange,
+          this.save_page_size,
           sortBy,
           sortDir
         );
@@ -81,16 +95,25 @@ export class SearchPageComponent {
   foundItems(
     querry: string,
     page_index: number = 1,
+    page_size: number = this.save_page_size,
     price_max: number = this.priceControl,
     sort_by: string = 'price',
     sort_dir: string = 'asc'
   ) {
     this.productsService
-      .searchProduct(querry, page_index, price_max, sort_by, sort_dir)
+      .searchProduct(
+        querry,
+        page_index,
+        price_max,
+        page_size,
+        sort_by,
+        sort_dir
+      )
       .subscribe((res) => {
         this.products = res.products;
         this.currentPage = res.page;
-        this.totalPages = Math.floor(res.total / res.limit);
+        this.totalPages = Math.ceil(res.total / res.limit);
+        this.totalItems = res.total;
       });
   }
 
@@ -134,5 +157,22 @@ export class SearchPageComponent {
         })
       )
       .subscribe();
+  }
+
+  // ფუნქციაში ახლდება page_size და თან ამოწმებს იმას რომ მომხმარებელი
+  // არ იდგეს არარსებულ გვერდზე
+  getPageSize(page_size: number) {
+    this.save_page_size = page_size;
+
+    // თუ მაგალითად ნივთების რაოდენობა გაყოფილი page_size ზე არის
+    // ნაკლები ამჟამინდელი გვერდის ინდექსზე მაშინ currentPage ხდება 1
+    // ანუ მომხმარებელი ბრუნდება საწყის გვერდზე რო არ იდგეს არარსებულ გვერდზე
+    // სხვა შემთხევევაში რექევესტი გადის პირდაპირ
+    if (this.totalItems / page_size < this.currentPage) {
+      this.currentPage = 1;
+      this.foundItems(this.searchQuery, this.currentPage, page_size);
+    } else {
+      this.foundItems(this.searchQuery, this.currentPage, page_size);
+    }
   }
 }

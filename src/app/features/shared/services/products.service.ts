@@ -69,11 +69,12 @@ export class ProductsService {
     _querry: string,
     page_index: number = 1,
     price_max: number = 10000,
+    page_size: number = 10,
     sort_by: string = 'price',
     sort_dir: string = 'asc'
   ) {
     return this.http.get<base_products>(
-      `${this.API}/shop/products/search?keywords=${_querry}&page_size=10&page_index=${page_index}&price_max=${price_max}&sort_by=${sort_by}&sort_direction=${sort_dir}`
+      `${this.API}/shop/products/search?keywords=${_querry}&page_size=${page_size}&page_index=${page_index}&price_max=${price_max}&sort_by=${sort_by}&sort_direction=${sort_dir}`
     );
   }
 
