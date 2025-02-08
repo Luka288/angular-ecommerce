@@ -17,6 +17,18 @@ main {
       flex-direction: column;
       justify-content: center;
       margin: auto;
+
+      .nothingFound {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        img {
+          width: 250px;
+          height: 250px;
+        }
+      }
     }
 
     .categories {

@@ -124,7 +124,13 @@
         (emitCartItem)="addToCart($event)"
       />
       }@empty {
-      <p>Nothing found :(</p>
+      <div class="nothingFound">
+        <img
+          src="https://cdn-icons-png.freepik.com/512/7465/7465679.png"
+          alt=""
+        />
+        <p>Nothing found</p>
+      </div>
       }
 
       <!-- *ngFor="let item of products" -->
