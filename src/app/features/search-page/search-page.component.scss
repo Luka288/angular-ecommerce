@@ -54,6 +54,12 @@ main {
         .wrapOrders {
           margin-bottom: 20px;
         }
+
+        .filterBrands {
+          .brandOption {
+            text-transform: capitalize;
+          }
+        }
       }
     }
   }

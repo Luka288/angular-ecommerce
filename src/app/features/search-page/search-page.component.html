@@ -6,7 +6,11 @@
           <p>Filter by brand:</p>
           <select class="form-select" formControlName="brandFilter">
             <option value="" selected>Select brand</option>
-            <option *ngFor="let item of panelItems" [value]="item">
+            <option
+              *ngFor="let item of panelItems"
+              [value]="item"
+              class="brandOption"
+            >
               {{ item }}
             </option>
           </select>
