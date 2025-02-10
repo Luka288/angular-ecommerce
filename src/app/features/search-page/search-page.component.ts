@@ -192,9 +192,8 @@ export class SearchPageComponent {
     }
   }
 
-  // ზრდის page - ის ლიმიტს 10 ით იმ შემთხვევაში
-  // როცა დირექტივა გადმოსცემს true იმ შემთხვეცაში როცა
-  // ახლანდელი scroll ის სიმაღლე და window სიმაღლე ტოლი იქნება
+  // იზრდება page - ის ზომა 10 - ით
+  // თუ დირექტივა emit გაუკეთებს true
   loadMoreItems(event: boolean) {
     if (event === true) {
       this.page_size_infinite += 10;
