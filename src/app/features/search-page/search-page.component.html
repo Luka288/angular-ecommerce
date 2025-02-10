@@ -120,7 +120,7 @@
       </form>
     </div>
 
-    <div class="items">
+    <div class="items" appInfiniteScroll (bottom)="loadMoreItems($event)">
       @for (item of products; track $index) {
       <app-search-page-card
         [itemInfo]="item"

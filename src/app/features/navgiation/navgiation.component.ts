@@ -8,7 +8,6 @@ import { CommonModule } from '@angular/common';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { AuthService } from '../shared/services/auth.service';
-import { userTokenEnum } from '../shared/enums/token.enums';
 
 @Component({
   selector: 'app-navgiation',

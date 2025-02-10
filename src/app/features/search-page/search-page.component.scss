@@ -18,6 +18,10 @@ main {
       justify-content: center;
       margin: auto;
 
+      .itemLoading {
+        display: none;
+      }
+
       .nothingFound {
         display: flex;
         flex-direction: column;
@@ -162,13 +166,24 @@ main {
   }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 768px) {
   main {
     .mainSection {
       gap: 15px;
+
+      .items {
+        .itemLoading {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
     }
 
     .paginator {
+      display: none;
       margin-bottom: 90px;
     }
   }

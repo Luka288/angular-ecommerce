@@ -1,6 +1,6 @@
-import { Component, inject, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProductsService } from '../shared/services/products.service';
-import { ActivatedRoute, ResolveEnd, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { products } from '../shared/interfaces/product.interface';
 import { CommonModule } from '@angular/common';
 import { SearchPageCardComponent } from '../shared/components/search-page-card/search-page-card.component';
@@ -9,6 +9,8 @@ import { debounceTime, tap } from 'rxjs';
 import { CartService } from '../shared/services/cart.service';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
 import { PaginatorDropdownComponent } from '../shared/components/paginator-dropdown/paginator-dropdown.component';
+import { InfiniteScrollDirective } from '../shared/directives/infinite-scroll.directive';
+import { LoadingComponentComponent } from '../shared/components/loading-component/loading-component.component';
 
 @Component({
   selector: 'app-search-page',
@@ -17,6 +19,7 @@ import { PaginatorDropdownComponent } from '../shared/components/paginator-dropd
     SearchPageCardComponent,
     ReactiveFormsModule,
     PaginatorDropdownComponent,
+    InfiniteScrollDirective,
   ],
   templateUrl: './search-page.component.html',
   styleUrl: './search-page.component.scss',
@@ -38,6 +41,8 @@ export class SearchPageComponent {
   // მაგრამ შემდეგ ჩანაცვლდება paginator-dropdown - ისგან
   // მოწოდებული რიცხვით
   save_page_size: number = 10;
+
+  page_size_infinite: number = 0;
 
   sortedBy: string = 'price';
   priceControl: number = 10000;
@@ -114,6 +119,7 @@ export class SearchPageComponent {
         this.currentPage = res.page;
         this.totalPages = Math.ceil(res.total / res.limit);
         this.totalItems = res.total;
+        this.page_size_infinite = res.limit;
       });
   }
 
@@ -185,8 +191,22 @@ export class SearchPageComponent {
       );
     }
   }
+
+  loadMoreItems(event: boolean) {
+    if (event === true) {
+      this.page_size_infinite += 10;
+      this.foundItems(
+        this.searchQuery,
+        this.currentPage,
+        this.priceControl,
+        this.page_size_infinite,
+        this.sortedBy
+      );
+    }
+  }
 }
 
+// მთავარი ფუნქციის პარამეტრების თანმიმდევრობა
 // querry: string,
 // page_index: number = 1,
 // page_size: number = this.save_page_size,
