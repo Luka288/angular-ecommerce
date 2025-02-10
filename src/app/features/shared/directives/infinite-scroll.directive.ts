@@ -6,14 +6,15 @@ import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
 export class InfiniteScrollDirective {
   @Output() bottom = new EventEmitter<boolean>();
 
+  userDevice = /Android|iPhone|iPad|iPod|Windows Phone/i.test(
+    navigator.userAgent
+  );
+
   timeOut: boolean = false;
 
-  // ჰოსტ ლისტენერი სქროლის გასაკონტროლებლად აბრუმენს
-  // true იმ შემთხვევაში როცა window სიგანე არის 768px ან ნაკლები
-  // გათვლილია მხოლოდ ტელეფონის ეკრანებზე
   @HostListener('window:scroll', [])
   onScroll() {
-    if (window.innerWidth > 768 || this.timeOut) {
+    if (!this.userDevice) {
       return;
     }
 
