@@ -5,12 +5,14 @@ import { checkOut, userCart } from '../interfaces/cart.interface';
 import { userTokenEnum } from '../enums/token.enums';
 import { single_item } from '../interfaces/product.interface';
 import { BehaviorSubject, catchError, tap } from 'rxjs';
+import { AlertsServiceService } from './alerts-service.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
   private readonly http = inject(HttpClient);
+  private readonly alerts = inject(AlertsServiceService);
 
   constructor(@Inject(API_URL) private API: string) {}
 
@@ -40,6 +42,12 @@ export class CartService {
         headers,
       })
       .pipe(
+        tap((res) => {
+          if (res) {
+            this.alerts.toast('Item added to cart', 'success', '');
+          }
+        }),
+
         catchError((err) => {
           if (!err.ok) {
             return this.updateCart(id, qty);
@@ -66,7 +74,13 @@ export class CartService {
       .patch<userCart>(`${this.API}/shop/cart/product`, body, {
         headers,
       })
-      .pipe();
+      .pipe(
+        tap((res) => {
+          if (res) {
+            this.alerts.toast('Item added to cart', 'success', '');
+          }
+        })
+      );
   }
 
   getUserCart() {

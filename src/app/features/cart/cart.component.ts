@@ -7,9 +7,6 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { CartItemComponent } from '../shared/components/cart-item/cart-item.component';
-import { AlertsServiceService } from '../shared/services/alerts-service.service';
-import { CardComponent } from '../shared/components/card/card.component';
-import { TransformCurrencyPipe } from '../shared/pipes/transform-currency.pipe';
 
 @Component({
   selector: 'app-cart',

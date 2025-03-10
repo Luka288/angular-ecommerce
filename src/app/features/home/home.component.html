@@ -1,8 +1,8 @@
-<div class="loadingState" *ngIf="loading">
+<div class="loadingState" *ngIf="loading()">
   <app-loading-component />
 </div>
 
-<main *ngIf="!loading">
+<main *ngIf="!loading()">
   <section class="topCon">
     <div class="mainSlider">
       <app-galeria />
@@ -12,7 +12,7 @@
         <p>You might like</p>
       </div>
       <div class="randomItems">
-        @for (item of randomThree; track $index) {
+        @for (item of randomThree(); track $index) {
         <app-card
           [singleItem]="item"
           (cartItemId)="emitedItem($event)"
@@ -41,14 +41,14 @@
 
   <section
     class="baseContainer"
-    *ngFor="let brand of brands"
+    *ngFor="let brand of brands()"
     [class]="'baseContainer-' + brand"
   >
     <div class="containerTitle">
       <p>Choose from {{ brand }}</p>
     </div>
     <app-slider
-      [sliderItem]="products"
+      [sliderItem]="products()"
       [brand]="brand"
       (emitItemid)="sliderCart($event)"
       (emitWishlist)="wishlistedItems($event)"

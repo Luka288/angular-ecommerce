@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ProductsService } from '../shared/services/products.service';
 import { CarouselModule } from 'primeng/carousel';
 import { CommonModule } from '@angular/common';
@@ -10,11 +10,10 @@ import { thumbnailInterface } from '../shared/interfaces/slider.interface';
 import { SaveItemsService } from '../shared/services/save-items.service';
 import { LoadingComponentComponent } from '../shared/components/loading-component/loading-component.component';
 import { CartService } from '../shared/services/cart.service';
-import { AlertsServiceService } from '../shared/services/alerts-service.service';
-import { tap } from 'rxjs';
 import { WishlistService } from '../shared/services/wishlist.service';
 import _default from '@primeng/themes/aura';
 import { ActivatedRoute } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-home',
@@ -33,92 +32,44 @@ export class HomeComponent {
   private readonly everrestProducts = inject(ProductsService);
   private readonly perviousProducts = inject(SaveItemsService);
   private readonly cartService = inject(CartService);
-  private readonly alerts = inject(AlertsServiceService);
   private readonly wishlistService = inject(WishlistService);
 
-  //? რეზოლვერისთვის
-  private readonly actSnap = inject(ActivatedRoute);
+  products = toSignal(this.everrestProducts.getProducts(), {
+    initialValue: [],
+  });
+  brands = toSignal(this.everrestProducts.brands$, { initialValue: [] });
+  randomThree = toSignal(this.everrestProducts.random$, {
+    initialValue: [],
+  });
 
-  products: products[] = [];
-  brands: string[] = [];
-  randomThree: products[] = [];
-  thumbnails: thumbnailInterface[] = [];
   seenThree: products[] = [];
+  loading = signal<boolean>(true);
 
-  loading: boolean = true;
+  thumbnails: thumbnailInterface[] = [];
 
   ngOnInit(): void {
-    this.everrestProducts.getProducts().subscribe((res) => {
-      this.products = res;
-      this.loading = false;
-    });
+    this.everrestProducts
+      .getProducts()
+      .subscribe(() => this.loading.set(false));
 
-    //? ანელებს ფეიჯს
-    // this.actSnap.data.subscribe((items) => {
-    //   this.products = items['mainItemsResolver'];
-    // });
-
-    this.everrestProducts.brands$.subscribe((res) => {
-      this.brands = res;
-    });
-
-    this.perviousProducts.getSavedItems().subscribe((res) => {
-      this.seenItems(res);
-    });
-
-    this.loadRandomProducts();
-  }
-
-  loadRandomProducts() {
-    this.everrestProducts.random$.subscribe((res) => {
-      this.randomThree = res;
-    });
-  }
-
-  seenItems(ids: string[]) {
-    ids.forEach((id) => {
-      this.everrestProducts.productWithId(id).subscribe((res) => {
-        this.seenThree.push(res);
-      });
-    });
+    this.perviousProducts.productsStream.subscribe(
+      (res) => (this.seenThree = res)
+    );
   }
 
   updateCart(_id: string, qty: number = 1) {
-    this.cartService.updateCart(_id, qty).subscribe((res) => {
-      if (res) {
-        this.alerts.toast('Item updated in cart', 'success', '');
-      }
-    });
+    this.cartService.updateCart(_id, qty).subscribe();
   }
 
   sliderCart(_id: string, qty: number = 1) {
-    this.cartService
-      .createCart(_id, qty)
-      .pipe(
-        tap((res) => {
-          if (res) {
-            this.alerts.toast('Item added to cart', 'success', '');
-          }
-        })
-      )
-      .subscribe();
+    this.cartService.createCart(_id, qty).subscribe();
   }
 
   emitedItem(_id: string, qty: number = 1) {
-    this.cartService
-      .createCart(_id, qty)
-      .pipe(
-        tap((res) => {
-          if (res) {
-            this.alerts.toast('Item added to cart', 'success', '');
-          }
-        })
-      )
-      .subscribe();
+    this.cartService.createCart(_id, qty).subscribe();
   }
 
   wishlistedItems(_id: string) {
     this.wishlistService.saveItems(_id);
-    this.alerts.toast('Item added to wishlist', 'success', '');
   }
 }

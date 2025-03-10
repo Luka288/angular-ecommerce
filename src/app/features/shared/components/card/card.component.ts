@@ -39,7 +39,6 @@ export class CardComponent {
   checkUserState(): boolean {
     this.authService.authState$.subscribe((res) => {
       if (res === true) {
-        console.log(res);
         this.currentUserState = true;
       }
     });
