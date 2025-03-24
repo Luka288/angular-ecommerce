@@ -14,14 +14,9 @@ import { RouterModule } from '@angular/router';
 export class WishlistComponent {
   private readonly wishlistService = inject(WishlistService);
 
-  // currency_holder: string = '';
-
   currency_holder = signal<string>('');
-
   items = signal<single_item[]>([]);
-
   counter = computed(() => this.items().length);
-
   totalPrice = computed(() =>
     this.items().reduce((acc, item) => acc + item.price.current, 0)
   );
@@ -37,7 +32,6 @@ export class WishlistComponent {
   loadItems(_id: string) {
     this.wishlistService.getItems(_id).subscribe((res) => {
       this.currency_holder.set(res.price.currency);
-      console.log(this.currency_holder());
       this.items.update((prevItems) => [...prevItems, res]);
     });
   }
