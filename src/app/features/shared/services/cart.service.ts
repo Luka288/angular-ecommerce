@@ -74,13 +74,13 @@ export class CartService {
       .patch<userCart>(`${this.API}/shop/cart/product`, body, {
         headers,
       })
-      .pipe(
-        tap((res) => {
-          if (res) {
-            this.alerts.toast('Item added to cart', 'success', '');
-          }
-        })
-      );
+      .pipe
+      // tap((res) => {
+      //   if (res) {
+      //     this.alerts.toast('Item added to cart', 'success', '');
+      //   }
+      // })
+      ();
   }
 
   getUserCart() {
@@ -91,7 +91,7 @@ export class CartService {
       Authorization: `Bearer ${token}`,
     });
 
-    return this.http.get<userCart>(`${this.API}/shop/cart`, { headers }).pipe();
+    return this.http.get<userCart>(`${this.API}/shop/cart`, { headers });
   }
 
   removeItem(id: string) {
@@ -106,12 +106,10 @@ export class CartService {
       id: id,
     };
 
-    return this.http
-      .delete<userCart>(`${this.API}/shop/cart/product`, {
-        headers,
-        body,
-      })
-      .pipe();
+    return this.http.delete<userCart>(`${this.API}/shop/cart/product`, {
+      headers,
+      body,
+    });
   }
 
   getItem(itemId: string) {

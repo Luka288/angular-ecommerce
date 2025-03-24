@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SaveItemsService } from '../shared/services/save-items.service';
 import { ProductsService } from '../shared/services/products.service';
@@ -14,10 +14,11 @@ import { SelectComponent } from '../shared/components/select/select.component';
 import { TransformCurrencyPipe } from '../shared/pipes/transform-currency.pipe';
 import { AuthService } from '../shared/services/auth.service';
 import { CartService } from '../shared/services/cart.service';
-import { catchError, tap } from 'rxjs';
+import { catchError, map, tap } from 'rxjs';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
 import { SliderComponent } from '../shared/components/slider/slider.component';
 import { WishlistService } from '../shared/services/wishlist.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-product-page',
@@ -49,22 +50,24 @@ export class ProductPageComponent {
 
   categoryItems: products[] = [];
 
-  selectedQuantity: number = 1;
-  currentId: string | undefined = undefined;
-
-  currentCategory: string = '';
+  selectedQuantity = signal(1);
 
   responsiveOptions = galeriaResponsive;
 
-  constructor() {
+  currentCategory = toSignal(
+    this.actSnap.data.pipe(map((res) => res['singleItem_resolve'].category.id))
+  );
+
+  constructor() {}
+
+  ngOnInit(): void {
     this.actSnap.paramMap.subscribe((params) => {
       let product_id = params.get('id');
 
       this.perviousProducts.saveItems(product_id!);
       this.loadSingle(product_id!);
     });
-
-    this.getSimilarItems(this.currentCategory);
+    this.getSimilarItems();
   }
 
   loadSingle(_id: string) {
@@ -73,9 +76,10 @@ export class ProductPageComponent {
       this.currentProductLib = [];
       this.singleThumbnail = [];
 
-      this.currentCategory = res['singleItem_resolve'].category.id;
+      console.log(res['singleItem_resolve'].category.id);
 
       this.singleItem = res['singleItem_resolve'];
+
       this.singleItem?.images.forEach((image) => {
         this.currentProductLib.push({
           thumbnailImageSrc: image,
@@ -90,7 +94,6 @@ export class ProductPageComponent {
         },
       ];
     });
-    this.currentId = this.singleItem?.category?.id;
   }
 
   calcRating(rating?: number): { full: number; half: number } {
@@ -114,10 +117,8 @@ export class ProductPageComponent {
 
   // იჭერს იუზერის არჩეულ რაოდენობას
   catchQty(qty: number) {
-    this.selectedQuantity = qty;
+    this.selectedQuantity.set(qty);
   }
-
-  // in progress
 
   addToCart(_id: string, qty: number) {
     this.cartService
@@ -155,18 +156,18 @@ export class ProductPageComponent {
     this.alert.toast('Item added to wishlist', 'success', '');
   }
 
-  getSimilarItems(_categoryId: string) {
+  getSimilarItems(_categoryId: string = this.currentCategory()) {
     this.everest.getCategory(_categoryId).subscribe((res) => {
+      console.log(res);
       this.categoryItems.push(...res.products);
     });
   }
 
-  emitedItemId(_id: string, qty: number = this.selectedQuantity) {
+  emitedItemId(_id: string, qty: number = this.selectedQuantity()) {
     this.addToCart(_id, qty);
   }
 
   wishlist(_id: string) {
     this.wishlistService.saveItems(_id);
-    this.alert.toast('Item added to wishlist', 'success', '');
   }
 }

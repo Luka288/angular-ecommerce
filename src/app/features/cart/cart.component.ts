@@ -7,6 +7,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { CartItemComponent } from '../shared/components/cart-item/cart-item.component';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-cart',
@@ -19,10 +20,10 @@ export class CartComponent {
   private readonly router = inject(Router);
 
   baseProduct = signal<singleCartItem[]>([]);
-  isSuccess = signal<boolean>(false);
-  toggleLoading = signal<boolean>(false);
   totalQty = signal<number>(0);
   totalPrice = signal<number>(0);
+  isSuccess = signal<boolean>(false);
+  toggleLoading = signal<boolean>(false);
 
   count: number = 3;
   baseItems: totalItemsInfo[] = [];
@@ -35,9 +36,9 @@ export class CartComponent {
     this.cartService.getUserCart().subscribe((res) => {
       this.baseProduct.set(res.products);
       this.totalQty.set(res.total.quantity);
-      this.baseItems.push(res.total);
       this.totalPrice.set(res.total.price.current);
       this.cartService.counterSubject.next(res.total.quantity);
+      this.baseItems.push(res.total);
     });
   }
 
@@ -63,9 +64,10 @@ export class CartComponent {
       if (res.success) {
         this.isSuccess.set(true);
 
-        setInterval(() => {
+        const inter = setInterval(() => {
           this.count--;
           if (this.count === 0) {
+            clearInterval(inter);
             this.router.navigateByUrl('/home');
           }
         }, 1000);

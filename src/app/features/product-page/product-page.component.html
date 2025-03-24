@@ -8,8 +8,6 @@
         [responsiveOptions]="responsiveOptions"
         [numVisible]="5"
       >
-        <!-- [containerStyle]="{ 'max-width': '640px' }" -->
-
         <ng-template #item let-item>
           <img [src]="item.thumbnailImageSrc" />
         </ng-template>
@@ -136,7 +134,7 @@
         <button
           class="btn btn-warning"
           [disabled]="singleItem?.stock === 0 || !verifyUser()"
-          (click)="addToCart(singleItem!._id, selectedQuantity)"
+          (click)="addToCart(singleItem!._id, selectedQuantity())"
         >
           {{ verifyUser() ? "Add to cart" : "You must login" }}
         </button>
