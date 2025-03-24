@@ -1,11 +1,11 @@
-<div class="none" *ngIf="baseProduct.length === 0">
+<div class="none" *ngIf="baseProduct().length === 0">
   <img src="https://cdn-icons-png.flaticon.com/512/2762/2762885.png" alt="" />
   <h1>cart is empty</h1>
 </div>
 
-<main *ngIf="baseProduct.length > 0">
-  <div class="comp" *ngIf="toggleLoading">
-    @if (isSuccess) {
+<main *ngIf="baseProduct().length > 0">
+  <div class="comp" *ngIf="toggleLoading()">
+    @if (isSuccess()) {
     <div class="complated">
       <div class="text">
         <p>Payment Successful</p>
@@ -15,15 +15,15 @@
         <button class="btn btn-primary" routerLink="/home">Home page</button>
       </div>
     </div>
-    }@else if (!isSuccess) {
+    }@else if (!isSuccess()) {
     <h1>Payment failed</h1>
     }
   </div>
 
-  <section class="mainSec" *ngIf="!toggleLoading">
+  <section class="mainSec" *ngIf="!toggleLoading()">
     <div class="left">
       <app-cart-item
-        *ngFor="let items of baseProduct"
+        *ngFor="let items of baseProduct()"
         [cartItem]="items"
         (onItemRemove)="removedItem($event)"
         (totalPriceOutput)="updateTotalPrice($event)"
@@ -33,10 +33,10 @@
       <div class="baseContainer">
         <div class="sideInfo">
           <div class="totalItems">
-            <p>{{ baseProduct.length }} items in your cart</p>
+            <p>{{ baseProduct().length }} items in your cart</p>
           </div>
           <div class="totPrice">
-            <p>Total price: {{ totalPrice | currency : "USD" }}</p>
+            <p>Total price: {{ totalPrice() | currency : "USD" }}</p>
           </div>
         </div>
         <div class="del">
@@ -55,7 +55,7 @@
             <div class="bott">
               <p>
                 total quantity of items in your cart:
-                <span>{{ totalQty }}</span>
+                <span>{{ totalQty() }}</span>
               </p>
             </div>
           </div>
@@ -63,7 +63,7 @@
 
         <div class="btnCon">
           <div class="tot">
-            <p>Total price: {{ totalPrice | currency : "USD" }}</p>
+            <p>Total price: {{ totalPrice() | currency : "USD" }}</p>
           </div>
           <div class="btns">
             <button class="btn btn-success" (click)="purchaseProducts()">

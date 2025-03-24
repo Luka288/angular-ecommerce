@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CartService } from '../shared/services/cart.service';
 import {
   singleCartItem,
@@ -18,19 +18,14 @@ export class CartComponent {
   private readonly cartService = inject(CartService);
   private readonly router = inject(Router);
 
-  isSuccess: boolean = false;
-
-  toggleLoading: boolean = false;
-
-  baseProduct: singleCartItem[] = [];
-
-  baseItems: totalItemsInfo[] = [];
-
-  totalQty: number = 0;
-
-  totalPrice: number = 0;
+  baseProduct = signal<singleCartItem[]>([]);
+  isSuccess = signal<boolean>(false);
+  toggleLoading = signal<boolean>(false);
+  totalQty = signal<number>(0);
+  totalPrice = signal<number>(0);
 
   count: number = 3;
+  baseItems: totalItemsInfo[] = [];
 
   ngOnInit() {
     this.getCreatedCart();
@@ -38,10 +33,10 @@ export class CartComponent {
 
   getCreatedCart() {
     this.cartService.getUserCart().subscribe((res) => {
-      this.baseProduct = res.products;
+      this.baseProduct.set(res.products);
+      this.totalQty.set(res.total.quantity);
       this.baseItems.push(res.total);
-      this.totalPrice = res.total.price.current;
-      this.totalQty = res.total.quantity;
+      this.totalPrice.set(res.total.price.current);
       this.cartService.counterSubject.next(res.total.quantity);
     });
   }
@@ -49,22 +44,25 @@ export class CartComponent {
   removedItem(productId: string) {
     this.cartService.removeItem(productId).subscribe((res) => {
       this.baseItems.push(res.total);
-      this.totalPrice = res.total.price.current;
+      this.totalPrice.set(res.total.price.current);
     });
-    this.baseProduct = this.baseProduct.filter(
-      (item) => item.productId !== productId
+
+    this.baseProduct.update((products) =>
+      products.filter((item) => item.productId !== productId)
     );
   }
 
   updateTotalPrice(price: number) {
-    this.totalPrice = price;
+    this.totalPrice.set(price);
   }
 
   purchaseProducts() {
     this.cartService.orderProducts().subscribe((res) => {
-      this.toggleLoading = true;
+      this.toggleLoading.set(true);
+
       if (res.success) {
-        this.isSuccess = true;
+        this.isSuccess.set(true);
+
         setInterval(() => {
           this.count--;
           if (this.count === 0) {
@@ -78,18 +76,11 @@ export class CartComponent {
   clearCart() {
     this.cartService.clearCart().subscribe((res) => {
       if (res) {
-        this.baseProduct = [];
+        this.baseProduct.set([]);
         this.baseItems = [];
-        this.totalPrice = 0;
-        this.totalQty = 0;
+        this.totalPrice.set(0);
+        this.totalQty.set(0);
       }
     });
   }
 }
-
-// <app-cart-item
-// *ngFor="let items of baseProduct"
-// [cartItem]="items"
-// (onItemRemove)="removedItem($event)"
-// (totalPriceOutput)="updateTotalPrice($event)"
-// />
