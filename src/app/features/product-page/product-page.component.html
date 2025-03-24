@@ -155,8 +155,8 @@
     </div>
     <div class="sliderC">
       <app-slider
-        *ngIf="categoryItems.length"
-        [sliderItem]="categoryItems"
+        *ngIf="categoryItems().length"
+        [sliderItem]="categoryItems()"
         (emitItemid)="emitedItemId($event)"
         (emitWishlist)="wishlist($event)"
       />

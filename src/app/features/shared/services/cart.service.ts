@@ -4,7 +4,7 @@ import { API_URL } from '../consts/consts';
 import { checkOut, userCart } from '../interfaces/cart.interface';
 import { userTokenEnum } from '../enums/token.enums';
 import { single_item } from '../interfaces/product.interface';
-import { BehaviorSubject, catchError, tap } from 'rxjs';
+import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
 import { AlertsServiceService } from './alerts-service.service';
 
 @Injectable({
@@ -44,6 +44,7 @@ export class CartService {
       .pipe(
         tap((res) => {
           if (res) {
+            console.log('service side');
             this.alerts.toast('Item added to cart', 'success', '');
           }
         }),
@@ -52,7 +53,7 @@ export class CartService {
           if (!err.ok) {
             return this.updateCart(id, qty);
           }
-          return '';
+          return err;
         })
       );
   }
@@ -74,13 +75,15 @@ export class CartService {
       .patch<userCart>(`${this.API}/shop/cart/product`, body, {
         headers,
       })
-      .pipe
-      // tap((res) => {
-      //   if (res) {
-      //     this.alerts.toast('Item added to cart', 'success', '');
-      //   }
-      // })
-      ();
+      .pipe(
+        tap((res) => {
+          if (res) {
+            console.log('update happend');
+            console.log('service side');
+            this.alerts.toast('Item added to cart', 'success', '');
+          }
+        })
+      );
   }
 
   getUserCart() {

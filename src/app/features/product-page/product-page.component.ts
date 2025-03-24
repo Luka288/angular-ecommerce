@@ -14,7 +14,7 @@ import { SelectComponent } from '../shared/components/select/select.component';
 import { TransformCurrencyPipe } from '../shared/pipes/transform-currency.pipe';
 import { AuthService } from '../shared/services/auth.service';
 import { CartService } from '../shared/services/cart.service';
-import { catchError, map, tap } from 'rxjs';
+import { catchError, map, take, tap } from 'rxjs';
 import { AlertsServiceService } from '../shared/services/alerts-service.service';
 import { SliderComponent } from '../shared/components/slider/slider.component';
 import { WishlistService } from '../shared/services/wishlist.service';
@@ -47,16 +47,15 @@ export class ProductPageComponent {
   currentProductLib: thumbnailInterface[] = [];
   singleThumbnail: single_thumbnail[] = [];
   arrayOfStock!: number;
-
-  categoryItems: products[] = [];
+  categoryItems = signal<products[]>([]);
 
   selectedQuantity = signal(1);
-
-  responsiveOptions = galeriaResponsive;
 
   currentCategory = toSignal(
     this.actSnap.data.pipe(map((res) => res['singleItem_resolve'].category.id))
   );
+
+  responsiveOptions = galeriaResponsive;
 
   constructor() {}
 
@@ -121,46 +120,20 @@ export class ProductPageComponent {
   }
 
   addToCart(_id: string, qty: number) {
-    this.cartService
-      .createCart(_id, qty)!
-      .pipe(
-        tap((res) => {
-          if (res) {
-            this.alert.toast('Item added to cart', 'success', '');
-          }
-        }),
-
-        //! რეფაქტორი
-        catchError((err) => {
-          if (
-            err.error.error === 'User already created cart, use patch endpoint'
-          ) {
-            this.updateCart(_id, qty);
-          }
-          return '';
-        })
-      )
-      .subscribe((res) => {});
-  }
-
-  updateCart(id: string, qty: number) {
-    this.cartService.updateCart(id, qty).subscribe((res) => {
-      if (res) {
-        this.alert.toast('Item added to cart', 'success', '');
-      }
-    });
+    this.cartService.createCart(_id, qty)!.subscribe();
   }
 
   addToWishlist(_id: string) {
     this.wishlistService.saveItems(_id);
-    this.alert.toast('Item added to wishlist', 'success', '');
   }
 
   getSimilarItems(_categoryId: string = this.currentCategory()) {
-    this.everest.getCategory(_categoryId).subscribe((res) => {
-      console.log(res);
-      this.categoryItems.push(...res.products);
-    });
+    this.everest
+      .getCategory(_categoryId)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.categoryItems.set(res.products);
+      });
   }
 
   emitedItemId(_id: string, qty: number = this.selectedQuantity()) {
