@@ -1,4 +1,4 @@
-<div class="none" *ngIf="!items.length">
+<div class="none" *ngIf="!items().length">
   <div class="imgCon">
     <img src="https://cdn-icons-png.flaticon.com/512/4379/4379925.png" alt="" />
   </div>
@@ -10,18 +10,18 @@
   </div>
 </div>
 
-<main *ngIf="items.length">
+<main *ngIf="items().length">
   <section class="products">
     <app-item-card
-      *ngFor="let item of items"
+      *ngFor="let item of items()"
       (removedItem)="removeItem($event)"
       [products]="item"
     />
   </section>
   <section class="bottom">
     <div class="totalCounter">
-      <p>total items: {{ counter }}</p>
-      <p>total price of items: {{ totalPrice }} {{ currency_holder }}</p>
+      <p>total items: {{ counter() }}</p>
+      <p>total price of items: {{ totalPrice() }} {{ currency_holder() }}</p>
     </div>
     <div class="btns">
       <button class="btn btn-warning" (click)="clearWishlist()">
