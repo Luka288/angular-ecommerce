@@ -7,7 +7,7 @@
           <select class="form-select" formControlName="brandFilter">
             <option value="" selected>Select brand</option>
             <option
-              *ngFor="let item of panelItems"
+              *ngFor="let item of panelItems()"
               [value]="item"
               class="brandOption"
             >
@@ -29,7 +29,7 @@
             min="500"
             max="10000"
             step="100"
-            [value]="priceControl"
+            [value]="priceControl()"
           />
         </div>
 
@@ -121,7 +121,7 @@
     </div>
 
     <div class="items" appInfiniteScroll (bottom)="loadMoreItems($event)">
-      @for (item of products; track $index) {
+      @for (item of products(); track $index) {
       <app-search-page-card
         [itemInfo]="item"
         [rating]="item.rating"
@@ -153,8 +153,8 @@
     <div class="wrapPaginator">
       <ul class="controlsUl">
         <li
-          [class.denied]="currentPage === 1"
-          (click)="previousPage(currentPage - 1)"
+          [class.denied]="currentPage() === 1"
+          (click)="previousPage(currentPage() - 1)"
         >
           <a class="controls">Previous</a>
         </li>
@@ -162,7 +162,7 @@
       <ul>
         <li
           *ngFor="let page of [].constructor(totalPages); let i = index"
-          [class.active]="i + 1 === currentPage"
+          [class.active]="i + 1 === currentPage()"
           (click)="handlePage(i + 1)"
         >
           <a>
@@ -172,8 +172,8 @@
       </ul>
       <ul class="controlsUl">
         <li
-          [class.denied]="currentPage === totalPages"
-          (click)="nextPage(currentPage + 1)"
+          [class.denied]="currentPage() === totalPages"
+          (click)="nextPage(currentPage() + 1)"
         >
           <a class="controls">Next</a>
         </li>
