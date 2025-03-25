@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, inject, Injectable } from '@angular/core';
 import { API_URL } from '../consts/consts';
 import { UserTokens } from '../interfaces/tokens.interface';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, catchError, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { userTokenEnum } from '../enums/token.enums';
 import {
@@ -11,6 +11,7 @@ import {
 } from '../interfaces/user.registration.interface';
 import { userAvatar } from '../consts/avatar.generate';
 import { recover } from '../interfaces/passrecover.interface';
+import { AlertsServiceService } from './alerts-service.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,7 @@ import { recover } from '../interfaces/passrecover.interface';
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
+  private readonly alerts = inject(AlertsServiceService);
 
   private authStateSubject = new BehaviorSubject<boolean>(this.checkUser());
   authState$ = this.authStateSubject.asObservable();
@@ -37,6 +39,7 @@ export class AuthService {
       .pipe(
         tap((res) => {
           if (res.access_token && res.refresh_token) {
+            this.alerts.toast('Signed in', 'success', '');
             localStorage.setItem(userTokenEnum.access_token, res.access_token);
             localStorage.setItem(
               userTokenEnum.refresh_token,
@@ -45,6 +48,11 @@ export class AuthService {
             this.router.navigateByUrl('/home');
             this.authStateSubject.next(true);
           }
+        }),
+        catchError((err) => {
+          console.log('from service auth');
+          this.alerts.toast(err.error.error, 'error', '');
+          return err;
         })
       );
   }
@@ -68,13 +76,46 @@ export class AuthService {
 
   registerUser(userObject: userSignUp) {
     userObject.avatar = `${this.userAvatar}?seed=${userObject.firstName}`;
-    return this.http.post(`${this.API}/auth/sign_up`, userObject);
+    return this.http.post(`${this.API}/auth/sign_up`, userObject).pipe(
+      tap((res) => {
+        if (res) {
+          this.alerts.toast(
+            'Account registered',
+            'success',
+            'Check email to verify'
+          );
+        }
+      }),
+      catchError((err) => {
+        this.alerts.toast(err.error.errorKeys, 'error', '');
+        return err;
+      })
+    );
   }
 
   verifyEmail(userEmail: string) {
-    return this.http.post<verifyUser>(`${this.API}/auth/verify_email`, {
-      email: userEmail,
-    });
+    return this.http
+      .post<verifyUser>(`${this.API}/auth/verify_email`, {
+        email: userEmail,
+      })
+      .pipe(
+        tap({
+          next: (res) => {
+            console.log('test');
+            if (res.status === 200) {
+              this.alerts.alert(
+                'Check email to verify',
+                'success',
+                res.message
+              );
+            }
+          },
+          error: (err) => {
+            this.alerts.alert('Something went wrong', 'error', 'red');
+            return err;
+          },
+        })
+      );
   }
 
   recoverPass(usrEmail: string) {

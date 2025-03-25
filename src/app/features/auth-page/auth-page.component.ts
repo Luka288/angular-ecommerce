@@ -93,24 +93,12 @@ export class AuthPageComponent {
     if (!this.authForm.valid) {
       return;
     }
-
     // email სტრინგის სახით
     const email = this.authForm.controls.emailFormControl.value as string;
     // password სტრინგის სახით
     const password = this.authForm.controls.passwordControl.value as string;
 
-    this.authService
-      .login(email, password)
-      .pipe(
-        tap((res) => {
-          this.alert.toast('Signed in', 'success', '');
-        }),
-        catchError((err) => {
-          this.alert.toast(err.error.error, 'error', '');
-          return err;
-        })
-      )
-      .subscribe();
+    this.authService.login(email, password).subscribe();
   }
 
   userRegister() {
@@ -122,25 +110,11 @@ export class AuthPageComponent {
 
     const userObject = this.signUpForm.value as userSignUp;
 
-    this.authService
-      .registerUser(userObject)
-      .pipe(
-        tap((res) => {
-          if (res) {
-            this.alert.toast(
-              'Account registered',
-              'success',
-              'Check email to verify'
-            );
-            this.verify(userObject.email);
-          }
-        }),
-        catchError((err) => {
-          this.alert.toast(err.error.errorKeys, 'error', '');
-          return err;
-        })
-      )
-      .subscribe();
+    this.authService.registerUser(userObject).subscribe((res) => {
+      if (res) {
+        this.verify(userObject.email);
+      }
+    });
 
     this.resetForm();
     this.signUpForm.markAsUntouched();
@@ -152,10 +126,6 @@ export class AuthPageComponent {
   }
 
   verify(email: string) {
-    this.authService.verifyEmail(email).subscribe((res) => {
-      if (res.status === 200) {
-        this.alert.alert('Check email to verify', 'success', res.message);
-      }
-    });
+    this.authService.verifyEmail(email).subscribe();
   }
 }
