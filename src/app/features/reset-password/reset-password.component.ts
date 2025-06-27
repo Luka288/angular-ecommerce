@@ -39,7 +39,6 @@ export class ResetPasswordComponent {
     this.loading = true;
 
     this.autService.recoverPass(this.userEmail.value!).subscribe((res) => {
-      console.log(res);
       if (res.status === 200) {
         this.alert.alert('Password sent to gmail', 'success', res.message);
         this.isSended = true;

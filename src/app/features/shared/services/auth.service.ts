@@ -12,6 +12,7 @@ import {
 import { userAvatar } from '../consts/avatar.generate';
 import { recover } from '../interfaces/passrecover.interface';
 import { AlertsServiceService } from './alerts-service.service';
+import { CustomAlertService } from './custom-alert.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,7 @@ export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
   private readonly alerts = inject(AlertsServiceService);
+  private readonly customAlerts = inject(CustomAlertService);
 
   private authStateSubject = new BehaviorSubject<boolean>(this.checkUser());
   authState$ = this.authStateSubject.asObservable();
@@ -39,7 +41,7 @@ export class AuthService {
       .pipe(
         tap((res) => {
           if (res.access_token && res.refresh_token) {
-            this.alerts.toast('Signed in', 'success', '');
+            this.customAlerts.displayAlert('Signed in', 'success');
             localStorage.setItem(userTokenEnum.access_token, res.access_token);
             localStorage.setItem(
               userTokenEnum.refresh_token,
@@ -50,8 +52,7 @@ export class AuthService {
           }
         }),
         catchError((err) => {
-          console.log('from service auth');
-          this.alerts.toast(err.error.error, 'error', '');
+          this.customAlerts.displayAlert(`${err.error.error}`, 'error');
           return err;
         })
       );
@@ -101,7 +102,6 @@ export class AuthService {
       .pipe(
         tap({
           next: (res) => {
-            console.log('test');
             if (res.status === 200) {
               this.alerts.alert(
                 'Check email to verify',

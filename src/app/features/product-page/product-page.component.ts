@@ -75,8 +75,6 @@ export class ProductPageComponent {
       this.currentProductLib = [];
       this.singleThumbnail = [];
 
-      console.log(res['singleItem_resolve'].category.id);
-
       this.singleItem = res['singleItem_resolve'];
 
       this.singleItem?.images.forEach((image) => {

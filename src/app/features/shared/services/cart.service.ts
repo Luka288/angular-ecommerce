@@ -44,7 +44,6 @@ export class CartService {
       .pipe(
         tap((res) => {
           if (res) {
-            console.log('service side');
             this.alerts.toast('Item added to cart', 'success', '');
           }
         }),
@@ -78,8 +77,6 @@ export class CartService {
       .pipe(
         tap((res) => {
           if (res) {
-            console.log('update happend');
-            console.log('service side');
             this.alerts.toast('Item added to cart', 'success', '');
           }
         })
