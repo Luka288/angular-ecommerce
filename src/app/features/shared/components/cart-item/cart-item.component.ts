@@ -7,6 +7,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { debounceTime, tap } from 'rxjs';
 import { AlertsServiceService } from '../../services/alerts-service.service';
 import { CommonModule } from '@angular/common';
+import { CustomAlertService } from '../../services/custom-alert.service';
 
 @Component({
   selector: 'app-cart-item',
@@ -17,6 +18,7 @@ import { CommonModule } from '@angular/common';
 export class CartItemComponent {
   private readonly cartService = inject(CartService);
   private readonly alerts = inject(AlertsServiceService);
+  private readonly customAlerts = inject(CustomAlertService);
 
   @Input({ alias: 'cartItem' }) cartItemInput!: singleCartItem;
   @Output() onItemRemove = new EventEmitter<string>();
@@ -52,7 +54,7 @@ export class CartItemComponent {
         debounceTime(300),
         tap((res) => {
           if (res) {
-            this.alerts.toast('Item quantity updated', 'success', '');
+            this.customAlerts.displayAlert('Item quantity updated', 'success');
           }
         })
       )

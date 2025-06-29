@@ -8,6 +8,7 @@ import { TransformCurrencyPipe } from '../../pipes/transform-currency.pipe';
 import { _getOptionScrollPosition } from '@angular/material/core';
 import { AuthService } from '../../services/auth.service';
 import { AlertsServiceService } from '../../services/alerts-service.service';
+import { CustomAlertService } from '../../services/custom-alert.service';
 
 @Component({
   selector: 'app-card',
@@ -25,6 +26,7 @@ export class CardComponent {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly alerts = inject(AlertsServiceService);
+  private readonly customAlerts = inject(CustomAlertService);
 
   currentUserState: boolean = false;
 
@@ -68,6 +70,6 @@ export class CardComponent {
   // არაა ავტორიზირებული და ამატებს პროდუქტს კარტაზე
   redirect() {
     this.router.navigateByUrl('/auth');
-    this.alerts.toast('You must authorize first', 'error', '');
+    this.customAlerts.displayAlert('You must authorize first', 'error');
   }
 }

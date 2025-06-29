@@ -80,15 +80,11 @@ export class AuthService {
     return this.http.post(`${this.API}/auth/sign_up`, userObject).pipe(
       tap((res) => {
         if (res) {
-          this.alerts.toast(
-            'Account registered',
-            'success',
-            'Check email to verify'
-          );
+          this.customAlerts.displayAlert('Account registered', 'success');
         }
       }),
       catchError((err) => {
-        this.alerts.toast(err.error.errorKeys, 'error', '');
+        this.customAlerts.displayAlert(err.error.errorKeys, 'error');
         return err;
       })
     );
@@ -103,15 +99,14 @@ export class AuthService {
         tap({
           next: (res) => {
             if (res.status === 200) {
-              this.alerts.alert(
+              this.customAlerts.displayAlert(
                 'Check email to verify',
-                'success',
-                res.message
+                'success'
               );
             }
           },
           error: (err) => {
-            this.alerts.alert('Something went wrong', 'error', 'red');
+            this.customAlerts.displayAlert('Something went wrong', 'error');
             return err;
           },
         })

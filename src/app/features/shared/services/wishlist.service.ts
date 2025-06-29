@@ -3,6 +3,7 @@ import { Inject, inject, Injectable } from '@angular/core';
 import { API_URL } from '../consts/consts';
 import { single_item } from '../interfaces/product.interface';
 import { AlertsServiceService } from './alerts-service.service';
+import { CustomAlertService } from './custom-alert.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,7 @@ import { AlertsServiceService } from './alerts-service.service';
 export class WishlistService {
   private readonly http = inject(HttpClient);
   private readonly alerts = inject(AlertsServiceService);
+  private readonly customAlert = inject(CustomAlertService);
 
   constructor(@Inject(API_URL) private API: string) {}
 
@@ -25,7 +27,7 @@ export class WishlistService {
     if (!wishlistArray.includes(_id)) {
       wishlistArray.push(_id);
       localStorage.setItem('wishlist', JSON.stringify(wishlistArray));
-      this.alerts.toast('Item added to wishlist', 'success', '');
+      this.customAlert.displayAlert('Item added to wishlist', 'success');
     }
   }
 }

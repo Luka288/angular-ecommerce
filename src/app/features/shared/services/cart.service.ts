@@ -6,6 +6,7 @@ import { userTokenEnum } from '../enums/token.enums';
 import { single_item } from '../interfaces/product.interface';
 import { BehaviorSubject, catchError, EMPTY, tap } from 'rxjs';
 import { AlertsServiceService } from './alerts-service.service';
+import { CustomAlertService } from './custom-alert.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,7 @@ import { AlertsServiceService } from './alerts-service.service';
 export class CartService {
   private readonly http = inject(HttpClient);
   private readonly alerts = inject(AlertsServiceService);
+  private readonly customAlerts = inject(CustomAlertService);
 
   constructor(@Inject(API_URL) private API: string) {}
 
@@ -44,7 +46,7 @@ export class CartService {
       .pipe(
         tap((res) => {
           if (res) {
-            this.alerts.toast('Item added to cart', 'success', '');
+            this.customAlerts.displayAlert('Item added to cart', 'success');
           }
         }),
 
@@ -77,7 +79,7 @@ export class CartService {
       .pipe(
         tap((res) => {
           if (res) {
-            this.alerts.toast('Item added to cart', 'success', '');
+            this.customAlerts.displayAlert('Item added to cart', 'success');
           }
         })
       );
